@@ -1,58 +1,151 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Wealth Legacy Alliance (WLA)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+> Centralized recruitment, genealogy, and enrollment-routing platform for multi-company network marketing participation.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Stack
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Laravel 12
+- Livewire
+- Tailwind CSS
+- MySQL 8
+- Redis
+- Sanctum
+- Spatie Permission
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Overview
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+WLA enables members to join once and maintain a universal alliance tree, then join companies later with company-specific sponsor resolution via configurable eligibility rules. The platform is designed for auditability, compliance, and modular growth.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Key Features
+- Immutable alliance genealogy (materialized path)
+- Company-specific routing and eligibility
+- Configurable rules per company
+- Full audit logging and append-only placement logs
+- Modular Laravel monolith architecture
+- Role-based access (SuperAdmin, AllianceAdmin, Support, Member)
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+---
 
-## Agentic Development
+## Core Modules
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+- Public: Marketing pages, sponsor lookup, registration
+- Auth: Register, login, verify, password reset
+- Member: Dashboard, profile, genealogy, company participation
+- Admin: User/company management, rule builder, placement logs, overrides
+- Genealogy: Tree view, ancestry path, logs
+- Routing Engine: Eligibility resolution, logs, simulation
 
-```bash
-composer require laravel/boost --dev
+---
 
-php artisan boost:install
-```
+## Database (Core Tables)
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+- users
+- member_profiles
+- alliance_relationships
+- companies
+- company_rule_sets
+- company_memberships
+- eligibility_resolutions
+- placement_logs
+- audit_logs
+- notifications
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Engineering Standards
 
-## Code of Conduct
+- Thin controllers, domain services for logic
+- Event-driven side effects, queues for heavy ops
+- Append-only logs for placement decisions
+- Policies for authorization
+- Enums for status/type fields
+- Form requests or Livewire validation rules
+- One responsibility per service
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## API (Initial)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- POST /api/register
+- POST /api/login
+- GET /api/me
+- GET /api/tree
+- GET /api/companies
+- POST /api/companies/join
+- POST /api/admin/override-placement
+
+---
+
+## Phase 1 MVP
+
+**Core Deliverables:**
+- Registration with sponsor
+- Alliance tree
+- Company membership
+- Eligibility resolver
+- Admin overrides
+
+**Core Screens:**
+- Register
+- Dashboard
+- Tree view
+- Company join
+- Admin users
+
+---
+
+## Phase 1 Authentication Features
+
+**Required:**
+- Register
+- Login
+- Logout
+- Email verification
+- Forgot password
+- Reset password
+- Remember me
+- Auth redirects (after login/registration)
+- Middleware protection for routes
+- Role-based dashboard routing (member/admin)
+
+**Optional for later:**
+- Two-factor authentication (2FA)
+- Social login (Google, Facebook, etc.)
+- Device/session management UI
+- Admin impersonation
+
+---
+
+## Authentication Approach
+
+WLA uses a single users table and a unified authentication system for all user types (members, admins, support, etc.).
+
+- No separate admin or member guards
+- No multiple login systems
+- All users authenticate through the same mechanism
+- Role-based authorization (via Spatie Permission) determines access to admin/member features
+
+**Why?**
+- All users are part of one platform and may change roles over time
+- Simpler session, testing, and maintenance
+- Clean, scalable, and secure
+
+**Model:**
+- Authenticate once
+- Authorize by role and permission
+
+---
+
+## Development & Contribution
+
+See [WLA-Tech-Spec.md](WLA-Tech-Spec.md) for full technical specification, workflows, and standards.
+
+---
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

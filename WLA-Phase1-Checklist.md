@@ -1,3 +1,4 @@
+
 # WLA Phase 1 – Project Bootstrap & Core Foundation Checklist
 
 ## Step 1: Project Bootstrap
@@ -17,7 +18,6 @@ By the end of this step, you should have:
 - [x] Base domain folders exist
 - [x] Seeders for roles and admin user are created
 
----
 
 ## Step 1 – Detailed Tasks
 
@@ -38,6 +38,23 @@ By the end of this step, you should have:
 - [ ] Commit initial baseline to version control
 
 ---
+
+## Step 2: Auth Foundation
+
+### Step 2 is complete when:
+- [x] Users can register
+- [x] New users receive member role automatically
+- [x] Users can log in and log out
+- [x] Email verification works
+- [x] Password reset works
+- [x] Admin roles and permissions are seeded
+- [x] First super admin account exists
+- [x] Members are redirected to member dashboard
+- [x] Admins are redirected to admin dashboard
+- [x] Member routes are protected
+- [x] Admin routes are protected
+- [x] Inactive/suspended users are blocked
+- [x] Core auth tests pass
 
 ## Notes
 - Use Laravel’s official Livewire starter kit as the base.

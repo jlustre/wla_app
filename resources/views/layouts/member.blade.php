@@ -1,31 +1,44 @@
-{{-- resources/views/layouts/member.blade.php --}}
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WLA Member</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-gray-100 min-h-screen">
-    <div class="flex min-h-screen">
-        <!-- Sidebar -->
-        <aside class="w-64 bg-white shadow-md flex flex-col">
-            <div class="p-6 font-bold text-xl border-b">WLA Member</div>
-            <nav class="flex-1 p-4">
-                <ul class="space-y-2">
-                    <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-200">Dashboard</a></li>
-                    <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-200">Profile</a></li>
-                    <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-200">My Sponsor</a></li>
-                    <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-200">My Referrals</a></li>
-                    <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-200">My Companies</a></li>
-                </ul>
-            </nav>
-        </aside>
-        <!-- Main Content -->
-        <main class="flex-1 p-8">
-            @yield('content')
-        </main>
-    </div>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@yield('title', 'WLA Dashboard')</title>
+        <!-- Tailwind CSS CDN -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Alpine.js CDN -->
+        <script
+            defer
+            src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+        ></script>
+    </head>
+    <body class="overflow-x-hidden">
+        <div
+            x-data="{ sidebarOpen: false, notificationsOpen: false, profileOpen: false, networkOpen: false, prospectsOpen: false, companiesOpen: false, trainingOpen: false, calendarOpen: false, earningsOpen: false, reportsOpen: false, settingsOpen: false }"
+            class="min-h-screen bg-slate-50 text-slate-800 overflow-x-hidden"
+        >
+            <!-- App Shell -->
+            <div class="flex min-h-screen">
+                <!-- Mobile Sidebar Backdrop -->
+                @include('dashboard.mobile-sidebar-backdrop')
+
+                <!-- Sidebar -->
+                @include('layouts.partials.left-sidebar')
+
+                <!-- Main Content -->
+                <div class="flex min-h-screen flex-1 flex-col lg:pl-72">
+                    <!-- Top Header -->
+                   @include('layouts.partials.top-header')
+                   <div class="p-2 lg:p-4"> 
+                   @yield('content')
+                   </div>
+                    
+                </div>
+                            
+            </div>
+        </div>
+        <!-- Go to Top Button -->
+        <x-go-to-top />
+        <!-- Width Indicator removed to prevent extra horizontal scroll bar -->
+    </body>
 </html>
