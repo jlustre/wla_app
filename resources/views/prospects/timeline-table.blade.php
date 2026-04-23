@@ -87,36 +87,9 @@
                     </tr>
                 @empty
                     <tr>
-                                <td class="px-3 py-2 border">
-                                    @if($timeline->prospect)
-                                        <a href="{{ route('prospects.index', ['search' => $timeline->prospect->id]) }}" class="mr-2 group" title="View Prospect">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="inline h-5 w-5 text-blue-600 group-hover:text-blue-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                            </svg>
-                                            <span class="absolute z-20 hidden group-hover:block bg-slate-800 text-white text-xs rounded px-2 py-1 ml-6 mt-[-2.5rem]">View</span>
-                                        </a>
-                                        <a href="{{ route('prospects.edit', $timeline->prospect->id) }}" class="mr-2 group" title="Edit Prospect">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="inline h-5 w-5 text-yellow-600 group-hover:text-yellow-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5h2m-1 0v2m0 4v2m0 4v2m-7-2a9 9 0 1118 0 9 9 0 01-18 0z" />
-                                            </svg>
-                                            <span class="absolute z-20 hidden group-hover:block bg-slate-800 text-white text-xs rounded px-2 py-1 ml-6 mt-[-2.5rem]">Edit</span>
-                                        </a>
-                                        <form action="{{ route('prospects.destroy', $timeline->prospect->id) }}" method="POST" class="inline group">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-rose-600 hover:text-rose-800" title="Delete Prospect" onclick="return confirm('Are you sure you want to delete this prospect?')">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="inline h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                                </svg>
-                                                <span class="absolute z-20 hidden group-hover:block bg-slate-800 text-white text-xs rounded px-2 py-1 ml-6 mt-[-2.5rem]">Delete</span>
-                                            </button>
-                                        </form>
-                                    @else
-                                        <span class="text-slate-400">N/A</span>
-                                    @endif
-                                </td>
-                            </tr>
+                        <td class="px-3 py-2 border text-center text-slate-500" colspan="5">
+                            No timelines found.
+                        </td>
                     </tr>
                 @endforelse
             </tbody>

@@ -49,8 +49,8 @@ new #[Layout('layouts.guest')] class extends Component
     }
 }; ?>
 
-<div class="min-h-screen bg-teal-800 p-2 sm:p-3 m:p-4 max-w-7xl">
-    <div class="mx-auto flex min-h-[calc(100vh-5rem)] max-w-7xl items-center justify-center">
+<div class="bg-teal-800 p-2 sm:p-3 m:p-4 max-w-7xl">
+    <div class="mx-auto flex max-w-7xl items-center justify-center">
             <!-- Right Form Panel -->
             <div class="bg-white p-2 md:p-4">
                 <div class="mx-auto w-full max-w-xl">
@@ -303,7 +303,7 @@ new #[Layout('layouts.guest')] class extends Component
 
                             <p class="text-center text-sm text-slate-500">
                                 Already have an account?
-                                <a href="#" class="font-semibold text-blue-700 transition hover:text-blue-800 hover:underline">
+                                <a href="{{ route('login') }}" class="font-semibold text-blue-700 transition hover:text-blue-800 hover:underline">
                                     Log in
                                 </a>
                             </p>
