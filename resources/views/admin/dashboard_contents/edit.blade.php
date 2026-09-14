@@ -3,7 +3,7 @@
 @section('title', 'Edit Dashboard Section for ' . $company->name)
 
 @section('content')
-<div class="max-w-2xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+<div class="w-full max-w-2xl">
     <h1 class="text-2xl font-extrabold text-cyan-800 mb-6">Edit Dashboard Section for <span class="text-cyan-600">{{ $company->name }}</span></h1>
     <form action="{{ route('admin.dashboard-contents.update', [$company, $dashboardContent]) }}" method="POST" class="space-y-6 bg-white p-8 rounded-2xl shadow">
         @csrf

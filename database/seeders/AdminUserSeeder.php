@@ -25,10 +25,14 @@ class AdminUserSeeder extends Seeder
                 'username' => 'superadmin',
                 'password' => Hash::make('password'), // Change after first login
                 'status' => 'active',
+                'email_verified_at' => now(),
                 'avatar_path' => null,
-                'sponsor_id' => null,
+                'sponsor_id' => 1,
             ]
         );
+        if (! $user->email_verified_at) {
+            $user->forceFill(['email_verified_at' => now()])->save();
+        }
 
         // Add jlustre user
         $jlustre = User::firstOrCreate(
@@ -39,10 +43,14 @@ class AdminUserSeeder extends Seeder
                 'username' => 'jlustre',
                 'password' => Hash::make('password'),
                 'status' => 'active',
+                'email_verified_at' => now(),
                 'avatar_path' => null,
-                'sponsor_id' => null,
+                'sponsor_id' => 1,
             ]
         );
+        if (! $jlustre->email_verified_at) {
+            $jlustre->forceFill(['email_verified_at' => now()])->save();
+        }
 
         $role = Role::where('name', 'super-admin')->first();
         if ($role && !$user->hasRole('super-admin')) {
@@ -52,6 +60,13 @@ class AdminUserSeeder extends Seeder
         if (!$user->profile) {
             $user->profile()->create([
                 'bio' => 'Super admin profile',
+                'avatar' => null,
+            ]);
+        }
+        // Ensure profile exists for jlustre user
+        if (!$jlustre->profile) {
+            $jlustre->profile()->create([
+                'bio' => 'Admin profile',
                 'avatar' => null,
             ]);
         }

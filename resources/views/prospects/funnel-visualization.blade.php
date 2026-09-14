@@ -67,7 +67,7 @@
                             <option>WLA Membership</option>
                             <option>Experior</option>
                             <option>Hydrogen Water</option>
-                            <option>Bitcoin Futures</option>
+                            <option>Horizon Travel Club</option>
                         </select>
                     </label>
                 </div>
@@ -559,7 +559,7 @@
                                             <div class="flex h-10 w-10 items-center justify-center rounded-full bg-violet-100 text-sm font-bold text-violet-700">DK</div>
                                             <div>
                                                 <h4 class="text-sm font-semibold text-slate-900">David Kim</h4>
-                                                <p class="text-xs text-slate-500">Webinar Funnel • Bitcoin Futures</p>
+                                                <p class="text-xs text-slate-500">Webinar Funnel • Horizon Travel Club</p>
                                             </div>
                                         </div>
                                         <input type="checkbox" class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" />

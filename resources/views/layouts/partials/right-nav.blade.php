@@ -29,11 +29,12 @@
     </div>
 
     <!-- Quick Add -->
-    <button
+    <a
+        href="{{ \App\Support\Nav::route('prospects.create') }}"
         class="hidden rounded-2xl bg-gradient-to-r from-blue-700 to-cyan-500 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-200 transition hover:translate-y-[-1px] hover:shadow-xl sm:inline-flex"
     >
         + Add Prospect
-    </button>
+    </a>
 
     <!-- Notifications -->
     @include('layouts.partials.notifications-dropdown')

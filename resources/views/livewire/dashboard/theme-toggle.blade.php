@@ -1,0 +1,5 @@
+<button type="button" class="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-blue-300 hover:text-blue-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300" @click="$dispatch('toggle-theme')">
+    <span class="sr-only">Toggle theme</span>
+    <svg class="h-5 w-5 dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3.75v1.5m0 13.5v1.5m8.25-8.25h-1.5M5.25 12h-1.5m13.864 5.864-1.06-1.06M7.446 7.446l-1.06-1.06m11.228 0-1.06 1.06M7.446 16.554l-1.06 1.06" /><circle cx="12" cy="12" r="4.5" /></svg>
+    <svg class="hidden h-5 w-5 dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1 1 11.21 3c-.23.72-.35 1.49-.35 2.29 0 4.2 3.41 7.61 7.61 7.61.8 0 1.57-.12 2.29-.35Z" /></svg>
+</button>

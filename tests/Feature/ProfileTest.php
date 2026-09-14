@@ -12,10 +12,28 @@ test('profile page is displayed', function () {
 
     $response
         ->assertOk()
-        ->assertSeeVolt('profile.update-profile-information-form')
-        ->assertSeeVolt('profile.update-password-form')
-        ->assertSeeVolt('profile.delete-user-form');
+        ->assertSee('Member profile', false)
+        ->assertSee('Referral desk', false)
+        ->assertSee('Company participation', false)
+        ->assertSee('Prospect tracker', false);
 });
+
+test('member profile page fills the workspace width', function () {
+    $user = User::factory()->create(['username' => 'wide.profile']);
+
+    $html = $this->actingAs($user)
+        ->get('/profile')
+        ->assertOk()
+        ->assertSee('wide.profile')
+        ->assertSee('Company participation')
+        ->getContent();
+
+    expect($html)
+        ->toContain('w-full space-y-6')
+        ->and($html)->not->toContain('max-w-6xl')
+        ->and($html)->not->toContain('min-h-[calc(100vh-9rem)]');
+});
+
 
 test('profile information can be updated', function () {
     $user = User::factory()->create();

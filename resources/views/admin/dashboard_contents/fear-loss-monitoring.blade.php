@@ -9,10 +9,10 @@
       </p>
     </div>
     <div class="flex flex-wrap gap-3">
-      <a href="#" class="inline-flex items-center justify-center rounded-xl bg-amber-500 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-amber-400">
+      <a href="{{ \App\Support\Nav::route('admin.users.index') }}" class="inline-flex items-center justify-center rounded-xl bg-amber-500 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-amber-400">
         Review Risks
       </a>
-      <a href="#" class="inline-flex items-center justify-center rounded-xl border border-amber-300/20 bg-white/5 px-5 py-3 text-sm font-semibold text-slate-100 transition hover:bg-white/10">
+      <a href="{{ \App\Support\Nav::route('admin.audit-logs.index') }}" class="inline-flex items-center justify-center rounded-xl border border-amber-300/20 bg-white/5 px-5 py-3 text-sm font-semibold text-slate-100 transition hover:bg-white/10">
         View Reassignments
       </a>
     </div>
@@ -43,28 +43,28 @@
       <p class="text-xs uppercase tracking-[0.18em] text-amber-300">Members At Risk</p>
       <p class="mt-3 text-3xl font-extrabold text-white">127</p>
       <p class="mt-2 text-sm text-slate-400">Potential company sponsorship exposure</p>
-      <a href="#" class="mt-4 inline-block text-sm font-semibold text-amber-300 hover:text-amber-200">Inspect Members →</a>
+      <a href="{{ \App\Support\Nav::route('admin.users.index') }}" class="mt-4 inline-block text-sm font-semibold text-amber-300 hover:text-amber-200">Inspect Members →</a>
     </div>
 
     <div class="rounded-2xl border border-amber-300/20 bg-slate-900/70 p-5">
       <p class="text-xs uppercase tracking-[0.18em] text-amber-300">Recent Reassignments</p>
       <p class="mt-3 text-3xl font-extrabold text-white">11</p>
       <p class="mt-2 text-sm text-slate-400">Triggered in the past 7 days</p>
-      <a href="#" class="mt-4 inline-block text-sm font-semibold text-amber-300 hover:text-amber-200">Open Log →</a>
+      <a href="{{ \App\Support\Nav::route('admin.audit-logs.index') }}" class="mt-4 inline-block text-sm font-semibold text-amber-300 hover:text-amber-200">Open Log →</a>
     </div>
 
     <div class="rounded-2xl border border-amber-300/20 bg-slate-900/70 p-5">
       <p class="text-xs uppercase tracking-[0.18em] text-amber-300">Top Gap Company</p>
-      <p class="mt-3 text-xl font-extrabold text-white">Apex Trading Group</p>
+      <p class="mt-3 text-xl font-extrabold text-white">Horizon Travel Club</p>
       <p class="mt-2 text-sm text-slate-400">38 members not positioned while team activity is rising</p>
-      <a href="#" class="mt-4 inline-block text-sm font-semibold text-amber-300 hover:text-amber-200">Inspect Company Gaps →</a>
+      <a href="{{ \App\Support\Nav::route('admin.companies.index') }}" class="mt-4 inline-block text-sm font-semibold text-amber-300 hover:text-amber-200">Inspect Company Gaps →</a>
     </div>
 
     <div class="rounded-2xl border border-amber-300/20 bg-slate-900/70 p-5">
       <p class="text-xs uppercase tracking-[0.18em] text-amber-300">Unmatched Downline Activity</p>
       <p class="mt-3 text-3xl font-extrabold text-white">54</p>
       <p class="mt-2 text-sm text-slate-400">Active downline joins without sponsor activation</p>
-      <a href="#" class="mt-4 inline-block text-sm font-semibold text-amber-300 hover:text-amber-200">Review Cases →</a>
+      <a href="{{ \App\Support\Nav::route('admin.users.index') }}" class="mt-4 inline-block text-sm font-semibold text-amber-300 hover:text-amber-200">Review Cases →</a>
     </div>
 
   </div>

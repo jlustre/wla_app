@@ -6,7 +6,7 @@
         <p class="text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">Resources</p>
         <h2 class="mt-2 text-2xl font-extrabold text-white">Latest Uploaded Materials</h2>
       </div>
-      <a href="#" class="text-sm font-semibold text-sky-300 hover:text-sky-200">Manage Resources</a>
+      <a href="{{ \App\Support\Nav::route('admin.companies.index') }}" class="text-sm font-semibold text-sky-300 hover:text-sky-200">Manage Resources</a>
     </div>
 
     <div class="mt-6 space-y-4">
@@ -15,8 +15,8 @@
         <p class="mt-1 text-sm text-slate-400">Assigned to Legacy Shield Insurance • Uploaded 2 hours ago</p>
       </div>
       <div class="rounded-2xl border border-white/10 bg-slate-900/60 p-4">
-        <p class="font-semibold text-white">Apex Trading Getting Started Webinar</p>
-        <p class="mt-1 text-sm text-slate-400">Assigned to Apex Trading Group • Uploaded yesterday</p>
+        <p class="font-semibold text-white">Horizon Travel Club Getting Started Webinar</p>
+        <p class="mt-1 text-sm text-slate-400">Assigned to Horizon Travel Club • Uploaded yesterday</p>
       </div>
       <div class="rounded-2xl border border-white/10 bg-slate-900/60 p-4">
         <p class="font-semibold text-white">VitalCore Wellness Compensation Summary.pdf</p>
@@ -35,12 +35,12 @@
         <p class="text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">Announcements</p>
         <h2 class="mt-2 text-2xl font-extrabold text-white">System Notices & Admin Reminders</h2>
       </div>
-      <a href="#" class="text-sm font-semibold text-sky-300 hover:text-sky-200">View All Notices</a>
+      <a href="{{ \App\Support\Nav::route('admin.notifications') }}" class="text-sm font-semibold text-sky-300 hover:text-sky-200">View All Notices</a>
     </div>
 
     <div class="mt-6 space-y-4">
       <div class="rounded-2xl border border-amber-300/20 bg-amber-500/10 p-4">
-        <p class="font-semibold text-white">Positioning review recommended for Apex Trading Group</p>
+        <p class="font-semibold text-white">Positioning review recommended for Horizon Travel Club</p>
         <p class="mt-1 text-sm text-slate-300">A spike in member joins has created 38 sponsor positioning gaps.</p>
       </div>
       <div class="rounded-2xl border border-white/10 bg-slate-900/60 p-4">

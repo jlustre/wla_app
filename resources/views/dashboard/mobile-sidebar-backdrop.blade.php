@@ -1,4 +1,5 @@
 <div
+    x-cloak
     x-show="sidebarOpen"
     x-transition.opacity
     @click="sidebarOpen = false"

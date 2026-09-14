@@ -45,7 +45,7 @@
         </div>
         <div>
           <div class="mb-2 flex items-center justify-between text-sm">
-            <span class="text-slate-300">Apex Trading Group</span>
+            <span class="text-slate-300">Horizon Travel Club</span>
             <span class="font-semibold text-white">3,120</span>
           </div>
           <div class="h-3 rounded-full bg-slate-800"><div class="h-3 rounded-full bg-cyan-400" style="width: 61%"></div></div>

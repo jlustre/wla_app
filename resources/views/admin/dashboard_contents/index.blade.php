@@ -3,7 +3,7 @@
 @section('title', 'Manage Dashboard Sections for ' . $company->name)
 
 @section('content')
-<div class="max-w-5xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+<div class="w-full max-w-5xl">
     <div class="flex items-center justify-between mb-8">
         <h1 class="text-2xl font-extrabold text-teal-800">Dashboard Sections for <span class="text-teal-600">{{ $company->name }}</span></h1>
         <a href="{{ route('admin.dashboard-contents.create', $company) }}" class="inline-flex items-center px-4 py-2 bg-cyan-600 text-white rounded-xl font-semibold shadow hover:bg-cyan-700 transition">

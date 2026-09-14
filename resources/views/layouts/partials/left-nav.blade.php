@@ -1,6 +1,6 @@
 <div class="flex min-w-0 items-center gap-3">
     <button
-        @click="sidebarOpen = true"
+        @click.stop="sidebarOpen = true"
         class="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-white text-slate-700 shadow-sm hover:bg-slate-50 lg:hidden"
     >
         <svg

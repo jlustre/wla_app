@@ -81,15 +81,9 @@
                 >Overview</a
             >
             <a
-                href="#"
+                href="/member/genealogy"
                 class="block rounded-xl px-3 py-2 text-sm text-blue-100 hover:bg-white/8"
-                >Genealogy Tree</a
-            >
-            <a
-                href="#"
-                class="block rounded-xl px-3 py-2 text-sm text-blue-100 hover:bg-white/8"
-                >Sponsorship Tree</a
-            >
+            >Genealogy Tree</a>
             <a
                 href="#"
                 class="block rounded-xl px-3 py-2 text-sm text-blue-100 hover:bg-white/8"
@@ -98,7 +92,17 @@
             <a
                 href="#"
                 class="block rounded-xl px-3 py-2 text-sm text-blue-100 hover:bg-white/8"
+                >Upline Path</a
+            >
+            <a
+                href="#"
+                class="block rounded-xl px-3 py-2 text-sm text-blue-100 hover:bg-white/8"
                 >Team Members</a
+            >
+            <a
+                href="#"
+                class="block rounded-xl px-3 py-2 text-sm text-blue-100 hover:bg-white/8"
+                >BGWS/DSJEX Hierarchy</a
             >
         </div>
     </div>

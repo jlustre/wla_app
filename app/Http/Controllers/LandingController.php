@@ -111,7 +111,7 @@ class LandingController extends Controller
 
       <p>
         This creates flexibility. Different people are interested in different things. Some may prefer
-        insurance. Others may be interested in trading, health, supplements, or other categories.
+        insurance. Others may be interested in health, supplements, travel, or other categories.
         Because WLA connects to multiple companies, your network is not limited to just one option.
       </p>
 

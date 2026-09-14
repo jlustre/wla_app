@@ -2,8 +2,9 @@
 
 namespace App\Livewire\Profile;
 
-use Livewire\Component;
+use App\Models\User;
 use Illuminate\Support\Str;
+use Livewire\Component;
 
 class ProfilePage extends Component
 {
@@ -18,34 +19,50 @@ class ProfilePage extends Component
 
     public function mount(): void
     {
+        /** @var User|null $user */
+        $user = auth()->user();
+        $memberProfile = $user?->profile;
+        $status = $user?->status;
+        $statusLabel = $status instanceof \BackedEnum
+            ? Str::headline($status->value)
+            : Str::headline((string) ($status ?? 'active'));
+
         $this->profile = [
-            'name' => 'Joey Lustre',
-            'email' => 'joey@wealthlegacyalliance.com',
-            'status' => 'Active Member',
-            'bio' => 'Building a unified network marketing ecosystem where members recruit once, grow everywhere, and never miss an opportunity.',
-            'avatar' => 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80',
-            'join_date' => 'January 26, 2026',
-            'sponsor_name' => 'Maria Santos',
-            'referral_code' => 'JOEYLUSTRE128',
+            'name' => $user?->username ?? 'Member',
+            'email' => $user?->email ?? '',
+            'status' => $statusLabel.' Member',
+            'bio' => $memberProfile?->bio ?: 'Building a unified network marketing ecosystem where members recruit once, grow everywhere, and never miss an opportunity.',
+            'avatar' => $memberProfile?->avatar
+                ? asset('storage/'.$memberProfile->avatar)
+                : 'https://ui-avatars.com/api/?name='.urlencode($user?->username ?? 'Member').'&background=0b1730&color=ffffff&size=256',
+            'join_date' => optional($memberProfile?->membership_started_at ?? $user?->created_at)->format('F j, Y') ?? '—',
+            'sponsor_name' => $user?->sponsor?->username ?? 'Unassigned',
+            'city' => $memberProfile?->city ?: 'Not set',
+            'phone' => $memberProfile?->phone_number ?: 'Not set',
+            'role' => Str::headline((string) ($user?->getRoleNames()->first() ?? 'member')),
+            'completion' => (int) ($memberProfile?->completion_percentage ?? 64),
         ];
 
         $this->stats = [
-            ['label' => 'Total Referrals', 'value' => '128', 'subtext' => '+14 this month'],
-            ['label' => 'MLMs Joined', 'value' => '4', 'subtext' => '1 pending decision'],
-            ['label' => 'Team Size', 'value' => '642', 'subtext' => 'Across all levels'],
+            ['title' => 'Total Referrals', 'value' => '128', 'change' => '+14 this month', 'icon' => 'users', 'accent' => 'blue'],
+            ['title' => 'Companies Joined', 'value' => '4', 'change' => '1 pending decision', 'icon' => 'folder', 'accent' => 'gold'],
+            ['title' => 'Team Size', 'value' => '642', 'change' => 'Across all levels', 'icon' => 'network', 'accent' => 'emerald'],
+            ['title' => 'Active Prospects', 'value' => '18', 'change' => '5 ready for follow-up', 'icon' => 'clock', 'accent' => 'slate'],
         ];
 
+        $inviteCode = $memberProfile?->invite_code ?: Str::upper(Str::slug((string) ($user?->username ?? 'member'), '')).'128';
+
         $this->referral = [
-            'link' => url('/register?ref=JOEYLUSTRE128'),
-            'sponsor_name' => 'Maria Santos',
-            'join_date' => 'January 26, 2026',
-            'referral_code' => 'JOEYLUSTRE128',
+            'link' => url('/register?ref='.$inviteCode),
+            'sponsor_name' => $this->profile['sponsor_name'],
+            'join_date' => $this->profile['join_date'],
+            'referral_code' => $inviteCode,
         ];
 
         $this->mlmCompanies = [
             [
-                'name' => 'Alliance Trade Pro',
-                'tagline' => 'Forex & digital assets',
+                'name' => 'Alliance Home Services',
+                'tagline' => 'Home services',
                 'status' => 'Joined',
                 'joined_at' => 'Joined Feb 03, 2026',
                 'description' => 'Active participation with 43 members already connected under your qualified line.',
@@ -147,31 +164,17 @@ class ProfilePage extends Component
         ];
 
         $this->quickActions = [
-            ['label' => 'Follow up with interested prospects', 'value' => '5 pending'],
-            ['label' => 'Review missed spillovers', 'value' => '2 alerts'],
-            ['label' => 'Join Prosperity Mobile', 'value' => 'Recommended'],
+            ['label' => 'Follow up with interested prospects', 'value' => '5 pending', 'route' => 'member.sponsored-members'],
+            ['label' => 'Review missed spillovers', 'value' => '2 alerts', 'route' => 'member.genealogy'],
+            ['label' => 'Join Prosperity Mobile', 'value' => 'Recommended', 'route' => 'member.resources'],
+            ['label' => 'Update profile settings', 'value' => $this->profile['completion'].'% complete', 'route' => 'member.settings.profile'],
         ];
     }
 
     public function copyReferralLink(): void
     {
-        $this->dispatch('copy-referral-link', url: $this->referral['link']);
+        $this->dispatch('copy-to-clipboard', value: $this->referral['link']);
         session()->flash('copied', 'Referral link copied.');
-    }
-
-    public function editProfile(): void
-    {
-        $this->dispatch('open-edit-profile');
-    }
-
-    public function manageCompanies(): void
-    {
-        $this->dispatch('open-manage-companies');
-    }
-
-    public function openSponsorTree(): void
-    {
-        $this->dispatch('open-sponsor-tree');
     }
 
     public function companyAction(string $companyName): void
@@ -182,10 +185,43 @@ class ProfilePage extends Component
     public function getStatusPillClass(string $status): string
     {
         return match ($status) {
-            'Joined' => 'bg-emerald-100 text-emerald-700',
-            'Interested' => 'bg-amber-100 text-amber-700',
-            'Contacted' => 'bg-cyan-100 text-cyan-700',
-            default => 'bg-slate-100 text-slate-700',
+            'Joined' => 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300',
+            'Interested' => 'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-300',
+            'Contacted' => 'bg-cyan-100 text-cyan-700 dark:bg-cyan-500/10 dark:text-cyan-300',
+            default => 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300',
+        };
+    }
+
+    public function companyBadgeClass(string $color): string
+    {
+        return match ($color) {
+            'emerald' => 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300',
+            'cyan' => 'bg-cyan-50 text-cyan-700 dark:bg-cyan-500/10 dark:text-cyan-300',
+            'violet' => 'bg-violet-50 text-violet-700 dark:bg-violet-500/10 dark:text-violet-300',
+            'amber' => 'bg-amber-50 text-amber-700 dark:bg-amber-500/10 dark:text-amber-300',
+            'rose' => 'bg-rose-50 text-rose-700 dark:bg-rose-500/10 dark:text-rose-300',
+            default => 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300',
+        };
+    }
+
+    public function companyActionClass(string $style): string
+    {
+        return match ($style) {
+            'dark' => 'bg-slate-950 text-white hover:bg-slate-800 dark:bg-white dark:text-slate-950',
+            'gradient' => 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white hover:from-blue-500 hover:to-cyan-400',
+            'outline' => 'border border-slate-300 text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800',
+            default => 'bg-slate-100 text-slate-800 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-100',
+        };
+    }
+
+    public function activityToneClass(string $type): string
+    {
+        return match ($type) {
+            'success' => 'bg-emerald-500',
+            'info' => 'bg-blue-500',
+            'danger' => 'bg-rose-500',
+            'warning' => 'bg-amber-400',
+            default => 'bg-slate-400',
         };
     }
 

@@ -43,7 +43,7 @@
                     Notifications
                 </h3>
                 <a
-                    href="#"
+                    href="{{ \App\Support\Nav::route('admin.notifications') }}"
                     class="text-xs font-medium text-blue-600 hover:text-blue-700"
                     >Mark all as read</a
                 >
@@ -53,7 +53,7 @@
             class="max-h-96 overflow-y-auto"
         >
             <a
-                href="#"
+                href="{{ \App\Support\Nav::route('admin.notifications') }}"
                 class="flex gap-3 px-5 py-4 hover:bg-slate-50"
             >
                 <div
@@ -81,7 +81,7 @@
                 </div>
             </a>
             <a
-                href="#"
+                href="{{ \App\Support\Nav::route('admin.notifications') }}"
                 class="flex gap-3 px-5 py-4 hover:bg-slate-50"
             >
                 <div
@@ -109,7 +109,7 @@
                 </div>
             </a>
             <a
-                href="#"
+                href="{{ \App\Support\Nav::route('admin.notifications') }}"
                 class="flex gap-3 px-5 py-4 hover:bg-slate-50"
             >
                 <div
@@ -137,7 +137,7 @@
                 </div>
             </a>
             <a
-                href="#"
+                href="{{ \App\Support\Nav::route('admin.notifications') }}"
                 class="flex gap-3 px-5 py-4 hover:bg-slate-50"
             >
                 <div
@@ -169,7 +169,7 @@
             class="border-t border-slate-100 px-5 py-3"
         >
             <a
-                href="#"
+                href="{{ \App\Support\Nav::route('admin.notifications') }}"
                 class="text-sm font-semibold text-blue-600 hover:text-blue-700"
                 >View all notifications</a
             >

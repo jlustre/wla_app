@@ -13,6 +13,20 @@ class Profile extends Model
         'user_id',
         'bio',
         'avatar',
+        'phone_number',
+        'city',
+        'membership_started_at',
+        'invite_code',
+        'theme_preference',
+        'completion_percentage',
+        'notification_preferences',
+        'privacy_preferences',
+    ];
+
+    protected $casts = [
+        'membership_started_at' => 'datetime',
+        'notification_preferences' => 'array',
+        'privacy_preferences' => 'array',
     ];
 
     public function user()

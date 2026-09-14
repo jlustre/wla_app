@@ -6,7 +6,7 @@
             <h2 class="mt-2 text-2xl font-extrabold text-white">Recent Activity Feed</h2>
         </div>
         <div>
-            <a href="#" class="text-sm font-semibold text-sky-300 hover:text-sky-200">View All</a>
+            <a href="{{ \App\Support\Nav::route('admin.activity-logs') }}" class="text-sm font-semibold text-sky-300 hover:text-sky-200">View All</a>
         </div>
         <div class="mt-6 space-y-4">
             <div class="flex gap-4 rounded-2xl border border-white/10 bg-slate-900/60 p-4">
@@ -20,7 +20,7 @@
             <div class="flex gap-4 rounded-2xl border border-white/10 bg-slate-900/60 p-4">
                 <div class="mt-1 h-2.5 w-2.5 rounded-full bg-sky-400"></div>
                 <div class="min-w-0 flex-1">
-                    <p class="text-sm font-semibold text-white">Daniel Cruz joined Apex Trading Group</p>
+                    <p class="text-sm font-semibold text-white">Daniel Cruz joined Horizon Travel Club</p>
                     <p class="mt-1 text-sm text-slate-400">Company membership recorded successfully</p>
                 </div>
                 <span class="text-xs text-slate-500">18m ago</span>
@@ -71,7 +71,7 @@
                     <option>Inactive</option>
                     <option>Suspended</option>
                 </select>
-                <a href="#" class="inline-flex items-center justify-center rounded-xl bg-sky-500 px-4 py-2.5 text-sm font-semibold text-white hover:bg-sky-400">
+                <a href="{{ \App\Support\Nav::route('admin.activity-logs') }}" class="inline-flex items-center justify-center rounded-xl bg-sky-500 px-4 py-2.5 text-sm font-semibold text-white hover:bg-sky-400">
                     Add Member
                 </a>
             </div>
@@ -101,8 +101,8 @@
                         <td class="px-4 py-4">18</td>
                         <td class="px-4 py-4">
                             <div class="flex gap-2">
-                                <a href="#" class="rounded-lg border border-white/10 px-3 py-1.5 text-xs font-semibold text-white hover:bg-white/10">View</a>
-                                <a href="#" class="rounded-lg border border-white/10 px-3 py-1.5 text-xs font-semibold text-white hover:bg-white/10">Edit</a>
+                                <a href="{{ \App\Support\Nav::route('admin.activity-logs') }}" class="rounded-lg border border-white/10 px-3 py-1.5 text-xs font-semibold text-white hover:bg-white/10">View</a>
+                                <a href="{{ \App\Support\Nav::route('admin.activity-logs') }}" class="rounded-lg border border-white/10 px-3 py-1.5 text-xs font-semibold text-white hover:bg-white/10">Edit</a>
                             </div>
                         </td>
                     </tr>
@@ -116,8 +116,8 @@
                         <td class="px-4 py-4">3</td>
                         <td class="px-4 py-4">
                             <div class="flex gap-2">
-                                <a href="#" class="rounded-lg border border-white/10 px-3 py-1.5 text-xs font-semibold text-white hover:bg-white/10">View</a>
-                                <a href="#" class="rounded-lg border border-white/10 px-3 py-1.5 text-xs font-semibold text-white hover:bg-white/10">Edit</a>
+                                <a href="{{ \App\Support\Nav::route('admin.activity-logs') }}" class="rounded-lg border border-white/10 px-3 py-1.5 text-xs font-semibold text-white hover:bg-white/10">View</a>
+                                <a href="{{ \App\Support\Nav::route('admin.activity-logs') }}" class="rounded-lg border border-white/10 px-3 py-1.5 text-xs font-semibold text-white hover:bg-white/10">Edit</a>
                             </div>
                         </td>
                     </tr>
@@ -131,8 +131,8 @@
                         <td class="px-4 py-4">1</td>
                         <td class="px-4 py-4">
                             <div class="flex gap-2">
-                                <a href="#" class="rounded-lg border border-white/10 px-3 py-1.5 text-xs font-semibold text-white hover:bg-white/10">View</a>
-                                <a href="#" class="rounded-lg border border-red-400/20 px-3 py-1.5 text-xs font-semibold text-red-300 hover:bg-red-500/10">Suspend</a>
+                                <a href="{{ \App\Support\Nav::route('admin.activity-logs') }}" class="rounded-lg border border-white/10 px-3 py-1.5 text-xs font-semibold text-white hover:bg-white/10">View</a>
+                                <a href="{{ \App\Support\Nav::route('admin.activity-logs') }}" class="rounded-lg border border-red-400/20 px-3 py-1.5 text-xs font-semibold text-red-300 hover:bg-red-500/10">Suspend</a>
                             </div>
                         </td>
                     </tr>
@@ -146,8 +146,8 @@
                         <td class="px-4 py-4">0</td>
                         <td class="px-4 py-4">
                             <div class="flex gap-2">
-                                <a href="#" class="rounded-lg border border-white/10 px-3 py-1.5 text-xs font-semibold text-white hover:bg-white/10">View</a>
-                                <a href="#" class="rounded-lg border border-white/10 px-3 py-1.5 text-xs font-semibold text-white hover:bg-white/10">Edit</a>
+                                <a href="{{ \App\Support\Nav::route('admin.activity-logs') }}" class="rounded-lg border border-white/10 px-3 py-1.5 text-xs font-semibold text-white hover:bg-white/10">View</a>
+                                <a href="{{ \App\Support\Nav::route('admin.activity-logs') }}" class="rounded-lg border border-white/10 px-3 py-1.5 text-xs font-semibold text-white hover:bg-white/10">Edit</a>
                             </div>
                         </td>
                     </tr>

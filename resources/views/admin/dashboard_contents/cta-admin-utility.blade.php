@@ -10,13 +10,13 @@
     </div>
 
     <div class="flex flex-wrap gap-3">
-      <a href="#" class="inline-flex items-center justify-center rounded-xl bg-sky-500 px-5 py-3 text-sm font-semibold text-white hover:bg-sky-400">
+      <a href="{{ \App\Support\Nav::route('admin.companies.index') }}" class="inline-flex items-center justify-center rounded-xl bg-sky-500 px-5 py-3 text-sm font-semibold text-white hover:bg-sky-400">
         Manage Companies
       </a>
-      <a href="#" class="inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-slate-100 hover:bg-white/10">
+      <a href="{{ \App\Support\Nav::route('admin.users.index') }}" class="inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-slate-100 hover:bg-white/10">
         Review Member Risks
       </a>
-      <a href="#" class="inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-slate-100 hover:bg-white/10">
+      <a href="{{ \App\Support\Nav::route('admin.reports') }}" class="inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-slate-100 hover:bg-white/10">
         Open Full Reports
       </a>
     </div>

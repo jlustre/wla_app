@@ -16,17 +16,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
         $this->call([
             ThemeSeeder::class,
             CountrySeeder::class,
             StateProvinceSeeder::class,
             TimezoneSeeder::class,
             AppBootstrapSeeder::class,
+            UsersSeeder::class,
             CompanySeeder::class,
             DashboardContentSeeder::class,
             LastActionSeeder::class,
             ProspectSeeder::class,
+            MemberDashboardDemoSeeder::class,
         ]);
 
     }

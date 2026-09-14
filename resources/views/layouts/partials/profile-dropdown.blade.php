@@ -25,14 +25,14 @@
             </p>
         </div>
         <div class="p-2">
-            <a href="#" class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm text-slate-700 hover:bg-slate-50">My Profile</a>
-            <a href="#" class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm text-slate-700 hover:bg-slate-50">Account Settings</a>
-            <a href="#" class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm text-slate-700 hover:bg-slate-50">Security</a>
-            <a href="#" class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm text-slate-700 hover:bg-slate-50">Help Center</a>
+            <a href="{{ \App\Support\Nav::route('profile') }}" class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm text-slate-700 hover:bg-slate-50">My Profile</a>
+            <a href="{{ \App\Support\Nav::route('admin.settings') }}" class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm text-slate-700 hover:bg-slate-50">Account Settings</a>
+            <a href="{{ \App\Support\Nav::route('member.settings.security') }}" class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm text-slate-700 hover:bg-slate-50">Security</a>
+            <a href="{{ \App\Support\Nav::route('member.support') }}" class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm text-slate-700 hover:bg-slate-50">Help Center</a>
             @if(auth()->user() && (auth()->user()->hasRole('admin') || auth()->user()->hasRole('super-admin')))
-                <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm text-slate-700 hover:bg-slate-50">Admin Dashboard</a>
+                <a href="{{ \App\Support\Nav::route('admin.dashboard') }}" class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm text-slate-700 hover:bg-slate-50">Admin Dashboard</a>
             @endif
-             <a href="{{ route('dashboard') }}" class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm text-slate-700 hover:bg-slate-50">My Dashboard</a>
+             <a href="{{ \App\Support\Nav::route('member.dashboard') }}" class="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm text-slate-700 hover:bg-slate-50">My Dashboard</a>
             <div class="my-2 border-t border-slate-100"></div>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf

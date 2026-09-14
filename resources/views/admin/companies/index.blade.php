@@ -3,7 +3,7 @@
 @section('title', 'Manage Companies')
 
 @section('content')
-<div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+<div class="w-full">
     <div class="flex items-center justify-between mb-8">
         <h1 class="text-3xl font-extrabold text-teal-800">Companies</h1>
         <a href="{{ route('admin.companies.create') }}" class="inline-flex items-center px-4 py-2 bg-teal-600 text-white rounded-xl font-semibold shadow hover:bg-teal-700 transition">

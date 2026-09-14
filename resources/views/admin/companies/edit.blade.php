@@ -3,7 +3,7 @@
 @section('title', 'Edit Company')
 
 @section('content')
-<section class="min-h-screen bg-slate-50 p-4 md:p-6 xl:p-8">
+<section>
   <div class="mx-auto max-w-7xl">
     <!-- Page Header -->
     @include('admin.companies.header', ['editing' => true])

@@ -1,197 +1,282 @@
-<div class="card">
-    <div class="max-w-6xl flex md:flex-row gap-6 mx-auto py-8 px-2 md:px-0">
-        <!-- Profile Card -->
-        <div
-            class="bg-white rounded-3xl shadow-xl p-6 flex flex-col md:flex-row items-center md:items-end gap-6 relative mb-8">
-            <div
-                class="absolute inset-x-0 top-0 h-24 rounded-t-3xl bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-500">
-            </div>
-            <div class="relative z-10 mt-10 md:mt-0">
-                <img src="{{ $profile['avatar'] ?? 'https://ui-avatars.com/api/?name=' . urlencode($profile['name']) }}"
-                    alt="Profile" class="h-28 w-28 rounded-2xl border-4 border-white object-cover shadow-lg bg-white">
-            </div>
-            <div class="flex-1 z-10">
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-                    <div>
-                        <h2 class="text-2xl font-bold text-gray-900">{{ $profile['name'] }}</h2>
-                        <p class="text-gray-500">{{ $profile['email'] }}</p>
-                        <span
-                            class="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-inset ring-emerald-200 mt-2">
-                            <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
-                            Active Member
-                        </span>
+<div class="w-full space-y-6">
+    <div class="grid w-full gap-6 xl:grid-cols-12">
+        <div class="overflow-hidden rounded-[36px] border border-white/60 bg-[linear-gradient(135deg,rgba(11,23,48,0.98),rgba(17,31,61,0.94)_58%,rgba(47,111,237,0.88))] p-6 text-white shadow-[0_30px_100px_-55px_rgba(15,23,42,0.95)] sm:p-8 xl:col-span-7">
+            <div class="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+                <div class="flex min-w-0 flex-1 flex-col gap-6 sm:flex-row sm:items-start">
+                    <img src="{{ $profile['avatar'] }}" alt="{{ $profile['name'] }}" class="h-28 w-28 shrink-0 rounded-[28px] border-4 border-white/20 object-cover shadow-2xl">
+                    <div class="min-w-0">
+                        <p class="text-xs font-semibold uppercase tracking-[0.32em] text-blue-200">Member profile</p>
+                        <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">{{ $profile['name'] }}</h2>
+                        <p class="mt-2 text-sm text-slate-200">{{ $profile['email'] }}</p>
+                        <p class="mt-4 max-w-3xl text-sm leading-6 text-slate-200">{{ $profile['bio'] }}</p>
+                        <div class="mt-5 flex flex-wrap items-center gap-3">
+                            <span class="inline-flex items-center rounded-full bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-700 ring-1 ring-inset ring-amber-200 dark:bg-amber-500/10 dark:text-amber-300 dark:ring-amber-500/20">{{ $profile['status'] }}</span>
+                            <span class="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-blue-100">{{ $profile['role'] }}</span>
+                            <span class="text-xs text-slate-300">Joined {{ $profile['join_date'] }}</span>
+                        </div>
                     </div>
-                    <button
-                        class="mt-2 md:mt-0 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-xl text-sm font-semibold text-gray-700 shadow border border-gray-200">Edit
-                        Profile</button>
                 </div>
-            </div>
-            <!-- Referral Information -->
-            <div class="bg-white rounded-2xl shadow p-5 flex flex-col gap-3">
-                <span class="font-semibold text-gray-700">Referral Information</span>
-                <div class="flex items-center gap-2">
-                    <input type="text" readonly value="{{ $profile['referral_link'] ?? 'https://yourapp.com/ref/xyz' }}"
-                        class="flex-1 bg-gray-100 rounded px-2 py-1 text-xs">
-                    <button class="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs font-semibold">Copy
-                        Link</button>
-                </div>
-                <div class="flex items-center gap-2 mt-2">
-                    <img src="https://ui-avatars.com/api/?name=James+Thompson" class="w-8 h-8 rounded-full" alt="">
-                    <div>
-                        <span class="text-xs font-semibold text-gray-700">James Thompson</span>
-                        <div class="text-xs text-gray-400">Joined on Sept 15, 2023</div>
-                    </div>
+
+                <div class="flex shrink-0 flex-col gap-3 sm:min-w-[13rem]">
+                    <x-spa-link :href="\App\Support\Nav::route('member.settings.profile')" class="inline-flex items-center justify-center rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-100">
+                        Edit Profile
+                    </x-spa-link>
+                    <x-spa-link :href="\App\Support\Nav::route('member.genealogy')" :spa="false" class="inline-flex items-center justify-center rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/15">
+                        View Tree
+                    </x-spa-link>
                 </div>
             </div>
         </div>
 
-        <div class="flex flex-col md:flex-row gap-6 w-full">
-            <!-- Stats Card Right -->
-            <div class="flex flex-row md:flex-col gap-4 md:gap-4 w-full md:w-56">
-                <div class="bg-white rounded-2xl shadow p-4 flex flex-col items-center flex-1">
-                    <span class="text-2xl font-bold text-emerald-600">{{ $profile['total_referrals'] ?? 0 }}</span>
-                    <span class="text-xs text-gray-500 mt-1">Total Referrals</span>
-                </div>
-                <div class="bg-white rounded-2xl shadow p-4 flex flex-col items-center flex-1">
-                    <span class="text-2xl font-bold text-blue-600">{{ $profile['companies_joined'] ?? 0 }}</span>
-                    <span class="text-xs text-gray-500 mt-1">Companies Joined</span>
-                </div>
-                <div class="bg-white rounded-2xl shadow p-4 flex flex-col items-center flex-1">
-                    <span class="text-2xl font-bold text-indigo-600">{{ $profile['team_size'] ?? 0 }}</span>
-                    <span class="text-xs text-gray-500 mt-1">Team Size</span>
-                </div>
-                <div class="bg-white rounded-2xl shadow p-4 flex flex-col items-center flex-1">
-                    <span class="text-2xl font-bold text-indigo-600">{{ $profile['total_prospects'] ?? 0 }}</span>
-                    <span class="text-xs text-gray-500 mt-1">Total Prospects</span>
-                </div>
-            </div>
-            <!-- Tabs Navigation & Placeholders -->
-            <div class="w-full flex flex-col mb-4" x-data="{ tab: 'profile-info' }">
-                <div class="flex space-x-2 md:space-x-4 border-b border-gray-200 mb-4">
-                    <button
-                        class="px-4 py-2 text-sm font-semibold text-gray-700 border-b-2 border-transparent hover:border-emerald-500 focus:outline-none focus:border-emerald-500 transition"
-                        :class="{ 'border-emerald-500 text-emerald-700': tab === 'profile-info' }"
-                        @click="tab = 'profile-info'">Profile Info</button>
-                    <button
-                        class="px-4 py-2 text-sm font-semibold text-gray-700 border-b-2 border-transparent hover:border-blue-500 focus:outline-none focus:border-blue-500 transition"
-                        :class="{ 'border-blue-500 text-blue-700': tab === 'business-info' }"
-                        @click="tab = 'business-info'">Business Info</button>
-                    <button
-                        class="px-4 py-2 text-sm font-semibold text-gray-700 border-b-2 border-transparent hover:border-indigo-500 focus:outline-none focus:border-indigo-500 transition"
-                        :class="{ 'border-indigo-500 text-indigo-700': tab === 'password-change' }"
-                        @click="tab = 'password-change'">Password Change</button>
-                </div>
-                <!-- Tab Placeholders -->
-                <div x-show="tab === 'profile-info'" class="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-4">
-                    <span class="text-gray-700 text-sm">Profile Info content goes here.</span>
-                </div>
-                <div x-show="tab === 'business-info'" class="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-4">
-                    <span class="text-gray-700 text-sm">Business Info content goes here.</span>
-                </div>
-                <div x-show="tab === 'password-change'" class="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-4">
-                    <span class="text-gray-700 text-sm">Password Change content goes here.</span>
+        <div class="rounded-[36px] border border-slate-200/80 bg-white/90 p-6 shadow-[0_28px_90px_-55px_rgba(15,23,42,0.65)] backdrop-blur dark:border-slate-800 dark:bg-slate-900/85 xl:col-span-5">
+            <p class="text-xs font-semibold uppercase tracking-[0.28em] text-blue-600 dark:text-blue-300">Referral desk</p>
+            <h3 class="mt-3 text-2xl font-bold text-slate-950 dark:text-white">Share your invite link</h3>
+            <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">Keep sponsor attribution attached to every new member you bring in.</p>
+
+            <div class="mt-5 rounded-3xl bg-slate-50 p-4 dark:bg-slate-800/70" x-data="{ copied: false }">
+                <label class="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Invite link</label>
+                <div class="mt-3 flex flex-col gap-3 sm:flex-row">
+                    <input type="text" readonly value="{{ $referral['link'] }}" class="h-12 min-w-0 flex-1 rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-700 outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200">
+                    <button type="button" class="inline-flex h-12 items-center justify-center rounded-2xl bg-blue-600 px-5 text-sm font-semibold text-white transition hover:bg-blue-700" @click="navigator.clipboard.writeText({{ \Illuminate\Support\Js::from($referral['link']) }}); copied = true; setTimeout(() => copied = false, 1800)">
+                        <span x-show="! copied">Copy Link</span>
+                        <span x-cloak x-show="copied">Copied</span>
+                    </button>
                 </div>
             </div>
 
-            <!-- Companies Participation -->
-            <div class="bg-white rounded-2xl shadow p-5 flex flex-col gap-3">
-                <span class="font-semibold text-gray-700">MLM Participation</span>
-                <div class="flex flex-col gap-2">
-                    <div class="flex items-center justify-between">
-                        <span>Amway</span>
-                        <span
-                            class="px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded text-xs font-semibold">Joined</span>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <span>Herbalife</span>
-                        <span
-                            class="px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded text-xs font-semibold">Joined</span>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <span>NU SKIN</span>
-                        <span class="px-2 py-0.5 bg-gray-100 text-gray-500 rounded text-xs font-semibold">Not
-                            Joined</span>
-                    </div>
+            <div class="mt-5 grid gap-3 sm:grid-cols-2">
+                <div class="rounded-3xl bg-slate-50 p-4 dark:bg-slate-800/70">
+                    <p class="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Sponsor</p>
+                    <p class="mt-2 font-semibold text-slate-950 dark:text-white">{{ $referral['sponsor_name'] }}</p>
+                </div>
+                <div class="rounded-3xl bg-slate-50 p-4 dark:bg-slate-800/70">
+                    <p class="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Referral code</p>
+                    <p class="mt-2 font-semibold text-slate-950 dark:text-white">{{ $referral['referral_code'] }}</p>
                 </div>
             </div>
-            <!-- Team Summary -->
-            <div class="bg-white rounded-2xl shadow p-5 flex flex-col gap-3">
-                <span class="font-semibold text-gray-700">Team Summary</span>
-                <div class="flex items-center gap-6">
+        </div>
+    </div>
+
+    <div class="grid w-full gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        @foreach ($stats as $stat)
+            @php
+                $accentMap = [
+                    'blue' => 'from-blue-600/20 to-cyan-500/10 text-blue-700 dark:text-blue-300',
+                    'gold' => 'from-amber-400/20 to-orange-400/10 text-amber-700 dark:text-amber-300',
+                    'emerald' => 'from-emerald-500/20 to-teal-400/10 text-emerald-700 dark:text-emerald-300',
+                    'slate' => 'from-slate-400/20 to-slate-300/10 text-slate-700 dark:text-slate-300',
+                ];
+            @endphp
+            <div class="rounded-[28px] border border-slate-200/80 bg-white/90 p-5 shadow-[0_24px_80px_-48px_rgba(15,23,42,0.55)] backdrop-blur dark:border-slate-800 dark:bg-slate-900/85">
+                <div class="flex items-start justify-between gap-4">
                     <div>
-                        <span class="text-lg font-bold text-emerald-600">24</span>
-                        <span class="block text-xs text-gray-500">Direct Referrals</span>
+                        <p class="text-sm font-medium text-slate-500 dark:text-slate-400">{{ $stat['title'] }}</p>
+                        <p class="mt-3 text-3xl font-bold tracking-tight text-slate-950 dark:text-white">{{ $stat['value'] }}</p>
+                        @if (($stat['change'] ?? '') !== '')
+                            <p class="mt-3 text-sm text-slate-500 dark:text-slate-400">{{ $stat['change'] }}</p>
+                        @endif
                     </div>
-                    <div>
-                        <span class="text-lg font-bold text-indigo-600">240</span>
-                        <span class="block text-xs text-gray-500">Total Team Size</span>
+                    <span class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br {{ $accentMap[$stat['accent'] ?? 'blue'] ?? $accentMap['blue'] }}">
+                        <x-dashboard-icon :name="$stat['icon']" class="h-5 w-5" />
+                    </span>
+                </div>
+            </div>
+        @endforeach
+    </div>
+
+    <div class="grid w-full gap-6 xl:grid-cols-12" x-data="{ tab: 'profile-info' }">
+        <div class="rounded-[32px] border border-slate-200/80 bg-white/90 p-6 shadow-[0_28px_90px_-55px_rgba(15,23,42,0.65)] backdrop-blur dark:border-slate-800 dark:bg-slate-900/85 xl:col-span-7">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-[0.28em] text-blue-600 dark:text-blue-300">Account details</p>
+                    <h2 class="mt-2 text-2xl font-bold text-slate-950 dark:text-white">Profile workspace</h2>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <button type="button" class="rounded-2xl px-4 py-2 text-sm font-semibold transition" :class="tab === 'profile-info' ? 'bg-slate-950 text-white dark:bg-white dark:text-slate-950' : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300'" @click="tab = 'profile-info'">Profile Info</button>
+                    <button type="button" class="rounded-2xl px-4 py-2 text-sm font-semibold transition" :class="tab === 'business-info' ? 'bg-slate-950 text-white dark:bg-white dark:text-slate-950' : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300'" @click="tab = 'business-info'">Business Info</button>
+                    <button type="button" class="rounded-2xl px-4 py-2 text-sm font-semibold transition" :class="tab === 'password-change' ? 'bg-slate-950 text-white dark:bg-white dark:text-slate-950' : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300'" @click="tab = 'password-change'">Password Change</button>
+                </div>
+            </div>
+
+            <div class="mt-6" x-show="tab === 'profile-info'">
+                <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                    <div class="rounded-3xl bg-slate-50 p-4 dark:bg-slate-800/70">
+                        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Username</p>
+                        <p class="mt-2 font-semibold text-slate-950 dark:text-white">{{ $profile['name'] }}</p>
+                    </div>
+                    <div class="rounded-3xl bg-slate-50 p-4 dark:bg-slate-800/70">
+                        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Email</p>
+                        <p class="mt-2 break-all font-semibold text-slate-950 dark:text-white">{{ $profile['email'] }}</p>
+                    </div>
+                    <div class="rounded-3xl bg-slate-50 p-4 dark:bg-slate-800/70">
+                        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Phone</p>
+                        <p class="mt-2 font-semibold text-slate-950 dark:text-white">{{ $profile['phone'] }}</p>
+                    </div>
+                    <div class="rounded-3xl bg-slate-50 p-4 dark:bg-slate-800/70">
+                        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">City</p>
+                        <p class="mt-2 font-semibold text-slate-950 dark:text-white">{{ $profile['city'] }}</p>
                     </div>
                 </div>
-                <div class="mt-2">
-                    <span class="text-xs font-semibold text-gray-700">Recent Joins</span>
-                    <div class="flex items-center gap-2 mt-1">
-                        <img src="https://ui-avatars.com/api/?name=Mark+Spencer" class="w-7 h-7 rounded-full" alt="">
-                        <img src="https://ui-avatars.com/api/?name=Sarah+Lin" class="w-7 h-7 rounded-full" alt="">
-                        <img src="https://ui-avatars.com/api/?name=Alex+Wong" class="w-7 h-7 rounded-full" alt="">
-                        <span class="text-xs text-gray-400">+21</span>
+                <p class="mt-5 text-sm leading-6 text-slate-600 dark:text-slate-300">{{ $profile['bio'] }}</p>
+            </div>
+
+            <div class="mt-6" x-cloak x-show="tab === 'business-info'">
+                <div class="grid gap-4 sm:grid-cols-3">
+                    <div class="rounded-3xl bg-slate-50 p-4 dark:bg-slate-800/70">
+                        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Sponsor</p>
+                        <p class="mt-2 font-semibold text-slate-950 dark:text-white">{{ $profile['sponsor_name'] }}</p>
+                    </div>
+                    <div class="rounded-3xl bg-slate-50 p-4 dark:bg-slate-800/70">
+                        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Profile completion</p>
+                        <p class="mt-2 font-semibold text-slate-950 dark:text-white">{{ $profile['completion'] }}%</p>
+                    </div>
+                    <div class="rounded-3xl bg-slate-50 p-4 dark:bg-slate-800/70">
+                        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Companies joined</p>
+                        <p class="mt-2 font-semibold text-slate-950 dark:text-white">{{ collect($mlmCompanies)->where('status', 'Joined')->count() }} of {{ count($mlmCompanies) }}</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Prospect Tracker -->
-            <div class="bg-white rounded-2xl shadow p-5 flex flex-col gap-3 md:col-span-3">
-                <span class="font-semibold text-gray-700">Prospect Tracker</span>
-                <table class="w-full text-xs">
+            <div class="mt-6" x-cloak x-show="tab === 'password-change'">
+                <div class="rounded-3xl bg-slate-50 p-5 dark:bg-slate-800/70">
+                    <p class="text-sm font-semibold text-slate-950 dark:text-white">Password and security live in account settings.</p>
+                    <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">Update your password, review login protection, and keep this workspace aligned with your security preferences.</p>
+                    <x-spa-link :href="\App\Support\Nav::route('member.settings.password')" class="mt-4 inline-flex items-center justify-center rounded-2xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 dark:bg-white dark:text-slate-950">
+                        Open password settings
+                    </x-spa-link>
+                </div>
+            </div>
+        </div>
+
+        <div class="rounded-[32px] border border-slate-200/80 bg-white/90 p-6 shadow-[0_28px_90px_-55px_rgba(15,23,42,0.65)] backdrop-blur dark:border-slate-800 dark:bg-slate-900/85 xl:col-span-5">
+            <div class="flex items-start justify-between gap-3">
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-[0.28em] text-blue-600 dark:text-blue-300">Team summary</p>
+                    <h2 class="mt-2 text-2xl font-bold text-slate-950 dark:text-white">Recent joins</h2>
+                </div>
+                <x-spa-link :href="\App\Support\Nav::route('member.sponsored-members')" class="text-sm font-semibold text-blue-600 dark:text-blue-300">View all</x-spa-link>
+            </div>
+
+            <div class="mt-5 grid grid-cols-2 gap-3">
+                <div class="rounded-3xl bg-slate-50 p-4 dark:bg-slate-800/70">
+                    <p class="text-2xl font-bold text-slate-950 dark:text-white">24</p>
+                    <p class="mt-1 text-xs text-slate-500">Direct referrals</p>
+                </div>
+                <div class="rounded-3xl bg-slate-50 p-4 dark:bg-slate-800/70">
+                    <p class="text-2xl font-bold text-slate-950 dark:text-white">642</p>
+                    <p class="mt-1 text-xs text-slate-500">Total team size</p>
+                </div>
+            </div>
+
+            <div class="mt-5 space-y-3">
+                @foreach ($recentMembers as $member)
+                    <div class="flex items-center justify-between gap-3 rounded-2xl bg-slate-50 px-4 py-3 dark:bg-slate-800/70">
+                        <div class="flex min-w-0 items-center gap-3">
+                            <img src="{{ $member['image'] }}" alt="{{ $member['name'] }}" class="h-10 w-10 rounded-full object-cover">
+                            <div class="min-w-0">
+                                <p class="truncate text-sm font-semibold text-slate-950 dark:text-white">{{ $member['name'] }}</p>
+                                <p class="truncate text-xs text-slate-500">{{ $member['email'] }}</p>
+                            </div>
+                        </div>
+                        <span class="shrink-0 text-xs text-slate-400">{{ $member['date'] }}</span>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+    <div class="rounded-[32px] border border-slate-200/80 bg-white/90 p-6 shadow-[0_28px_90px_-55px_rgba(15,23,42,0.65)] backdrop-blur dark:border-slate-800 dark:bg-slate-900/85">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+                <p class="text-xs font-semibold uppercase tracking-[0.28em] text-blue-600 dark:text-blue-300">Company participation</p>
+                <h2 class="mt-2 text-2xl font-bold text-slate-950 dark:text-white">Where this profile is qualified</h2>
+            </div>
+            <p class="text-sm text-slate-500 dark:text-slate-400">{{ collect($mlmCompanies)->where('status', 'Joined')->count() }} joined · {{ collect($mlmCompanies)->where('status', 'Not Joined')->count() }} still open</p>
+        </div>
+
+        <div class="mt-6 grid w-full gap-4 md:grid-cols-2 xl:grid-cols-3">
+            @foreach ($mlmCompanies as $company)
+                <div class="flex h-full flex-col rounded-[28px] border border-slate-200 bg-slate-50/80 p-5 dark:border-slate-800 dark:bg-slate-800/60">
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex items-center gap-3">
+                            <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-950 text-sm font-bold text-white dark:bg-white dark:text-slate-950">{{ $company['logo_letter'] }}</span>
+                            <div>
+                                <p class="font-semibold text-slate-950 dark:text-white">{{ $company['name'] }}</p>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">{{ $company['tagline'] }}</p>
+                            </div>
+                        </div>
+                        <span class="rounded-full px-2.5 py-1 text-xs font-semibold {{ $this->companyBadgeClass($company['badge_color']) }}">{{ $company['status'] }}</span>
+                    </div>
+                    <p class="mt-4 flex-1 text-sm leading-6 text-slate-600 dark:text-slate-300">{{ $company['description'] }}</p>
+                    @if ($company['joined_at'] || $company['footer_note'])
+                        <p class="mt-3 text-xs font-semibold {{ $company['footer_note'] ? 'text-amber-600 dark:text-amber-300' : 'text-slate-400' }}">{{ $company['footer_note'] ?? $company['joined_at'] }}</p>
+                    @endif
+                    <button type="button" wire:click="companyAction({{ \Illuminate\Support\Js::from($company['name']) }})" class="mt-4 inline-flex items-center justify-center rounded-2xl px-4 py-2.5 text-sm font-semibold transition {{ $this->companyActionClass($company['action_style']) }}">
+                        {{ $company['action_label'] }}
+                    </button>
+                </div>
+            @endforeach
+        </div>
+    </div>
+
+    <div class="grid w-full gap-6 xl:grid-cols-12">
+        <div class="rounded-[32px] border border-slate-200/80 bg-white/90 p-6 shadow-[0_28px_90px_-55px_rgba(15,23,42,0.65)] backdrop-blur dark:border-slate-800 dark:bg-slate-900/85 xl:col-span-7">
+            <div>
+                <p class="text-xs font-semibold uppercase tracking-[0.28em] text-blue-600 dark:text-blue-300">Prospect tracker</p>
+                <h2 class="mt-2 text-2xl font-bold text-slate-950 dark:text-white">Pipeline this week</h2>
+            </div>
+            <div class="mt-5 overflow-x-auto">
+                <table class="min-w-full text-left text-sm">
                     <thead>
-                        <tr class="text-gray-500">
-                            <th class="text-left py-1">Name</th>
-                            <th class="text-left py-1">Status</th>
-                            <th class="text-left py-1">Last Contact</th>
+                        <tr class="text-xs uppercase tracking-[0.18em] text-slate-400">
+                            <th class="pb-3 font-semibold">Name</th>
+                            <th class="pb-3 font-semibold">Status</th>
+                            <th class="pb-3 font-semibold">Last contact</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td class="py-1">Tom Harris</td>
-                            <td><span class="px-2 py-0.5 bg-blue-100 text-blue-700 rounded">Pinged</span>
-                            </td>
-                            <td>2d ago</td>
-                        </tr>
-                        <tr>
-                            <td class="py-1">Lisa Graham</td>
-                            <td><span class="px-2 py-0.5 bg-yellow-100 text-yellow-700 rounded">Interested</span>
-                            </td>
-                            <td>3d ago</td>
-                        </tr>
-                        <tr>
-                            <td class="py-1">David Lee</td>
-                            <td><span class="px-2 py-0.5 bg-green-100 text-green-700 rounded">Followed
-                                    Up</span></td>
-                            <td>5d ago</td>
-                        </tr>
+                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                        @foreach ($prospects as $prospect)
+                            <tr>
+                                <td class="py-3 font-semibold text-slate-950 dark:text-white">{{ $prospect['name'] }}</td>
+                                <td class="py-3">
+                                    <span class="rounded-full px-2.5 py-1 text-xs font-semibold {{ $this->getStatusPillClass($prospect['status']) }}">{{ $prospect['status'] }}</span>
+                                </td>
+                                <td class="py-3 text-slate-500 dark:text-slate-400">{{ $prospect['last_contact'] }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
-            <!-- Activity -->
-            <div class="bg-white rounded-2xl shadow p-5 flex flex-col gap-3 md:col-span-2">
-                <span class="font-semibold text-gray-700">Activity</span>
-                <ul class="divide-y divide-gray-100">
-                    <li class="py-2 flex items-center gap-2">
-                        <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
-                        <span class="text-xs text-gray-700">Alex Wong joined Herbalife</span>
-                        <span class="ml-auto text-xs text-gray-400">2h ago</span>
-                    </li>
-                    <li class="py-2 flex items-center gap-2">
-                        <span class="h-2 w-2 rounded-full bg-yellow-400"></span>
-                        <span class="text-xs text-gray-700">Missed potential spillover</span>
-                        <span class="ml-auto text-xs text-gray-400">4h ago</span>
-                    </li>
-                    <li class="py-2 flex items-center gap-2">
-                        <span class="h-2 w-2 rounded-full bg-blue-400"></span>
-                        <span class="text-xs text-gray-700">Sarah Lin invited a new member</span>
-                        <span class="ml-auto text-xs text-gray-400">6h ago</span>
-                    </li>
-                </ul>
-            </div>
         </div>
+
+        <div class="rounded-[32px] border border-slate-200/80 bg-white/90 p-6 shadow-[0_28px_90px_-55px_rgba(15,23,42,0.65)] backdrop-blur dark:border-slate-800 dark:bg-slate-900/85 xl:col-span-5">
+            <p class="text-xs font-semibold uppercase tracking-[0.28em] text-blue-600 dark:text-blue-300">Activity</p>
+            <h2 class="mt-2 text-2xl font-bold text-slate-950 dark:text-white">Latest movement</h2>
+            <ul class="mt-5 space-y-3">
+                @foreach ($activities as $activity)
+                    <li class="rounded-3xl bg-slate-50 px-4 py-4 dark:bg-slate-800/70">
+                        <div class="flex items-start gap-3">
+                            <span class="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full {{ $this->activityToneClass($activity['type']) }}"></span>
+                            <div class="min-w-0 flex-1">
+                                <div class="flex items-start justify-between gap-3">
+                                    <p class="text-sm font-semibold text-slate-950 dark:text-white">{{ $activity['title'] }}</p>
+                                    <span class="shrink-0 text-xs text-slate-400">{{ $activity['time'] }}</span>
+                                </div>
+                                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ $activity['message'] }}</p>
+                            </div>
+                        </div>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+
+    <div class="grid w-full gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        @foreach ($quickActions as $action)
+            <x-spa-link :href="\App\Support\Nav::route($action['route'] ?? null)" :spa="($action['route'] ?? '') !== 'member.genealogy'" class="rounded-[28px] border border-slate-200/80 bg-white/90 p-5 shadow-[0_24px_80px_-48px_rgba(15,23,42,0.55)] transition hover:border-blue-300 dark:border-slate-800 dark:bg-slate-900/85">
+                <p class="text-sm font-semibold text-slate-950 dark:text-white">{{ $action['label'] }}</p>
+                <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">{{ $action['value'] }}</p>
+            </x-spa-link>
+        @endforeach
     </div>
 </div>

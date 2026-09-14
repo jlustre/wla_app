@@ -13,16 +13,21 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('sponsor_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->string('username', 50)->unique();
+            $table->unsignedBigInteger('sponsor_id')->nullable();
+            $table->string('rank_name', 100)->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('active')->index();
             $table->string('avatar_path')->nullable();
-            $table->string('username')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('status')->default('active')->index();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index('sponsor_id', 'idx_users_sponsor_id');
+            $table->foreign('sponsor_id', 'fk_users_sponsor')
+                ->references('id')->on('users')->nullOnDelete();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
