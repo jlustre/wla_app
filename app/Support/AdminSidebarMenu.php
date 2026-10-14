@@ -42,7 +42,16 @@ class AdminSidebarMenu
                 'items' => [
                     ['label' => 'Members Management', 'route' => 'admin.users.index', 'icon' => 'users', 'title' => 'User Management'],
                     ['label' => 'Role Management', 'route' => 'admin.roles.index', 'icon' => 'shield', 'title' => 'Role Management'],
-                    ['label' => 'Company Management', 'route' => 'admin.companies.index', 'icon' => 'folder', 'title' => 'Manage Companies'],
+                    [
+                        'label' => 'Company Management',
+                        'route' => 'admin.companies.index',
+                        'icon' => 'folder',
+                        'title' => 'Manage Companies',
+                        'children' => [
+                            ['label' => 'All Companies', 'route' => 'admin.companies.index', 'title' => 'Manage Companies'],
+                            ['label' => 'Add New Company', 'route' => 'admin.companies.create', 'title' => 'Add New Company'],
+                        ],
+                    ],
                     ['label' => 'Sponsor Relationships', 'route' => 'admin.sponsor-relationships.index', 'icon' => 'network', 'title' => 'Sponsor Relationships'],
                     ['label' => 'Settings', 'route' => 'admin.settings', 'icon' => 'cog', 'title' => 'Platform Settings'],
                     ['label' => 'Audit Logs', 'route' => 'admin.audit-logs.index', 'icon' => 'clipboard-document-list', 'title' => 'Audit Logs'],

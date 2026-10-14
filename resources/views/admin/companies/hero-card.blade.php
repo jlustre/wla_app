@@ -14,12 +14,13 @@
                 @endif
             </div>
             <span class="inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em]" style="border-color: {{ $company->highlight_color ?? 'rgba(251,191,36,0.2)' }}; background: {{ $company->style_meta['status_bg'] ?? 'rgba(251,191,36,0.1)' }}; color: {{ $company->highlight_color ?? '#fbbf24' }};">
-                Not Joined
+                {{ ($isJoined ?? false) ? 'Joined' : 'Not Joined' }}
             </span>
+            <button type="button" @click="tab = 'reviews'" class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 transition hover:border-amber-400/30 hover:bg-amber-500/10">
+                <x-star-rating :rating="$company->average_rating ?? 0" size="text-sm" />
+                <span class="text-xs font-semibold text-slate-300">{{ number_format($company->average_rating ?? 0, 1) }} &middot; {{ $company->total_reviews ?? 0 }} {{ Str::plural('review', $company->total_reviews ?? 0) }}</span>
+            </button>
             </div>
-            <p class="mt-2 text-sm leading-6 sm:text-base" style="color: {{ $company->style_meta['hero_subtitle'] ?? '#cbd5e1' }};">
-            {{ $company->description }}
-            </p>
         </div>
         <div class="mt-4 w-full">
             @if($company->banner)
@@ -30,9 +31,6 @@
         </div>
         @if($company->short_description)
             <p class="mt-4 text-base font-semibold text-sky-200 w-full">{{ $company->short_description }}</p>
-        @endif
-        @if($company->full_description)
-            <p class="mt-2 text-sm text-slate-200 w-full">{{ $company->full_description }}</p>
         @endif
         </div>
 

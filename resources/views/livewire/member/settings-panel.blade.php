@@ -41,33 +41,33 @@
             <div class="grid gap-6 lg:grid-cols-2">
                 <div>
                     <label class="text-sm font-semibold text-slate-700 dark:text-slate-200">Username</label>
-                    <input wire:model.defer="username" type="text" class="mt-2 h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-4 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
+                    <input wire:model.defer="username" type="text" class="mt-2 h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
                     @error('username') <p class="mt-2 text-sm text-rose-600">{{ $message }}</p> @enderror
                 </div>
                 <div>
                     <label class="text-sm font-semibold text-slate-700 dark:text-slate-200">Email</label>
-                    <input wire:model.defer="email" type="email" class="mt-2 h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-4 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
+                    <input wire:model.defer="email" type="email" class="mt-2 h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
                     @error('email') <p class="mt-2 text-sm text-rose-600">{{ $message }}</p> @enderror
                 </div>
                 <div>
                     <label class="text-sm font-semibold text-slate-700 dark:text-slate-200">Phone Number</label>
-                    <input wire:model.defer="phone_number" type="text" class="mt-2 h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-4 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
+                    <input wire:model.defer="phone_number" type="text" class="mt-2 h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
                     @error('phone_number') <p class="mt-2 text-sm text-rose-600">{{ $message }}</p> @enderror
                 </div>
                 <div>
                     <label class="text-sm font-semibold text-slate-700 dark:text-slate-200">City</label>
-                    <input wire:model.defer="city" type="text" class="mt-2 h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-4 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
+                    <input wire:model.defer="city" type="text" class="mt-2 h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
                     @error('city') <p class="mt-2 text-sm text-rose-600">{{ $message }}</p> @enderror
                 </div>
                 <div class="lg:col-span-2">
                     <label class="text-sm font-semibold text-slate-700 dark:text-slate-200">Profile Bio</label>
-                    <textarea wire:model.defer="bio" rows="5" class="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-4 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white"></textarea>
+                    <textarea wire:model.defer="bio" rows="5" class="mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white"></textarea>
                     @error('bio') <p class="mt-2 text-sm text-rose-600">{{ $message }}</p> @enderror
                 </div>
             </div>
 
             <div class="mt-6 flex justify-end">
-                <button type="submit" class="inline-flex items-center rounded-2xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-800 dark:bg-white dark:text-slate-950">Save profile</button>
+                <button type="submit" class="inline-flex items-center rounded-2xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-500">Save profile</button>
             </div>
         </form>
     @endif
@@ -96,22 +96,22 @@
                 <div class="mt-5 space-y-5">
                     <div>
                         <label class="text-sm font-semibold text-slate-700 dark:text-slate-200">Current password</label>
-                        <input wire:model.defer="current_password" type="password" class="mt-2 h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-4 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
+                        <input wire:model.defer="current_password" type="password" class="mt-2 h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
                         @error('current_password') <p class="mt-2 text-sm text-rose-600">{{ $message }}</p> @enderror
                     </div>
                     <div>
                         <label class="text-sm font-semibold text-slate-700 dark:text-slate-200">New password</label>
-                        <input wire:model.defer="password" type="password" class="mt-2 h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-4 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
+                        <input wire:model.defer="password" type="password" class="mt-2 h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
                         @error('password') <p class="mt-2 text-sm text-rose-600">{{ $message }}</p> @enderror
                     </div>
                     <div>
                         <label class="text-sm font-semibold text-slate-700 dark:text-slate-200">Confirm new password</label>
-                        <input wire:model.defer="password_confirmation" type="password" class="mt-2 h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none focus:border-blue-400 focus:ring-4 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
+                        <input wire:model.defer="password_confirmation" type="password" class="mt-2 h-12 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 outline-none focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white">
                     </div>
                 </div>
 
                 <div class="mt-6 flex justify-end">
-                    <button type="submit" class="inline-flex items-center rounded-2xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-800 dark:bg-white dark:text-slate-950">Update password</button>
+                    <button type="submit" class="inline-flex items-center rounded-2xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-500">Update password</button>
                 </div>
             </form>
         </div>
@@ -132,13 +132,13 @@
                             <p class="text-sm font-semibold text-slate-900 dark:text-white">{{ $option['title'] }}</p>
                             <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ $option['copy'] }}</p>
                         </div>
-                        <input wire:model="{{ $option['model'] }}" type="checkbox" class="mt-1 h-5 w-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500">
+                        <input wire:model="{{ $option['model'] }}" type="checkbox" class="mt-1 h-5 w-5 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
                     </label>
                 @endforeach
             </div>
 
             <div class="mt-6 flex justify-end">
-                <button type="submit" class="inline-flex items-center rounded-2xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-800 dark:bg-white dark:text-slate-950">Save notifications</button>
+                <button type="submit" class="inline-flex items-center rounded-2xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-500">Save notifications</button>
             </div>
         </form>
     @endif
@@ -156,13 +156,13 @@
                             <p class="text-sm font-semibold text-slate-900 dark:text-white">{{ $option['title'] }}</p>
                             <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ $option['copy'] }}</p>
                         </div>
-                        <input wire:model="{{ $option['model'] }}" type="checkbox" class="mt-1 h-5 w-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500">
+                        <input wire:model="{{ $option['model'] }}" type="checkbox" class="mt-1 h-5 w-5 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
                     </label>
                 @endforeach
             </div>
 
             <div class="mt-6 flex justify-end">
-                <button type="submit" class="inline-flex items-center rounded-2xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-800 dark:bg-white dark:text-slate-950">Save privacy settings</button>
+                <button type="submit" class="inline-flex items-center rounded-2xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-500">Save privacy settings</button>
             </div>
         </form>
     @endif
@@ -171,13 +171,13 @@
         <form wire:submit="saveTheme" class="rounded-[28px] border border-slate-200/80 bg-white/90 p-6 shadow-[0_24px_80px_-48px_rgba(15,23,42,0.55)] backdrop-blur dark:border-slate-800 dark:bg-slate-900/85">
             <div class="grid gap-4 lg:grid-cols-2">
                 @foreach (['light' => 'Light Theme', 'dark' => 'Dark Theme'] as $value => $label)
-                    <label class="rounded-3xl border px-5 py-5 transition {{ $theme_preference === $value ? 'border-blue-500 bg-blue-50 dark:border-blue-400 dark:bg-blue-500/10' : 'border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-800/70' }}">
+                    <label class="rounded-3xl border px-5 py-5 transition {{ $theme_preference === $value ? 'border-emerald-500 bg-emerald-50 dark:border-emerald-400 dark:bg-emerald-500/10' : 'border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-800/70' }}">
                         <div class="flex items-center justify-between gap-3">
                             <div>
                                 <p class="text-sm font-semibold text-slate-900 dark:text-white">{{ $label }}</p>
                                 <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ $value === 'light' ? 'Bright workspace with clear contrast.' : 'Lower-glare workspace for long sessions.' }}</p>
                             </div>
-                            <input wire:model="theme_preference" type="radio" value="{{ $value }}" class="h-5 w-5 border-slate-300 text-blue-600 focus:ring-blue-500">
+                            <input wire:model="theme_preference" type="radio" value="{{ $value }}" class="h-5 w-5 border-slate-300 text-emerald-600 focus:ring-emerald-500">
                         </div>
                     </label>
                 @endforeach
@@ -185,7 +185,7 @@
             @error('theme_preference') <p class="mt-3 text-sm text-rose-600">{{ $message }}</p> @enderror
 
             <div class="mt-6 flex justify-end">
-                <button type="submit" class="inline-flex items-center rounded-2xl bg-slate-950 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-800 dark:bg-white dark:text-slate-950">Save theme</button>
+                <button type="submit" class="inline-flex items-center rounded-2xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-500">Save theme</button>
             </div>
         </form>
     @endif

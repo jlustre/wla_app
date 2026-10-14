@@ -22,8 +22,8 @@ class ProspectSeeder extends Seeder
             $users = collect([User::factory()->create()]);
         }
 
-        // Ensure jlustre exists
-        $jlustre = User::where('username', 'jlustre')->first();
+        // Ensure the primary demo/test account exists
+        $jlustre = User::where('username', 'jclustre')->first();
         $sources = ['Facebook', 'Referral', 'Instagram', 'YouTube', 'TikTok', 'LinkedIn', 'Twitter', 'family', 'friend', 'other'];
         $hotnesses = ['Hot', 'Warm', 'Cold', 'Inactive', 'N/A'];
         $lastActions = \App\Models\LastAction::all();

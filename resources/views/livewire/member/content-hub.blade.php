@@ -18,12 +18,46 @@
 
     @if ($page === 'invite-link')
         <div class="rounded-[32px] border border-slate-200/80 bg-white/90 p-6 shadow-[0_28px_90px_-55px_rgba(15,23,42,0.65)] backdrop-blur dark:border-slate-800 dark:bg-slate-900/85">
+            <h2 class="text-xl font-bold text-slate-950 dark:text-white">My company invite links</h2>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Every affiliated company, your personal invite link where you've already joined, and a quick way in where you haven't.</p>
+
+            <div class="mt-5 space-y-3">
+                @forelse ($companyInviteCards as $card)
+                    <div class="flex flex-col gap-3 rounded-3xl px-4 py-4 lg:flex-row lg:items-center lg:justify-between {{ $card['is_platform'] ? 'border-2 border-emerald-400 bg-emerald-50/70 dark:border-emerald-500/60 dark:bg-emerald-500/10' : 'bg-slate-50 dark:bg-slate-800/70' }}">
+                        <div class="min-w-0">
+                            <div class="flex items-center gap-2">
+                                @if ($card['is_platform'])
+                                    <span class="inline-flex items-center rounded-full bg-emerald-600 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.18em] text-white">WLA</span>
+                                @endif
+                                <p class="text-sm font-semibold text-slate-900 dark:text-white">{{ $card['name'] }}</p>
+                            </div>
+                            @if ($card['is_joined'])
+                                <p class="mt-1 truncate text-xs text-slate-500 dark:text-slate-400">{{ $card['invite_link'] }}</p>
+                            @elseif ($card['is_pending'])
+                                <p class="mt-1 text-xs uppercase tracking-[0.24em] text-amber-500 dark:text-amber-300">Application pending</p>
+                            @else
+                                <p class="mt-1 text-xs uppercase tracking-[0.24em] text-slate-400">Not joined yet</p>
+                            @endif
+                        </div>
+                        @if ($card['is_joined'])
+                            <button type="button" wire:click="copyCompanyInviteLink('{{ $card['id'] }}')" class="inline-flex shrink-0 items-center justify-center rounded-2xl bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-500">Copy invite link</button>
+                        @else
+                            <a href="{{ $card['dashboard_route'] }}" wire:navigate class="inline-flex shrink-0 items-center justify-center rounded-2xl border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800">Enter &rarr;</a>
+                        @endif
+                    </div>
+                @empty
+                    <p class="text-sm text-slate-500 dark:text-slate-400">No affiliated companies yet.</p>
+                @endforelse
+            </div>
+        </div>
+
+        <div class="rounded-[32px] border border-slate-200/80 bg-white/90 p-6 shadow-[0_28px_90px_-55px_rgba(15,23,42,0.65)] backdrop-blur dark:border-slate-800 dark:bg-slate-900/85">
             <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                 <div>
                     <h2 class="text-xl font-bold text-slate-950 dark:text-white">Invite actions</h2>
-                    <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Copy your share link or resend a pending invite without leaving the member workspace.</p>
+                    <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Copy your general share link or resend a pending invite without leaving the member workspace.</p>
                 </div>
-                <button type="button" wire:click="copyInviteLink" class="inline-flex items-center justify-center rounded-2xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 dark:bg-white dark:text-slate-950">Copy invite link</button>
+                <button type="button" wire:click="copyInviteLink" class="inline-flex items-center justify-center rounded-2xl bg-emerald-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-emerald-500">Copy invite link</button>
             </div>
             <div class="mt-5 space-y-3">
                 @foreach ($inviteActions as $invite)
@@ -67,9 +101,9 @@
             <div class="mt-5 grid gap-4 lg:grid-cols-2">
                 @foreach ($eventActions as $event)
                     <article class="rounded-3xl bg-slate-50 p-5 dark:bg-slate-800/70">
-                        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-blue-600 dark:text-blue-300">{{ $event['status'] }}</p>
+                        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-600 dark:text-emerald-300">{{ $event['status'] }}</p>
                         <h3 class="mt-3 text-lg font-bold text-slate-950 dark:text-white">{{ $event['title'] }}</h3>
-                        <p class="mt-2 text-sm font-semibold text-amber-600 dark:text-amber-300">{{ $event['starts_at'] }}</p>
+                        <p class="mt-2 text-sm font-semibold text-yellow-600 dark:text-yellow-300">{{ $event['starts_at'] }}</p>
                         <p class="mt-3 text-sm text-slate-600 dark:text-slate-300">{{ $event['description'] }}</p>
                         <div class="mt-4">
                             @if ($event['can_reserve'])
@@ -90,7 +124,7 @@
             <div class="mt-5 grid gap-4 lg:grid-cols-2">
                 @foreach ($resourceActions as $resource)
                     <article class="rounded-3xl bg-slate-50 p-5 dark:bg-slate-800/70">
-                        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-blue-600 dark:text-blue-300">{{ $resource['category'] }} • {{ strtoupper($resource['status']) }}</p>
+                        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-600 dark:text-emerald-300">{{ $resource['category'] }} • {{ strtoupper($resource['status']) }}</p>
                         <h3 class="mt-3 text-lg font-bold text-slate-950 dark:text-white">{{ $resource['title'] }}</h3>
                         <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Format: {{ strtoupper($resource['format']) }} • Reviewed {{ $resource['view_count'] }} times</p>
                         <div class="mt-4 flex flex-wrap gap-3">
@@ -113,7 +147,7 @@
                         <h2 class="text-xl font-bold text-slate-950 dark:text-white">{{ $card['title'] }}</h2>
                         <p class="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{{ $card['body'] }}</p>
                         @if (! empty($card['meta']))
-                            <p class="mt-3 text-xs font-semibold uppercase tracking-[0.24em] text-blue-600 dark:text-blue-300">{{ $card['meta'] }}</p>
+                            <p class="mt-3 text-xs font-semibold uppercase tracking-[0.24em] text-emerald-600 dark:text-emerald-300">{{ $card['meta'] }}</p>
                         @endif
                     </article>
                 @endforeach
@@ -125,7 +159,7 @@
                         <h2 class="text-xl font-bold text-slate-950 dark:text-white">{{ $card['title'] }}</h2>
                         <p class="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{{ $card['body'] }}</p>
                         @if (! empty($card['meta']))
-                            <p class="mt-3 text-xs font-semibold uppercase tracking-[0.24em] text-blue-600 dark:text-blue-300">{{ $card['meta'] }}</p>
+                            <p class="mt-3 text-xs font-semibold uppercase tracking-[0.24em] text-emerald-600 dark:text-emerald-300">{{ $card['meta'] }}</p>
                         @endif
                     </article>
                 @endforeach

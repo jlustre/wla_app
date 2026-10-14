@@ -4,6 +4,18 @@
     @case('home')
         <svg {{ $attributes->merge(['class' => $class]) }} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10.75 12 3l9 7.75" /><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 9.5V20.25H18.75V9.5" /></svg>
         @break
+    @case('building-office')
+        <svg {{ $attributes->merge(['class' => $class]) }} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 21V5.25A1.5 1.5 0 0 1 6 3.75h7.5a1.5 1.5 0 0 1 1.5 1.5V21" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5h3a1.5 1.5 0 0 1 1.5 1.5v9" /><path stroke-linecap="round" stroke-linejoin="round" d="M3 21h18" /><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 7.5h1.5m-1.5 3.75h1.5m-1.5 3.75h1.5m3.75-7.5h1.5m-1.5 3.75h1.5m-1.5 3.75h1.5M16.5 14.25h.75" /></svg>
+        @break
+    @case('user-plus')
+        <svg {{ $attributes->merge(['class' => $class]) }} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 15.75a5.25 5.25 0 0 0-9 0" /><circle cx="6" cy="7.5" r="3.375" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25v6M22.5 11.25h-6" /></svg>
+        @break
+    @case('phone')
+        <svg {{ $attributes->merge(['class' => $class]) }} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h1.5a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106a1.125 1.125 0 0 0-1.173.417l-.97 1.293a1.125 1.125 0 0 1-1.417.293 12.035 12.035 0 0 1-5.814-5.814 1.125 1.125 0 0 1 .293-1.417l1.293-.97a1.125 1.125 0 0 0 .417-1.173L7.964 3.102a1.125 1.125 0 0 0-1.091-.852H5.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" /></svg>
+        @break
+    @case('arrow-path')
+        <svg {{ $attributes->merge(['class' => $class]) }} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
+        @break
     @case('user')
         <svg {{ $attributes->merge(['class' => $class]) }} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5a7.5 7.5 0 0 1 15 0" /></svg>
         @break

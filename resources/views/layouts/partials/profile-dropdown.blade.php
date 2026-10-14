@@ -1,6 +1,6 @@
 <div class="relative" x-data="{ open: false }">
     <button @click="open = !open" class="flex items-center gap-3">
-        <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-700 to-cyan-500 text-sm font-bold text-white">
+        <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-500 text-sm font-bold text-white">
             {{ strtoupper(substr(auth()->user()->username ?? auth()->user()->name ?? 'U', 0, 1)) }}
         </div>
         <div class="hidden text-left md:block">

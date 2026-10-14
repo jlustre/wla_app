@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth'])->group(function () {
 	Route::view('member/genealogy', 'member.genealogy')->name('member.genealogy');
 	Route::get('api/genealogy/tree', [\App\Http\Controllers\MemberHierarchyController::class, 'sponsorshipTree']);
+	Route::view('member/calendar', 'member.calendar')->name('member.calendar');
+	Route::view('member/onboarding', 'member.onboarding')->name('member.onboarding');
 
 	Route::prefix('member')->name('member.')->group(function () {
 		Route::get('sponsor', [MemberContentController::class, 'page'])->defaults('page', 'sponsor')->name('sponsor');

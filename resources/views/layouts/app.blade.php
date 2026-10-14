@@ -5,6 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
+        @include('layouts.partials.theme-script')
+
+        <link rel="icon" type="image/png" href="{{ asset('images/branding/wla-favicon.png') }}">
+
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
@@ -23,12 +27,12 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-gray-100 transition-colors duration-300 dark:bg-slate-950">
             <livewire:layout.navigation />
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white shadow">
+                <header class="bg-white shadow dark:bg-slate-900 dark:shadow-slate-950/40">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
@@ -40,22 +44,5 @@
                 @yield('content')
             </div>
         </div>
-        <script>
-        const navbar = document.getElementById("navbar");
-        window.onscroll = () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add("shadow-xl", "py-2");
-                navbar.classList.remove("py-4");
-            } else {
-                navbar.classList.add("py-4");
-                navbar.classList.remove("shadow-xl", "py-2");
-            }
-        };
-        const btn = document.getElementById("menu-btn");
-        const menu = document.getElementById("mobile-menu");
-        btn.addEventListener("click", () => {
-            menu.classList.toggle("hidden");
-        });
-    </script>
     </body>
 </html>

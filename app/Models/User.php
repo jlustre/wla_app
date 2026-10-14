@@ -28,6 +28,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'status',
+        'sponsor_id',
     ];
 
     /**
@@ -63,6 +64,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         static::created(function ($user) {
             $user->profile()->create();
+            \App\Services\OnboardingService::initializeFor($user);
         });
     }
 
@@ -111,6 +113,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(MemberCompanyAffiliation::class, 'user_id');
     }
 
+    public function companyReviews()
+    {
+        return $this->hasMany(CompanyReview::class);
+    }
+
     public function activities()
     {
         return $this->hasMany(Activity::class);
@@ -119,6 +126,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sentInvitations()
     {
         return $this->hasMany(Invitation::class, 'inviter_id');
+    }
+
+    public function inviteCodes()
+    {
+        return $this->hasMany(InviteCode::class, 'user_id');
     }
 
     public function sponsorRelationships()

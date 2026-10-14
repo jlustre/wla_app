@@ -86,7 +86,9 @@ test('admin workspace uses the member dashboard layout chrome', function () {
 
     expect($html)
         ->toContain('wire:navigate')
-        ->toContain('instrument-sans')
+        ->toContain('figtree')
+        ->toContain('wla-sidebar')
+        ->toContain('wla-hero')
         ->toContain('Admin dashboard')
         ->and($html)->not->toContain('cdn.tailwindcss.com');
 });

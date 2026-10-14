@@ -5,7 +5,7 @@
                 <p class="text-lg font-bold text-slate-950 dark:text-white">{{ $node['name'] }}</p>
                 <p class="text-sm text-slate-500 dark:text-slate-400">{{ $node['email'] }}</p>
             </div>
-            <span class="inline-flex rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700 dark:bg-blue-500/10 dark:text-blue-300">Level {{ $level }}</span>
+            <span class="inline-flex rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">Level {{ $level }}</span>
         </div>
     </div>
 

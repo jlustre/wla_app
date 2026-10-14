@@ -20,9 +20,9 @@ class MemberContentController extends Controller
             ],
             'invite-link' => [
                 'key' => 'invite-link',
-                'title' => 'My Invite Link',
+                'title' => 'My Invite Links',
                 'eyebrow' => 'Member Growth',
-                'description' => 'Manage your personal invitation assets, recent conversions, and sponsor attribution.',
+                'description' => 'Share your company-specific invite links where you\'ve joined, and jump straight to joining the ones you haven\'t.',
             ],
             'sponsored-members' => [
                 'key' => 'sponsored-members',

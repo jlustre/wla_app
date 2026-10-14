@@ -24,11 +24,18 @@ class SponsorshipTree extends Component
 
     public bool $activeOnly = false;
 
-    public function mount(): void
+    public ?int $rootId = null;
+
+    public function mount(?int $rootId = null): void
     {
-        $user = Auth::user();
+        $user = $rootId ? User::query()->find($rootId) : Auth::user();
+
+        if (! $user instanceof User) {
+            $user = Auth::user();
+        }
 
         if ($user instanceof User) {
+            $this->rootId = $user->id;
             $this->tree = $this->makeNode($user, null, 0);
             $this->registerNode($this->tree);
             $this->loadChildrenFor($this->tree['id']);

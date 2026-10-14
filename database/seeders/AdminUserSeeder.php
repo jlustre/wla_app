@@ -19,11 +19,11 @@ class AdminUserSeeder extends Seeder
         // Superadmin user
         $user = User::firstOrCreate(
             [
-                'email' => 'admin@wla.local',
+                'email' => 'admin@wla.com',
             ],
             [
                 'username' => 'superadmin',
-                'password' => Hash::make('password'), // Change after first login
+                'password' => Hash::make('Password123'), // Change after first login
                 'status' => 'active',
                 'email_verified_at' => now(),
                 'avatar_path' => null,
@@ -41,7 +41,7 @@ class AdminUserSeeder extends Seeder
             ],
             [
                 'username' => 'jlustre',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('Password123'),
                 'status' => 'active',
                 'email_verified_at' => now(),
                 'avatar_path' => null,

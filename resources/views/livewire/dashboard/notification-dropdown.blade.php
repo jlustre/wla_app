@@ -1,9 +1,9 @@
 <div class="relative" x-data="{ open: false }" @keydown.escape.window="open = false" x-on:livewire:navigated.window="open = false">
-    <button type="button" class="relative inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-blue-300 hover:text-blue-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300" @click="open = ! open">
+    <button type="button" class="relative inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-emerald-300 hover:text-emerald-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300" @click="open = ! open">
         <span class="sr-only">Open notifications</span>
         <x-dashboard-icon name="bell" class="h-5 w-5" />
         @if ($unreadCount > 0)
-            <span class="absolute right-2 top-2 inline-flex min-h-5 min-w-5 items-center justify-center rounded-full bg-amber-400 px-1.5 text-[11px] font-bold text-slate-950">{{ $unreadCount }}</span>
+            <span class="absolute right-2 top-2 inline-flex min-h-5 min-w-5 items-center justify-center rounded-full bg-yellow-400 px-1.5 text-[11px] font-bold text-slate-950">{{ $unreadCount }}</span>
         @endif
     </button>
 
@@ -17,7 +17,7 @@
                 <div class="flex items-center gap-2">
                     <span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">{{ $unreadCount }} unread</span>
                     @if ($unreadCount > 0)
-                        <button type="button" wire:click="markAllAsRead" class="text-xs font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-300">Mark all read</button>
+                        <button type="button" wire:click="markAllAsRead" class="text-xs font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-300">Mark all read</button>
                     @endif
                 </div>
             </div>
@@ -27,19 +27,23 @@
             @forelse ($notifications as $notification)
                 <div class="rounded-2xl border border-transparent px-3 py-3 transition hover:border-slate-200 hover:bg-slate-50 dark:hover:border-slate-800 dark:hover:bg-slate-800/70">
                     <div class="flex items-start gap-3">
-                        <span class="mt-1 inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-300">
+                        <span class="mt-1 inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-300">
                             <x-dashboard-icon name="bell" class="h-4 w-4" />
                         </span>
                         <div class="min-w-0 flex-1">
                             <div class="flex items-center justify-between gap-3">
-                                <p class="truncate text-sm font-semibold text-slate-900 dark:text-white">{{ $notification['title'] }}</p>
+                                @if (! empty($notification['route']) && \Illuminate\Support\Facades\Route::has($notification['route']))
+                                    <x-spa-link :href="\App\Support\Nav::route($notification['route'])" class="truncate text-sm font-semibold text-slate-900 hover:text-emerald-600 dark:text-white dark:hover:text-emerald-300">{{ $notification['title'] }}</x-spa-link>
+                                @else
+                                    <p class="truncate text-sm font-semibold text-slate-900 dark:text-white">{{ $notification['title'] }}</p>
+                                @endif
                                 <span class="text-xs text-slate-400">{{ $notification['time'] }}</span>
                             </div>
                             <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">{{ $notification['message'] }}</p>
                             <div class="mt-3 flex items-center justify-between">
                                 <span class="text-[11px] font-semibold uppercase tracking-[0.28em] text-slate-400">{{ $notification['type'] }}</span>
                                 @if (! $notification['read_at'])
-                                    <button type="button" wire:click="markAsRead('{{ $notification['id'] }}')" class="text-xs font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-300">Mark as read</button>
+                                    <button type="button" wire:click="markAsRead('{{ $notification['id'] }}')" class="text-xs font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-300">Mark as read</button>
                                 @endif
                             </div>
                         </div>

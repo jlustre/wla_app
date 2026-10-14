@@ -17,6 +17,9 @@ test('member workspace uses spa navigation and persists chrome', function () {
 
     expect($html)
         ->toContain('wire:navigate')
+        ->toContain('figtree')
+        ->toContain('wla-sidebar')
+        ->toContain(route('landing.how', absolute: false))
         ->toContain(route('member.dashboard', absolute: false))
         ->toContain(route('member.genealogy', absolute: false))
         ->toContain(route('member.settings.profile', absolute: false));

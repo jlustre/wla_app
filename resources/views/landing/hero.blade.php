@@ -1,4 +1,4 @@
-<section id="hero" class="relative min-h-screen flex items-center overflow-hidden">
+<section id="hero" class="relative min-h-screen flex items-center overflow-hidden scroll-mt-24">
     <div class="absolute inset-0 z-0 w-full h-full overflow-hidden">
         <!-- Hero slider images -->
         <img src="/images/landing/hero/hero1.png" alt="Hero 1" class="hero-slide w-full h-full object-cover object-top absolute inset-0 transition-opacity duration-700 opacity-100" style="z-index:1;">

@@ -54,11 +54,11 @@
         <div>
           <h4 class="text-[16px] font-extrabold text-white">Quick Links</h4>
           <ul class="mt-4 space-y-2 text-[15px] text-[#d2dae8]">
-            <li><a href="#" class="hover:text-white">Dashboard</a></li>
-            <li><a href="#" class="hover:text-white">How It Works</a></li>
-            <li><a href="#" class="hover:text-white">Get Started</a></li>
-            <li><a href="#" class="hover:text-white">Support</a></li>
-            <li><a href="#" class="hover:text-white">Watch Intro</a></li>
+            <li><a href="{{ route('dashboard') }}" class="hover:text-white">Dashboard</a></li>
+            <li><a href="{{ route('landing.how') }}#how" class="hover:text-white">How It Works</a></li>
+            <li><a href="{{ route('register') }}" class="hover:text-white">Get Started</a></li>
+            <li><a href="{{ route('landing.how') }}#contact" class="hover:text-white">Support</a></li>
+            <li><a href="{{ route('landing.how') }}#hero" class="hover:text-white">Watch Intro</a></li>
           </ul>
         </div>
 
@@ -66,10 +66,10 @@
         <div>
           <h4 class="text-[16px] font-extrabold text-white">Legal</h4>
           <ul class="mt-4 space-y-2 text-[15px] text-[#d2dae8]">
-            <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
-            <li><a href="#" class="hover:text-white">Terms of Service</a></li>
-            <li><a href="#" class="hover:text-white">Cookie Policy</a></li>
-            <li><a href="#" class="hover:text-white">Income Disclosure</a></li>
+            <li><a href="{{ route('privacy-policy') }}" class="hover:text-white">Privacy Policy</a></li>
+            <li><a href="{{ route('terms-of-service') }}" class="hover:text-white">Terms of Service</a></li>
+            <li><a href="{{ route('cookie-policy') }}" class="hover:text-white">Cookie Policy</a></li>
+            <li><a href="{{ route('income-disclosure') }}" class="hover:text-white">Income Disclosure</a></li>
           </ul>
         </div>
 

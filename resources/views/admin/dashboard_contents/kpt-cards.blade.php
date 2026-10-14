@@ -3,8 +3,8 @@
     <div class="flex items-start justify-between gap-4">
       <div>
         <p class="text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">Total Members</p>
-        <p class="mt-3 text-3xl font-extrabold text-white">12,480</p>
-        <p class="mt-2 text-sm text-emerald-300">+4.2% from last month</p>
+        <p class="mt-3 text-3xl font-extrabold text-white">{{ number_format($kpis['totalMembers']) }}</p>
+        <p class="mt-2 text-sm text-emerald-300">{{ $kpis['newThisWeek'] }} new this week</p>
       </div>
       <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-500/10 text-sky-300">
         <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
@@ -21,8 +21,8 @@
     <div class="flex items-start justify-between gap-4">
       <div>
         <p class="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-300">Active Members</p>
-        <p class="mt-3 text-3xl font-extrabold text-white">8,932</p>
-        <p class="mt-2 text-sm text-emerald-300">71.6% active rate</p>
+        <p class="mt-3 text-3xl font-extrabold text-white">{{ number_format($kpis['activeMembers']) }}</p>
+        <p class="mt-2 text-sm text-emerald-300">{{ $kpis['activeRate'] }}% active rate</p>
       </div>
       <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-300">
         <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
@@ -37,8 +37,8 @@
     <div class="flex items-start justify-between gap-4">
       <div>
         <p class="text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">New Members This Week</p>
-        <p class="mt-3 text-3xl font-extrabold text-white">247</p>
-        <p class="mt-2 text-sm text-emerald-300">+18 since yesterday</p>
+        <p class="mt-3 text-3xl font-extrabold text-white">{{ number_format($kpis['newThisWeek']) }}</p>
+        <p class="mt-2 text-sm text-emerald-300">+{{ $kpis['newSinceYesterday'] }} since yesterday</p>
       </div>
       <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-500/10 text-sky-300">
         <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
@@ -53,8 +53,8 @@
     <div class="flex items-start justify-between gap-4">
       <div>
         <p class="text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">Affiliated Companies</p>
-        <p class="mt-3 text-3xl font-extrabold text-white">12</p>
-        <p class="mt-2 text-sm text-slate-400">4 categories represented</p>
+        <p class="mt-3 text-3xl font-extrabold text-white">{{ $kpis['totalCompanies'] }}</p>
+        <p class="mt-2 text-sm text-slate-400">{{ $kpis['categoryCount'] }} categories represented</p>
       </div>
       <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-500/10 text-sky-300">
         <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
@@ -71,7 +71,7 @@
     <div class="flex items-start justify-between gap-4">
       <div>
         <p class="text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">Active Company Memberships</p>
-        <p class="mt-3 text-3xl font-extrabold text-white">21,304</p>
+        <p class="mt-3 text-3xl font-extrabold text-white">{{ number_format($kpis['activeMemberships']) }}</p>
         <p class="mt-2 text-sm text-slate-400">Across all affiliated companies</p>
       </div>
       <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-500/10 text-sky-300">
@@ -88,8 +88,8 @@
     <div class="flex items-start justify-between gap-4">
       <div>
         <p class="text-xs font-semibold uppercase tracking-[0.18em] text-amber-300">Pending Invitations</p>
-        <p class="mt-3 text-3xl font-extrabold text-white">316</p>
-        <p class="mt-2 text-sm text-amber-300">42 expiring in 48 hours</p>
+        <p class="mt-3 text-3xl font-extrabold text-white">{{ number_format($kpis['pendingInvitations']) }}</p>
+        <p class="mt-2 text-sm text-amber-300">{{ $kpis['expiringSoon'] }} expiring in 48 hours</p>
       </div>
       <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-300">
         <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
@@ -103,8 +103,8 @@
     <div class="flex items-start justify-between gap-4">
       <div>
         <p class="text-xs font-semibold uppercase tracking-[0.18em] text-amber-300">Sponsorship Reassignments</p>
-        <p class="mt-3 text-3xl font-extrabold text-white">89</p>
-        <p class="mt-2 text-sm text-amber-300">11 this week</p>
+        <p class="mt-3 text-3xl font-extrabold text-white">{{ number_format($kpis['totalReassignments']) }}</p>
+        <p class="mt-2 text-sm text-amber-300">{{ $kpis['reassignmentsThisWeek'] }} this week</p>
       </div>
       <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-300">
         <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
@@ -119,8 +119,8 @@
     <div class="flex items-start justify-between gap-4">
       <div>
         <p class="text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">Resources Uploaded</p>
-        <p class="mt-3 text-3xl font-extrabold text-white">142</p>
-        <p class="mt-2 text-sm text-slate-400">8 added this week</p>
+        <p class="mt-3 text-3xl font-extrabold text-white">{{ number_format($kpis['totalResources']) }}</p>
+        <p class="mt-2 text-sm text-slate-400">{{ $kpis['resourcesThisWeek'] }} added this week</p>
       </div>
       <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-500/10 text-sky-300">
         <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">

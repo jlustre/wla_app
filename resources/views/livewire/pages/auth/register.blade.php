@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\InviteCode;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +18,47 @@ new #[Layout('layouts.guest')] class extends Component
     public string $password_confirmation = '';
     public bool $terms = false;
 
+    public ?string $inviteNotice = null;
+
+    public ?string $inviteSuccessNotice = null;
+
+    public function mount(): void
+    {
+        $ref = trim((string) request()->query('ref', ''));
+
+        if ($ref === '') {
+            return;
+        }
+
+        $invite = InviteCode::findUsable($ref);
+
+        if (! $invite) {
+            $this->inviteNotice = 'This invite link has expired or was already used. Please enter your sponsor\'s username manually.';
+            return;
+        }
+
+        $this->sponsor = $invite->owner->username;
+        $this->inviteSuccessNotice = 'Invite code applied — you\'re sponsored by '.$invite->owner->username.'.';
+    }
+
+    /**
+     * Resolve the "sponsor" field as either an invite code or a username.
+     * Invite codes are checked first so an unused, unexpired code always
+     * takes priority and can be consumed on successful registration.
+     */
+    protected function resolveSponsor(string $input): array
+    {
+        $invite = InviteCode::findUsable($input);
+
+        if ($invite) {
+            return [$invite->owner, $invite];
+        }
+
+        $sponsor = User::where('username', $input)->where('status', 'active')->first();
+
+        return [$sponsor, null];
+    }
+
     /**
      * Handle an incoming registration request.
      */
@@ -30,10 +72,10 @@ new #[Layout('layouts.guest')] class extends Component
             'terms' => ['accepted'],
         ]);
 
-        // Validate sponsor exists and is active
-        $sponsor = User::where('username', $validated['sponsor'])->where('status', 'active')->first();
+        // Resolve sponsor by invite code first, falling back to username
+        [$sponsor, $invite] = $this->resolveSponsor(trim($validated['sponsor']));
         if (!$sponsor) {
-            $this->addError('sponsor', 'You can only be sponsored by a current active member of the site.');
+            $this->addError('sponsor', 'Enter a valid sponsor username or an unused invite code.');
             return;
         }
 
@@ -43,28 +85,32 @@ new #[Layout('layouts.guest')] class extends Component
 
         event(new Registered($user = User::create($validated)));
 
+        if ($invite) {
+            $invite->markUsed($user);
+        }
+
         Auth::login($user);
 
         $this->redirect(route('dashboard', absolute: false), navigate: true);
     }
 }; ?>
 
-<div class="bg-teal-800 p-2 sm:p-3 m:p-4 max-w-7xl">
+<div class="bg-slate-900 p-2 sm:p-3 m:p-4 max-w-7xl">
     <div class="mx-auto flex max-w-7xl items-center justify-center">
             <!-- Right Form Panel -->
-            <div class="bg-white p-2 md:p-4">
+            <div class="bg-white p-2 md:p-4 transition-colors duration-300 dark:bg-slate-800">
                 <div class="mx-auto w-full max-w-xl">
-                    <div class="flex justify-center">
+                    <div class="flex justify-center mb-4">
                         <a href="/" wire:navigate>
-                            <x-application-logo class="w-110 h-110 fill-current text-gray-500" />
+                            <x-application-logo class="h-20 sm:h-24 w-auto object-contain" />
                         </a>
                     </div>
                     <div class="mb-4">
-                        <h2 class="mt-0 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl text-center">
+                        <h2 class="mt-0 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl text-center dark:text-white">
                             Create Your Account
                         </h2>
-                        
-                        <p class="mt-3 text-sm leading-4 text-slate-600 sm:text-base">
+
+                        <p class="mt-3 text-sm leading-4 text-slate-600 sm:text-base dark:text-slate-400">
                             Register below to begin your journey with Wealth Legacy Alliance. Complete your details carefully, especially your sponsor information, to ensure proper member placement.
                         </p>
                     </div>
@@ -72,7 +118,7 @@ new #[Layout('layouts.guest')] class extends Component
                     <form class="space-y-4" wire:submit.prevent="register">
                         <!-- Username -->
                         <div>
-                            <label for="username" class="mb-1 text-sm font-semibold text-slate-800 flex items-center gap-2">
+                            <label for="username" class="mb-1 text-sm font-semibold text-slate-800 flex items-center gap-2 dark:text-slate-200">
                                 Username <span class="text-rose-500">*</span>
                                 <span class="relative group">
                                     <svg class="inline h-4 w-4 text-teal-600 cursor-pointer" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -96,7 +142,7 @@ new #[Layout('layouts.guest')] class extends Component
                                     type="text"
                                     autocomplete="username"
                                     placeholder="Choose a unique username"
-                                    class="block w-full rounded-lg border border-teal-600 bg-teal-50 px-3 py-2 pl-12 pr-4 text-md text-slate-900 shadow-sm outline-none transition duration-200 placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+                                    class="block w-full rounded-lg border border-emerald-600 bg-emerald-50 px-3 py-2 pl-12 pr-4 text-md text-slate-900 shadow-sm outline-none transition duration-200 placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 dark:border-emerald-700 dark:bg-emerald-500/10 dark:text-white dark:placeholder:text-slate-500 dark:focus:ring-emerald-900/40"
                                     wire:model.defer="username"
                                 />
                             </div>
@@ -105,22 +151,35 @@ new #[Layout('layouts.guest')] class extends Component
                             @enderror
                         </div>
 
+                        @if ($inviteSuccessNotice)
+                            <div class="flex items-center gap-2 rounded-lg border border-emerald-300 bg-emerald-50 px-3 py-2 text-sm text-emerald-800 dark:border-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">
+                                <svg class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                                {{ $inviteSuccessNotice }}
+                            </div>
+                        @endif
+
+                        @if ($inviteNotice)
+                            <div class="rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-800 dark:border-amber-700 dark:bg-amber-500/10 dark:text-amber-300">
+                                {{ $inviteNotice }}
+                            </div>
+                        @endif
+
                         <!-- Sponsor -->
                         <div>
-                            <label for="sponsor" class="mb-1 text-sm font-semibold text-slate-800 flex items-center gap-2">
-                                Sponsor <span class="text-rose-500">*</span>
+                            <label for="sponsor" class="mb-1 text-sm font-semibold text-slate-800 flex items-center gap-2 dark:text-slate-200">
+                                Sponsor/Code <span class="text-rose-500">*</span>
                                 <span class="relative group">
                                     <svg class="inline h-4 w-4 text-slate-500 cursor-pointer" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                         <circle cx="12" cy="12" r="10" />
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01" />
                                     </svg>
                                     <span class="absolute left-6 top-1/2 z-10 hidden w-64 -translate-y-1/2 rounded bg-slate-800 px-3 py-2 text-xs text-white shadow-lg group-hover:block">
-                                        If you came through a referral link, this field may be prefilled automatically. Your sponsor is the member who invited you into WLA. Please make sure this information is correct before submitting your registration.
+                                        If you came through a referral link, this field may be prefilled automatically. Enter your sponsor's username, or paste the invite code they shared with you. Please make sure this information is correct before submitting your registration.
                                     </span>
                                 </span>
                             </label>
                             <div class="relative mt-1">
-                                <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-blue-500">
+                                <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-emerald-500">
                                     <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M18 9a3 3 0 10-6 0v1H9a3 3 0 000 6h6a3 3 0 000-6h-1V9z" />
                                     </svg>
@@ -130,7 +189,7 @@ new #[Layout('layouts.guest')] class extends Component
                                     name="sponsor"
                                     type="text"
                                     placeholder="Enter sponsor username or referral code"
-                                    class="block w-full rounded-lg border border-teal-600 bg-teal-50 px-3 py-2 pl-12 pr-4 text-md text-slate-900 shadow-sm outline-none transition duration-200 placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+                                    class="block w-full rounded-lg border border-emerald-600 bg-emerald-50 px-3 py-2 pl-12 pr-4 text-md text-slate-900 shadow-sm outline-none transition duration-200 placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 dark:border-emerald-700 dark:bg-emerald-500/10 dark:text-white dark:placeholder:text-slate-500 dark:focus:ring-emerald-900/40"
                                     wire:model.defer="sponsor"
                                 />
                             </div>
@@ -141,7 +200,7 @@ new #[Layout('layouts.guest')] class extends Component
 
                         <!-- Email -->
                         <div>
-                            <label for="email" class="mb-1 text-sm font-semibold text-slate-800 flex items-center gap-2">
+                            <label for="email" class="mb-1 text-sm font-semibold text-slate-800 flex items-center gap-2 dark:text-slate-200">
                                 Email Address<span class="text-rose-500">*</span>
                                 <span class="relative group">
                                     <svg class="inline h-4 w-4 text-slate-800 cursor-pointer" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -165,7 +224,7 @@ new #[Layout('layouts.guest')] class extends Component
                                     type="email"
                                     autocomplete="email"
                                     placeholder="Enter your email address"
-                                    class="block w-full rounded-lg border border-teal-600 bg-teal-50 px-3 py-2 pl-12 pr-4 text-md text-slate-900 shadow-sm outline-none transition duration-200 placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+                                    class="block w-full rounded-lg border border-emerald-600 bg-emerald-50 px-3 py-2 pl-12 pr-4 text-md text-slate-900 shadow-sm outline-none transition duration-200 placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 dark:border-emerald-700 dark:bg-emerald-500/10 dark:text-white dark:placeholder:text-slate-500 dark:focus:ring-emerald-900/40"
                                     wire:model.defer="email"
                                 />
                             </div>
@@ -176,7 +235,7 @@ new #[Layout('layouts.guest')] class extends Component
 
                         <!-- Password -->
                         <div>
-                            <label for="password" class="mb-1 text-sm font-semibold text-slate-800 flex items-center gap-2">
+                            <label for="password" class="mb-1 text-sm font-semibold text-slate-800 flex items-center gap-2 dark:text-slate-200">
                                 Password<span class="text-rose-500">*</span>
                                 <span class="relative group">
                                     <svg class="inline h-4 w-4 text-slate-400 cursor-pointer" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -205,12 +264,12 @@ new #[Layout('layouts.guest')] class extends Component
                                     :type="show ? 'text' : 'password'"
                                     autocomplete="new-password"
                                     placeholder="Create a strong password"
-                                    class="block w-full rounded-lg border border-teal-600 bg-teal-50 px-3 py-2 pl-12 pr-14 text-sm text-slate-900 shadow-sm outline-none transition duration-200 placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+                                    class="block w-full rounded-lg border border-emerald-600 bg-emerald-50 px-3 py-2 pl-12 pr-14 text-sm text-slate-900 shadow-sm outline-none transition duration-200 placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 dark:border-emerald-700 dark:bg-emerald-500/10 dark:text-white dark:placeholder:text-slate-500 dark:focus:ring-emerald-900/40"
                                     wire:model.defer="password"
                                 />
                                 <button
                                     type="button"
-                                    class="absolute inset-y-0 right-0 flex items-center pr-4 text-sm font-medium text-slate-500 transition hover:text-blue-600"
+                                    class="absolute inset-y-0 right-0 flex items-center pr-4 text-sm font-medium text-slate-500 transition hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400"
                                     @click="show = !show"
                                     :aria-label="show ? 'Hide password' : 'Show password'"
                                 >
@@ -225,7 +284,7 @@ new #[Layout('layouts.guest')] class extends Component
 
                         <!-- Password Confirmation -->
                         <div>
-                            <label for="password_confirmation" class="mb-1 text-sm font-semibold text-slate-800 flex items-center gap-2">
+                            <label for="password_confirmation" class="mb-1 text-sm font-semibold text-slate-800 flex items-center gap-2 dark:text-slate-200">
                                 Password Confirmation<span class="text-rose-500">*</span>
                                 <span class="relative group">
                                     <svg class="inline h-4 w-4 text-slate-400 cursor-pointer" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -249,12 +308,12 @@ new #[Layout('layouts.guest')] class extends Component
                                     :type="show ? 'text' : 'password'"
                                     autocomplete="new-password"
                                     placeholder="Re-enter your password"
-                                    class="block w-full rounded-lg border border-teal-600 bg-teal-50 px-3 py-2 pl-12 pr-14 text-sm text-slate-900 shadow-sm outline-none transition duration-200 placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+                                    class="block w-full rounded-lg border border-emerald-600 bg-emerald-50 px-3 py-2 pl-12 pr-14 text-sm text-slate-900 shadow-sm outline-none transition duration-200 placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 dark:border-emerald-700 dark:bg-emerald-500/10 dark:text-white dark:placeholder:text-slate-500 dark:focus:ring-emerald-900/40"
                                     wire:model.defer="password_confirmation"
                                 />
                                 <button
                                     type="button"
-                                    class="absolute inset-y-0 right-0 flex items-center pr-4 text-sm font-medium text-slate-500 transition hover:text-blue-600"
+                                    class="absolute inset-y-0 right-0 flex items-center pr-4 text-sm font-medium text-slate-500 transition hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400"
                                     @click="show = !show"
                                     :aria-label="show ? 'Hide password' : 'Show password'"
                                 >
@@ -273,16 +332,16 @@ new #[Layout('layouts.guest')] class extends Component
                                     id="terms"
                                     name="terms"
                                     type="checkbox"
-                                    class="mt-0 h-5 w-5 rounded border-slate-300 text-blue-600 focus:ring-2 focus:ring-blue-500"
+                                    class="mt-0 h-5 w-5 rounded border-slate-300 text-emerald-600 focus:ring-2 focus:ring-emerald-500"
                                     wire:model.defer="terms"
                                 />
-                                <span class="text-xs leading-4 text-slate-600">
+                                <span class="text-xs leading-4 text-slate-600 dark:text-slate-400">
                                     I agree to the
-                                    <a href="#" class="font-semibold text-blue-700 transition hover:text-blue-800 hover:underline">
+                                    <a href="{{ route('terms-of-service') }}" target="_blank" class="font-semibold text-emerald-700 transition hover:text-emerald-800 hover:underline dark:text-emerald-400 dark:hover:text-emerald-300">
                                         Terms and Conditions
                                     </a>
                                     and
-                                    <a href="#" class="font-semibold text-blue-700 transition hover:text-blue-800 hover:underline">
+                                    <a href="{{ route('privacy-policy') }}" target="_blank" class="font-semibold text-emerald-700 transition hover:text-emerald-800 hover:underline dark:text-emerald-400 dark:hover:text-emerald-300">
                                         Privacy Policy
                                     </a>.
                                 </span>
@@ -296,14 +355,14 @@ new #[Layout('layouts.guest')] class extends Component
                         <div class="space-y-2 pt-2">
                             <button
                                 type="submit"
-                                class="inline-flex w-full items-center justify-center rounded-2xl bg-gradient-to-r from-teal-600 via-teal-400 to-teal-800 px-6 py-4 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition duration-200 hover:-translate-y-0.5 hover:from-teal-700 hover:via-teal-700 hover:to-teal-800 focus:outline-none focus:ring-4 focus:ring-blue-200"
+                                class="inline-flex w-full items-center justify-center rounded-2xl bg-emerald-600 hover:bg-emerald-500 px-6 py-4 text-sm font-semibold text-white shadow-lg shadow-emerald-600/20 transition duration-200 hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-emerald-200"
                             >
                                 Create Account
                             </button>
 
-                            <p class="text-center text-sm text-slate-500">
+                            <p class="text-center text-sm text-slate-500 dark:text-slate-400">
                                 Already have an account?
-                                <a href="{{ route('login') }}" class="font-semibold text-blue-700 transition hover:text-blue-800 hover:underline">
+                                <a href="{{ route('login') }}" class="font-semibold text-emerald-700 transition hover:text-emerald-800 hover:underline dark:text-emerald-400 dark:hover:text-emerald-300">
                                     Log in
                                 </a>
                             </p>
@@ -311,17 +370,17 @@ new #[Layout('layouts.guest')] class extends Component
                     </form>
 
                     <!-- Footer Note -->
-                    <div class="mt-4 border-t border-slate-200 pt-4">
-                        <p class="text-center text-xs leading-2 text-slate-500">
+                    <div class="mt-4 border-t border-slate-200 pt-4 dark:border-slate-700">
+                        <p class="text-center text-xs leading-2 text-slate-500 dark:text-slate-400">
                             By joining Wealth Legacy Alliance, you are entering a professional member-based platform designed to support growth, connection, and long-term opportunity.
                         </p>
                     </div>
-                    <p class="mt-2 text-xs text-slate-500 flex items-center justify-start gap-1">
+                    <p class="mt-2 text-xs text-slate-500 flex items-center justify-start gap-1 dark:text-slate-400">
                         <span class="text-rose-500 text-base font-bold">*</span> <span>Required</span>
-                    </p> 
-                    <div class="mt-4 text-center text-xs text-slate-400">
+                    </p>
+                    <div class="mt-4 text-center text-xs text-slate-400 dark:text-slate-500">
                         &copy; {{ date('Y') }} Wealth Legacy Alliance. All rights reserved.
-                    </div> 
+                    </div>
                 </div>
             </div>
     </div>

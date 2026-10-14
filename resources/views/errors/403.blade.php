@@ -1,10 +1,5 @@
-@extends('layouts.public')
-@section('title', '403 Forbidden')
-@section('content')
-<div class="flex flex-col items-center justify-center min-h-[60vh]">
-    <h1 class="text-6xl font-bold text-red-600 mb-4">403</h1>
-    <h2 class="text-2xl font-semibold mb-2">Forbidden</h2>
-    <p class="mb-6 text-gray-600">You do not have permission to access this page.</p>
-    <a href="/" class="text-indigo-600 hover:underline">Go Home</a>
-</div>
-@endsection
+<x-error-page code="403" title="Access Denied"
+    description="This area is reserved for authorized members. You don't have permission to access this page."
+    image="wla_403.jpg" :primary-url="route('dashboard')" primary-label="Go to Dashboard">
+    <a href="{{ url('/') }}" class="font-semibold text-slate-600 transition hover:text-emerald-700">Go to Home</a>
+</x-error-page>

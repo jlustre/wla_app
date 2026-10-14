@@ -44,7 +44,7 @@
                 </h3>
                 <a
                     href="{{ \App\Support\Nav::route('admin.notifications') }}"
-                    class="text-xs font-medium text-blue-600 hover:text-blue-700"
+                    class="text-xs font-medium text-emerald-600 hover:text-emerald-700"
                     >Mark all as read</a
                 >
             </div>
@@ -85,7 +85,7 @@
                 class="flex gap-3 px-5 py-4 hover:bg-slate-50"
             >
                 <div
-                    class="mt-1 h-2.5 w-2.5 rounded-full bg-blue-500"
+                    class="mt-1 h-2.5 w-2.5 rounded-full bg-emerald-500"
                 ></div>
                 <div>
                     <p
@@ -170,7 +170,7 @@
         >
             <a
                 href="{{ \App\Support\Nav::route('admin.notifications') }}"
-                class="text-sm font-semibold text-blue-600 hover:text-blue-700"
+                class="text-sm font-semibold text-emerald-600 hover:text-emerald-700"
                 >View all notifications</a
             >
         </div>

@@ -60,6 +60,7 @@ class NotificationDropdown extends Component
                     'message' => data_get($notification->data, 'message', 'A new update is available.'),
                     'time' => optional($notification->created_at)->diffForHumans() ?? 'Just now',
                     'type' => data_get($notification->data, 'type', 'system'),
+                    'route' => data_get($notification->data, 'route'),
                     'read_at' => $notification->read_at,
                 ];
             })->all();
@@ -68,10 +69,10 @@ class NotificationDropdown extends Component
         }
 
         $this->notifications = [
-            ['id' => '1', 'title' => 'New member joined', 'message' => 'A direct invite registered through your sponsor link.', 'time' => '10 minutes ago', 'type' => 'member', 'read_at' => null],
-            ['id' => '2', 'title' => 'Sponsor message', 'message' => 'Your sponsor shared updated webinar talking points.', 'time' => '2 hours ago', 'type' => 'message', 'read_at' => null],
-            ['id' => '3', 'title' => 'Training reminder', 'message' => 'Risk management training is still incomplete.', 'time' => 'Yesterday', 'type' => 'training', 'read_at' => now()->subDay()->toDateTimeString()],
-            ['id' => '4', 'title' => 'Security alert', 'message' => 'A new session was detected on your account.', 'time' => '2 days ago', 'type' => 'security', 'read_at' => now()->subDays(2)->toDateTimeString()],
+            ['id' => '1', 'title' => 'New member joined', 'message' => 'A direct invite registered through your sponsor link.', 'time' => '10 minutes ago', 'type' => 'member', 'route' => null, 'read_at' => null],
+            ['id' => '2', 'title' => 'Sponsor message', 'message' => 'Your sponsor shared updated webinar talking points.', 'time' => '2 hours ago', 'type' => 'message', 'route' => null, 'read_at' => null],
+            ['id' => '3', 'title' => 'Training reminder', 'message' => 'Risk management training is still incomplete.', 'time' => 'Yesterday', 'type' => 'training', 'route' => null, 'read_at' => now()->subDay()->toDateTimeString()],
+            ['id' => '4', 'title' => 'Security alert', 'message' => 'A new session was detected on your account.', 'time' => '2 days ago', 'type' => 'security', 'route' => null, 'read_at' => now()->subDays(2)->toDateTimeString()],
         ];
     }
 }

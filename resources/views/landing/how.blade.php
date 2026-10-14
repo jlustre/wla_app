@@ -1,4 +1,4 @@
-<section id="how" class="relative overflow-hidden bg-slate-950 py-16 sm:py-20 lg:py-24">
+<section id="how" class="relative overflow-hidden bg-slate-950 py-16 sm:py-20 lg:py-24 scroll-mt-24">
   <!-- Background Effects -->
   <div class="absolute inset-0">
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.18),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(14,165,233,0.14),transparent_35%)]"></div>
@@ -372,8 +372,8 @@
 
     <!-- Modal Placeholder (hidden by default) -->
     <div id="learnMoreModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 hidden">
-      <div class="bg-white p-2 shadow-xl max-w-lg w-full relative max-h-[90vh] overflow-y-auto">
-        <button id="closeModalBtn" class="absolute top-3 right-5 text-slate-500 hover:text-slate-800 text-2xl font-bold">&times;</button>
+      <div class="bg-white p-2 shadow-xl max-w-lg w-full relative max-h-[90vh] overflow-y-auto dark:bg-slate-900">
+        <button id="closeModalBtn" class="absolute top-3 right-5 text-slate-500 hover:text-slate-800 text-2xl font-bold dark:text-slate-400 dark:hover:text-white">&times;</button>
         <div id="modalContent" class="text-slate-700"></div>
         <button id="goToTopBtn" class="fixed bottom-8 right-1/2 translate-x-1/2 z-60 bg-sky-600 hover:bg-sky-700 text-white px-4 py-2 rounded-full shadow-lg hidden">Go to Top</button>
       </div>

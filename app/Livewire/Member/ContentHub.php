@@ -3,6 +3,8 @@
 namespace App\Livewire\Member;
 
 use App\Models\Activity;
+use App\Models\Company;
+use App\Models\InviteCode;
 use App\Models\Invitation;
 use App\Models\MemberEvent;
 use App\Models\MemberEventRegistration;
@@ -36,6 +38,8 @@ class ContentHub extends Component
 
     public array $inviteActions = [];
 
+    public array $companyInviteCards = [];
+
     public array $notificationActions = [];
 
     public array $eventActions = [];
@@ -63,6 +67,18 @@ class ContentHub extends Component
 
         $this->dispatch('copy-to-clipboard', value: $this->inviteLink);
         $this->statusMessage = 'Invite link copied to the clipboard.';
+    }
+
+    public function copyCompanyInviteLink($companyId): void
+    {
+        $card = collect($this->companyInviteCards)->firstWhere('id', $companyId);
+
+        if (! $card || ! $card['invite_link']) {
+            return;
+        }
+
+        $this->dispatch('copy-to-clipboard', value: $card['invite_link']);
+        $this->statusMessage = $card['name'].' invite link copied to the clipboard.';
     }
 
     public function resendInvite(int $inviteId): void
@@ -174,13 +190,14 @@ class ContentHub extends Component
     protected function loadPageData(): void
     {
         $this->inviteActions = [];
+        $this->companyInviteCards = [];
         $this->notificationActions = [];
         $this->eventActions = [];
         $this->resourceActions = [];
 
         $user = $this->resolveUser();
         $profile = $user->profile;
-        $inviteCode = $profile?->invite_code ?: Str::upper($user->username.'-WLA');
+        $inviteCode = InviteCode::currentFor($user)->code;
         $this->inviteLink = url('/register?ref='.$inviteCode);
         $invitations = $this->invitationsFor($user);
         $directMembers = $user->directMembers()->with('profile')->latest()->get();
@@ -213,7 +230,7 @@ class ContentHub extends Component
 
         [$this->metrics, $this->primaryCards, $this->secondaryCards, $this->table, $this->timeline] = match ($this->page) {
             'sponsor' => $this->buildSponsorPage($user, $relationship, $summary, $activities),
-            'invite-link' => $this->buildInvitePage($inviteCode, $summary, $invitations),
+            'invite-link' => $this->buildInvitePage($user, $inviteCode, $summary, $invitations),
             'sponsored-members' => $this->buildMembersPage($summary, $directMembers),
             'presentations' => $this->buildPresentationsPage($summary, $activities, $invitations),
             'watch-video' => $this->buildVideoPage($completion, $activities),
@@ -361,8 +378,10 @@ class ContentHub extends Component
         ];
     }
 
-    protected function buildInvitePage(string $inviteCode, array $summary, Collection $invitations): array
+    protected function buildInvitePage(User $user, string $inviteCode, array $summary, Collection $invitations): array
     {
+        $this->companyInviteCards = $this->companyInviteCardsFor($user, $inviteCode);
+
         $this->inviteActions = $invitations->take(6)->map(fn (Invitation $invite) => [
             'id' => $invite->id,
             'label' => $invite->email ?? $invite->phone ?? 'Invite',
@@ -404,6 +423,49 @@ class ContentHub extends Component
                 'time' => optional($invite->last_viewed_at)->diffForHumans() ?? 'Awaiting engagement',
             ])->all(),
         ];
+    }
+
+    /**
+     * One row per company: a joined member gets their company-tagged
+     * referral link (same `ref` + `company` query pair the company
+     * dashboard already builds in CompanyDashboardController::show());
+     * a member who hasn't joined yet gets an "Enter" action that takes
+     * them to that company's dashboard to join instead of a link to share.
+     */
+    protected function companyInviteCardsFor(User $user, string $inviteCode): array
+    {
+        $affiliationByCompany = $user->companyAffiliations()->get()->keyBy('company_id');
+
+        $platformCard = [
+            'id' => 'wla',
+            'name' => config('app.name'),
+            'logo' => null,
+            'category' => null,
+            'is_joined' => true,
+            'is_pending' => false,
+            'is_platform' => true,
+            'invite_link' => url('/register?ref='.$inviteCode),
+            'dashboard_route' => null,
+        ];
+
+        $companyCards = Company::query()->orderBy('name')->get()->map(function (Company $company) use ($affiliationByCompany, $inviteCode) {
+            $affiliation = $affiliationByCompany->get($company->id);
+            $isJoined = $affiliation?->status === 'active';
+
+            return [
+                'id' => $company->id,
+                'name' => $company->name,
+                'logo' => $company->logo,
+                'category' => $company->category,
+                'is_joined' => $isJoined,
+                'is_pending' => $affiliation?->status === 'pending',
+                'is_platform' => false,
+                'invite_link' => $isJoined ? url('/register?ref='.$inviteCode.'&company='.$company->slug) : null,
+                'dashboard_route' => route('company.dashboard', $company->id),
+            ];
+        })->all();
+
+        return [$platformCard, ...$companyCards];
     }
 
     protected function buildMembersPage(array $summary, Collection $directMembers): array

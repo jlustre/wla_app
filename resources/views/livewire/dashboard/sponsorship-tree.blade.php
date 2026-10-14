@@ -19,7 +19,7 @@
             </div>
         </div>
 
-        <div class="rounded-[28px] border border-amber-200/70 bg-amber-50/80 px-5 py-4 text-sm text-amber-900 shadow-[0_18px_60px_-42px_rgba(180,83,9,0.35)] dark:border-amber-400/20 dark:bg-amber-400/10 dark:text-amber-100">
+        <div class="rounded-[28px] border border-yellow-200/70 bg-yellow-50/80 px-5 py-4 text-sm text-yellow-900 shadow-[0_18px_60px_-42px_rgba(180,83,9,0.35)] dark:border-yellow-400/20 dark:bg-yellow-400/10 dark:text-yellow-100">
             Click a member to pivot the explorer into that branch instead of rendering the whole tree at once.
         </div>
     </div>
@@ -34,7 +34,7 @@
                             <div>
                                 <label for="genealogy-search" class="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Search Members</label>
                                 <div class="mt-2 flex gap-2">
-                                    <input id="genealogy-search" type="text" wire:model.live.debounce.250ms="search" placeholder="Username or email" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 shadow-sm outline-none transition focus:border-blue-400 focus:ring-4 focus:ring-blue-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:ring-blue-500/20" />
+                                    <input id="genealogy-search" type="text" wire:model.live.debounce.250ms="search" placeholder="Username or email" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 shadow-sm outline-none transition focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:ring-emerald-500/20" />
                                     @if ($search !== '')
                                         <button type="button" wire:click="clearSearch" class="rounded-2xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-600 transition hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800">Clear</button>
                                     @endif
@@ -68,8 +68,8 @@
                         </div>
                     </div>
 
-                    <div class="rounded-[28px] bg-[linear-gradient(135deg,rgba(11,23,48,0.98),rgba(17,31,61,0.94)_65%,rgba(47,111,237,0.86))] p-5 text-white shadow-[0_24px_80px_-48px_rgba(15,23,42,0.6)]">
-                        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-blue-100/80">Focused Member</p>
+                    <div class="rounded-[28px] wla-hero p-5 text-white shadow-[0_24px_80px_-48px_rgba(15,23,42,0.6)]">
+                        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-100/80">Focused Member</p>
                         <div class="mt-4 flex items-start gap-4">
                             @if (! empty($selectedNode['avatar']))
                                 <img src="{{ $selectedNode['avatar'] }}" alt="{{ $selectedNode['name'] }} avatar" class="h-14 w-14 rounded-2xl object-cover ring-2 ring-white/20" />
@@ -87,21 +87,21 @@
                         </div>
                         <div class="mt-5 grid gap-3 sm:grid-cols-2">
                             <div class="rounded-2xl bg-white/10 p-4">
-                                <p class="text-xs uppercase tracking-[0.24em] text-blue-100/70">Direct members</p>
+                                <p class="text-xs uppercase tracking-[0.24em] text-emerald-100/70">Direct members</p>
                                 <p class="mt-2 text-2xl font-bold">{{ $selectedNode['direct_count'] ?? 0 }}</p>
                             </div>
                             <div class="rounded-2xl bg-white/10 p-4">
-                                <p class="text-xs uppercase tracking-[0.24em] text-blue-100/70">Branch size</p>
+                                <p class="text-xs uppercase tracking-[0.24em] text-emerald-100/70">Branch size</p>
                                 <p class="mt-2 text-2xl font-bold">{{ $selectedNode['descendant_count'] ?? 0 }}</p>
                             </div>
                         </div>
                         <div class="mt-4 grid gap-3 sm:grid-cols-2">
                             <div class="rounded-2xl bg-white/10 p-4">
-                                <p class="text-xs uppercase tracking-[0.24em] text-blue-100/70">City</p>
+                                <p class="text-xs uppercase tracking-[0.24em] text-emerald-100/70">City</p>
                                 <p class="mt-2 text-sm font-semibold text-white">{{ $selectedNode['city'] ?? 'Not shared' }}</p>
                             </div>
                             <div class="rounded-2xl bg-white/10 p-4">
-                                <p class="text-xs uppercase tracking-[0.24em] text-blue-100/70">Phone</p>
+                                <p class="text-xs uppercase tracking-[0.24em] text-emerald-100/70">Phone</p>
                                 <p class="mt-2 text-sm font-semibold text-white">{{ $selectedNode['phone'] ?? 'Not shared' }}</p>
                             </div>
                         </div>
@@ -119,7 +119,7 @@
                                             <span class="block truncate text-sm font-semibold text-slate-900 dark:text-white">{{ $result['name'] }}</span>
                                             <span class="block truncate text-sm text-slate-500 dark:text-slate-400">{{ $result['email'] }}</span>
                                         </span>
-                                        <span class="ml-3 rounded-full bg-blue-50 px-2.5 py-1 text-xs font-semibold text-blue-700 dark:bg-blue-500/10 dark:text-blue-300">L{{ $result['level'] }}</span>
+                                        <span class="ml-3 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">L{{ $result['level'] }}</span>
                                     </button>
                                 @endforeach
                             </div>
@@ -210,10 +210,10 @@
                                     <button type="button" wire:click="focusNode({{ $miniMapNode['parent_id'] }})" class="rounded-2xl border border-slate-200/80 bg-white/80 p-3 text-left shadow-sm transition hover:bg-white dark:border-slate-700 dark:bg-slate-900/80 dark:hover:bg-slate-900">
                                         <div class="flex items-center justify-between gap-2">
                                             <span class="truncate text-xs font-semibold uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">{{ $miniMapNode['parent_name'] }}</span>
-                                            <span class="text-xs font-semibold text-blue-600 dark:text-blue-300">{{ $miniMapNode['count'] }}</span>
+                                            <span class="text-xs font-semibold text-emerald-600 dark:text-emerald-300">{{ $miniMapNode['count'] }}</span>
                                         </div>
                                         <div class="mt-3 h-2 rounded-full bg-slate-200 dark:bg-slate-700">
-                                            <div class="h-2 rounded-full bg-blue-500" style="width: {{ min(max($miniMapNode['count'] * 14, 18), 100) }}%"></div>
+                                            <div class="h-2 rounded-full bg-emerald-500" style="width: {{ min(max($miniMapNode['count'] * 14, 18), 100) }}%"></div>
                                         </div>
                                     </button>
                                 @empty
@@ -248,7 +248,7 @@
 
                                                 <div class="mt-4 space-y-3">
                                                     @forelse ($column['nodes'] as $node)
-                                                        <button type="button" wire:click="focusNode({{ $node['id'] }})" class="w-full rounded-[24px] border px-4 py-4 text-left transition {{ $column['selected_child_id'] === $node['id'] || ($selectedNode['id'] ?? null) === $node['id'] ? 'border-blue-300 bg-white shadow-[0_18px_50px_-36px_rgba(59,130,246,0.7)] dark:border-blue-500/40 dark:bg-slate-950' : 'border-transparent bg-white/90 hover:border-slate-300 hover:bg-white dark:bg-slate-900/80 dark:hover:border-slate-700' }}">
+                                                        <button type="button" wire:click="focusNode({{ $node['id'] }})" class="w-full rounded-[24px] border px-4 py-4 text-left transition {{ $column['selected_child_id'] === $node['id'] || ($selectedNode['id'] ?? null) === $node['id'] ? 'border-emerald-300 bg-white shadow-[0_18px_50px_-36px_rgba(16,185,129,0.7)] dark:border-emerald-500/40 dark:bg-slate-950' : 'border-transparent bg-white/90 hover:border-slate-300 hover:bg-white dark:bg-slate-900/80 dark:hover:border-slate-700' }}">
                                                             <div class="flex items-start justify-between gap-3">
                                                                 <div class="flex min-w-0 gap-3">
                                                                     @if (! empty($node['avatar']))
@@ -266,7 +266,7 @@
                                                             <div class="mt-4 flex flex-wrap gap-2">
                                                                 <span class="rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">{{ $node['direct_count'] }} direct</span>
                                                                 <span class="rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">{{ $node['descendant_count'] }} branch</span>
-                                                                <span class="rounded-full bg-blue-50 px-2.5 py-1 text-[11px] font-semibold text-blue-700 dark:bg-blue-500/10 dark:text-blue-300">L{{ $node['level'] }}</span>
+                                                                <span class="rounded-full bg-emerald-50 px-2.5 py-1 text-[11px] font-semibold text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">L{{ $node['level'] }}</span>
                                                             </div>
                                                             @if (! empty($node['city']) || ! empty($node['phone']))
                                                                 <p class="mt-3 text-xs text-slate-500 dark:text-slate-400">
@@ -277,7 +277,7 @@
                                                                 </p>
                                                             @endif
                                                             @if ($node['has_more_children'])
-                                                                <p class="mt-3 text-xs font-semibold uppercase tracking-[0.24em] text-amber-600 dark:text-amber-300">Showing first 8 direct members. Focus this card to lazy-load the next branch.</p>
+                                                                <p class="mt-3 text-xs font-semibold uppercase tracking-[0.24em] text-yellow-600 dark:text-yellow-300">Showing first 8 direct members. Focus this card to lazy-load the next branch.</p>
                                                             @endif
                                                         </button>
                                                     @empty

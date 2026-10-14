@@ -29,8 +29,8 @@ class Sidebar extends Component
                     ['label' => 'Member Dashboard', 'route' => 'member.dashboard', 'icon' => 'home'],
                 ]
                 : ($isAdmin ? MemberSidebarMenu::adminItems() : []),
-            'brandEyebrow' => $isAdminWorkspace ? 'Admin Platform' : 'Sponsor Platform',
-            'brandSubtitle' => $isAdminWorkspace ? 'Admin workspace' : 'Premium member workspace',
+            'brandEyebrow' => $isAdminWorkspace ? 'Admin Platform' : 'Member Site',
+            'brandSubtitle' => $isAdminWorkspace ? 'Admin workspace' : 'Member workspace',
             'user' => $user,
         ]);
     }

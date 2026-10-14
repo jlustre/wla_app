@@ -1,4 +1,4 @@
-<section id="testimonials" class="py-16 md:py-20 font-sans bg-gradient-to-b from-[#11403a] via-[#0b2c2e] to-[#153c3a]">
+<section id="testimonials" class="py-16 md:py-20 font-sans bg-gradient-to-b from-[#11403a] via-[#0b2c2e] to-[#153c3a] scroll-mt-24">
   <div class="container mx-auto px-6 mt-6">
     <div class="text-center mb-8 md:mb-12">
       <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Success Stories</h2>

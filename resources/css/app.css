@@ -1,3 +1,202 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    :root {
+        --wla-navy: #061538;
+        --wla-panel: #0b1b3a;
+        --wla-emerald: #10b981;
+        --wla-emerald-deep: #0f766e;
+        --wla-gold: #f4b000;
+        --wla-ink: #0f172a;
+        --wla-soft: #f8fafc;
+    }
+}
+
+@layer components {
+    .wla-hero {
+        background: linear-gradient(135deg, #061538 0%, #0b1b3a 52%, #0f766e 100%);
+    }
+
+    .wla-sidebar {
+        background: linear-gradient(180deg, #061538 0%, #0b1b3a 58%, #0a2f2a 100%);
+    }
+
+    .wla-canvas {
+        background:
+            radial-gradient(circle at top left, rgba(16, 185, 129, 0.14), transparent 32%),
+            linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+    }
+
+    html.dark .wla-canvas {
+        background:
+            radial-gradient(circle at top left, rgba(16, 185, 129, 0.18), transparent 30%),
+            linear-gradient(180deg, #020617 0%, #061538 100%);
+    }
+
+    .wla-sidebar-mobile {
+        transition: transform 300ms ease;
+        transform: translateX(-100%);
+    }
+
+    html.sidebar-mobile-open .wla-sidebar-mobile {
+        transform: translateX(0);
+    }
+
+    .wla-sidebar-backdrop {
+        display: none;
+    }
+
+    html.sidebar-mobile-open .wla-sidebar-backdrop {
+        display: block;
+    }
+
+    .wla-sidebar-desktop {
+        transition: transform 300ms ease;
+    }
+
+    html.sidebar-desktop-hidden .wla-sidebar-desktop {
+        transform: translateX(-100%);
+    }
+
+    html.sidebar-desktop-hidden .wla-content-shell {
+        padding-left: 0 !important;
+    }
+
+    .wla-topbar-brand {
+        display: flex;
+    }
+
+    .wla-topbar-title {
+        display: none;
+    }
+
+    .wla-nav-submenu {
+        display: none;
+    }
+
+    .wla-nav-submenu.is-open {
+        display: block;
+    }
+}
+
+@media (min-width: 1024px) {
+    .wla-topbar-brand {
+        display: none;
+    }
+
+    html.sidebar-desktop-hidden .wla-topbar-brand {
+        display: flex;
+    }
+
+    .wla-topbar-title {
+        display: block;
+    }
+}
+
+/* My Calendar (FullCalendar) — themed to match the rest of the member workspace. */
+.wla-calendar {
+    --fc-border-color: rgb(226 232 240);
+    --fc-today-bg-color: rgb(16 185 129 / 0.08);
+    --fc-neutral-bg-color: transparent;
+    --fc-page-bg-color: transparent;
+    --fc-list-event-hover-bg-color: rgb(248 250 252);
+    --fc-now-indicator-color: #e11d48;
+    font-family: inherit;
+}
+
+html.dark .wla-calendar {
+    --fc-border-color: rgb(30 41 59);
+    --fc-today-bg-color: rgb(16 185 129 / 0.12);
+    --fc-list-event-hover-bg-color: rgb(30 41 59 / 0.6);
+    color: rgb(226 232 240);
+}
+
+.wla-calendar .fc-scrollgrid {
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.wla-calendar a {
+    text-decoration: none;
+}
+
+.wla-calendar .fc-col-header-cell-cushion {
+    color: inherit;
+}
+
+.wla-calendar .fc-col-header-cell {
+    padding: 8px 0;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgb(100 116 139);
+}
+
+html.dark .wla-calendar .fc-col-header-cell {
+    color: rgb(148 163 184);
+}
+
+.wla-calendar .fc-daygrid-day-number {
+    padding: 6px 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: inherit;
+}
+
+.wla-calendar .fc-day-today .fc-daygrid-day-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 26px;
+    width: 26px;
+    margin: 4px;
+    padding: 0;
+    border-radius: 9999px;
+    background: #059669;
+    color: #fff;
+}
+
+.wla-calendar .fc-timegrid-now-indicator-line {
+    border-color: var(--fc-now-indicator-color);
+}
+
+.wla-calendar .fc-event {
+    border: none;
+    border-radius: 6px;
+    padding: 1px 6px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.wla-calendar .fc-daygrid-event-dot {
+    display: none;
+}
+
+.wla-calendar .fc-timegrid-slot-label-cushion,
+.wla-calendar .fc-timegrid-axis-cushion,
+.wla-calendar .fc-list-day-text,
+.wla-calendar .fc-list-day-side-text {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgb(100 116 139);
+}
+
+html.dark .wla-calendar .fc-timegrid-slot-label-cushion,
+html.dark .wla-calendar .fc-timegrid-axis-cushion,
+html.dark .wla-calendar .fc-list-day-text,
+html.dark .wla-calendar .fc-list-day-side-text {
+    color: rgb(148 163 184);
+}
+
+.wla-calendar .fc-list-empty,
+.wla-calendar .fc-list-event-title {
+    color: inherit;
+}
+
+.wla-calendar .fc-more-link {
+    font-weight: 600;
+    color: #059669;
+}

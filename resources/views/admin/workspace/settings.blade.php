@@ -5,8 +5,8 @@
 @section('content')
 <div class="w-full">
     <div class="mb-8">
-        <p class="text-sm font-semibold uppercase tracking-[0.22em] text-teal-600">Admin</p>
-        <h1 class="mt-2 text-3xl font-extrabold tracking-tight text-teal-800">Platform Settings</h1>
+        <p class="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-600">Admin</p>
+        <h1 class="mt-2 text-3xl font-extrabold tracking-tight text-slate-950 dark:text-white">Platform Settings</h1>
         <p class="mt-3 max-w-3xl text-sm leading-7 text-slate-600">Review core platform configuration and jump into company administration.</p>
     </div>
 

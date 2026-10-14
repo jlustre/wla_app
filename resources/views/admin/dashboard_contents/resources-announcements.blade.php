@@ -10,22 +10,16 @@
     </div>
 
     <div class="mt-6 space-y-4">
-      <div class="rounded-2xl border border-white/10 bg-slate-900/60 p-4">
-        <p class="font-semibold text-white">Legacy Shield Insurance Product Guide.pdf</p>
-        <p class="mt-1 text-sm text-slate-400">Assigned to Legacy Shield Insurance • Uploaded 2 hours ago</p>
-      </div>
-      <div class="rounded-2xl border border-white/10 bg-slate-900/60 p-4">
-        <p class="font-semibold text-white">Horizon Travel Club Getting Started Webinar</p>
-        <p class="mt-1 text-sm text-slate-400">Assigned to Horizon Travel Club • Uploaded yesterday</p>
-      </div>
-      <div class="rounded-2xl border border-white/10 bg-slate-900/60 p-4">
-        <p class="font-semibold text-white">VitalCore Wellness Compensation Summary.pdf</p>
-        <p class="mt-1 text-sm text-slate-400">Assigned to VitalCore Wellness • Uploaded Apr 15, 2026</p>
-      </div>
-      <div class="rounded-2xl border border-white/10 bg-slate-900/60 p-4">
-        <p class="font-semibold text-white">PureLife Supplements Brochure</p>
-        <p class="mt-1 text-sm text-slate-400">Assigned to PureLife Supplements • Uploaded Apr 14, 2026</p>
-      </div>
+      @forelse ($resources as $resource)
+        <div class="rounded-2xl border border-white/10 bg-slate-900/60 p-4">
+          <p class="font-semibold text-white">{{ $resource->title }}</p>
+          <p class="mt-1 text-sm text-slate-400">{{ \Illuminate\Support\Str::headline($resource->category ?? 'General') }} • Uploaded {{ optional($resource->created_at)->diffForHumans() }}</p>
+        </div>
+      @empty
+        <div class="rounded-2xl border border-dashed border-white/10 p-6 text-center text-sm text-slate-400">
+          No resources uploaded yet.
+        </div>
+      @endforelse
     </div>
   </div>
 
@@ -39,22 +33,12 @@
     </div>
 
     <div class="mt-6 space-y-4">
-      <div class="rounded-2xl border border-amber-300/20 bg-amber-500/10 p-4">
-        <p class="font-semibold text-white">Positioning review recommended for Horizon Travel Club</p>
-        <p class="mt-1 text-sm text-slate-300">A spike in member joins has created 38 sponsor positioning gaps.</p>
-      </div>
-      <div class="rounded-2xl border border-white/10 bg-slate-900/60 p-4">
-        <p class="font-semibold text-white">Invitation cleanup scheduled</p>
-        <p class="mt-1 text-sm text-slate-400">42 pending invitations will expire within the next 48 hours.</p>
-      </div>
-      <div class="rounded-2xl border border-white/10 bg-slate-900/60 p-4">
-        <p class="font-semibold text-white">New health company onboarding resources published</p>
-        <p class="mt-1 text-sm text-slate-400">Admins should verify link assignments and featured order in the dashboard.</p>
-      </div>
-      <div class="rounded-2xl border border-white/10 bg-slate-900/60 p-4">
-        <p class="font-semibold text-white">Quarterly analytics export due</p>
-        <p class="mt-1 text-sm text-slate-400">Generate reports for member growth, adoption, and reassignment frequency.</p>
-      </div>
+      @foreach ($announcements as $announcement)
+        <div class="rounded-2xl border {{ $announcement['tone'] === 'warning' ? 'border-amber-300/20 bg-amber-500/10' : 'border-white/10 bg-slate-900/60' }} p-4">
+          <p class="font-semibold text-white">{{ $announcement['title'] }}</p>
+          <p class="mt-1 text-sm {{ $announcement['tone'] === 'warning' ? 'text-slate-300' : 'text-slate-400' }}">{{ $announcement['description'] }}</p>
+        </div>
+      @endforeach
     </div>
   </div>
 </div>

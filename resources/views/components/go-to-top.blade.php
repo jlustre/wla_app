@@ -3,7 +3,7 @@
     x-init="window.addEventListener('scroll', () => { show = window.scrollY > 200 })"
     x-show="show"
     @click="window.scrollTo({top: 0, behavior: 'smooth'})"
-    class="fixed bottom-6 right-6 z-50 rounded-full bg-blue-600 text-white shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition-opacity p-3"
+    class="fixed bottom-6 right-6 z-50 rounded-full bg-emerald-600 text-white shadow-lg hover:bg-emerald-500 focus:outline-none focus:ring-4 focus:ring-emerald-300 transition-opacity p-3"
     style="display: none"
     x-transition.opacity
     aria-label="Go to top"

@@ -28,41 +28,53 @@
         </svg>
       </div>
       <div>
-        <p class="font-semibold text-white">Warning: 127 members currently have at least one company positioning gap.</p>
-        <p class="mt-1 text-sm leading-6 text-slate-300">
-          Their direct or indirect downline has already joined one or more affiliated companies where those sponsors are not active.
-          These cases may lead to current or future sponsorship reassignment.
-        </p>
+        @if ($fearOfLoss['membersAtRisk'] > 0)
+          <p class="font-semibold text-white">Warning: {{ $fearOfLoss['membersAtRisk'] }} sponsor(s) currently have at least one company positioning gap.</p>
+          <p class="mt-1 text-sm leading-6 text-slate-300">
+            Their direct downline has already joined one or more affiliated companies where those sponsors are not active.
+            These cases may lead to current or future sponsorship reassignment.
+          </p>
+        @else
+          <p class="font-semibold text-white">No positioning gaps detected right now.</p>
+          <p class="mt-1 text-sm leading-6 text-slate-300">
+            Every sponsor currently active in a company is matched against their downline's company memberships with no exposure.
+          </p>
+        @endif
       </div>
     </div>
   </div>
 
   <div class="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-    
+
     <div class="rounded-2xl border border-amber-300/20 bg-slate-900/70 p-5">
       <p class="text-xs uppercase tracking-[0.18em] text-amber-300">Members At Risk</p>
-      <p class="mt-3 text-3xl font-extrabold text-white">127</p>
-      <p class="mt-2 text-sm text-slate-400">Potential company sponsorship exposure</p>
+      <p class="mt-3 text-3xl font-extrabold text-white">{{ $fearOfLoss['membersAtRisk'] }}</p>
+      <p class="mt-2 text-sm text-slate-400">Sponsors with a company positioning gap</p>
       <a href="{{ \App\Support\Nav::route('admin.users.index') }}" class="mt-4 inline-block text-sm font-semibold text-amber-300 hover:text-amber-200">Inspect Members →</a>
     </div>
 
     <div class="rounded-2xl border border-amber-300/20 bg-slate-900/70 p-5">
       <p class="text-xs uppercase tracking-[0.18em] text-amber-300">Recent Reassignments</p>
-      <p class="mt-3 text-3xl font-extrabold text-white">11</p>
+      <p class="mt-3 text-3xl font-extrabold text-white">{{ $kpis['reassignmentsThisWeek'] }}</p>
       <p class="mt-2 text-sm text-slate-400">Triggered in the past 7 days</p>
       <a href="{{ \App\Support\Nav::route('admin.audit-logs.index') }}" class="mt-4 inline-block text-sm font-semibold text-amber-300 hover:text-amber-200">Open Log →</a>
     </div>
 
     <div class="rounded-2xl border border-amber-300/20 bg-slate-900/70 p-5">
       <p class="text-xs uppercase tracking-[0.18em] text-amber-300">Top Gap Company</p>
-      <p class="mt-3 text-xl font-extrabold text-white">Horizon Travel Club</p>
-      <p class="mt-2 text-sm text-slate-400">38 members not positioned while team activity is rising</p>
-      <a href="{{ \App\Support\Nav::route('admin.companies.index') }}" class="mt-4 inline-block text-sm font-semibold text-amber-300 hover:text-amber-200">Inspect Company Gaps →</a>
+      @if ($fearOfLoss['topGapCompany'])
+        <p class="mt-3 text-xl font-extrabold text-white">{{ $fearOfLoss['topGapCompany']->name }}</p>
+        <p class="mt-2 text-sm text-slate-400">{{ $fearOfLoss['topGapCompanyCount'] }} member(s) not positioned while team activity is rising</p>
+        <a href="{{ \App\Support\Nav::route('admin.companies.show', $fearOfLoss['topGapCompany']) }}" class="mt-4 inline-block text-sm font-semibold text-amber-300 hover:text-amber-200">Inspect Company Gaps →</a>
+      @else
+        <p class="mt-3 text-xl font-extrabold text-white">None</p>
+        <p class="mt-2 text-sm text-slate-400">No company currently has a positioning gap</p>
+      @endif
     </div>
 
     <div class="rounded-2xl border border-amber-300/20 bg-slate-900/70 p-5">
       <p class="text-xs uppercase tracking-[0.18em] text-amber-300">Unmatched Downline Activity</p>
-      <p class="mt-3 text-3xl font-extrabold text-white">54</p>
+      <p class="mt-3 text-3xl font-extrabold text-white">{{ $fearOfLoss['unmatchedCount'] }}</p>
       <p class="mt-2 text-sm text-slate-400">Active downline joins without sponsor activation</p>
       <a href="{{ \App\Support\Nav::route('admin.users.index') }}" class="mt-4 inline-block text-sm font-semibold text-amber-300 hover:text-amber-200">Review Cases →</a>
     </div>

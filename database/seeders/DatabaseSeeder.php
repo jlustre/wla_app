@@ -24,10 +24,16 @@ class DatabaseSeeder extends Seeder
             AppBootstrapSeeder::class,
             UsersSeeder::class,
             CompanySeeder::class,
+            CompanyReviewDemoSeeder::class,
             DashboardContentSeeder::class,
             LastActionSeeder::class,
             ProspectSeeder::class,
+            ProspectDemoSeeder::class,
+            CalendarEventDemoSeeder::class,
+            HolidayCalendarSeeder::class,
             MemberDashboardDemoSeeder::class,
+            MemberProfileDemoSeeder::class,
+            ReassignmentDemoSeeder::class,
         ]);
 
     }

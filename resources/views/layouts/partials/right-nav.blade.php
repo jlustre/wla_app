@@ -31,7 +31,7 @@
     <!-- Quick Add -->
     <a
         href="{{ \App\Support\Nav::route('prospects.create') }}"
-        class="hidden rounded-2xl bg-gradient-to-r from-blue-700 to-cyan-500 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-200 transition hover:translate-y-[-1px] hover:shadow-xl sm:inline-flex"
+        class="hidden rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-500 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-200 transition hover:translate-y-[-1px] hover:shadow-xl sm:inline-flex"
     >
         + Add Prospect
     </a>

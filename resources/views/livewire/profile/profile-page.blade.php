@@ -1,57 +1,162 @@
 <div class="w-full space-y-6">
+    @if ($statusMessage)
+        <div class="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-700 dark:border-emerald-500/20 dark:bg-emerald-500/10 dark:text-emerald-300">
+            {{ $statusMessage }}
+        </div>
+    @endif
+
     <div class="grid w-full gap-6 xl:grid-cols-12">
-        <div class="overflow-hidden rounded-[36px] border border-white/60 bg-[linear-gradient(135deg,rgba(11,23,48,0.98),rgba(17,31,61,0.94)_58%,rgba(47,111,237,0.88))] p-6 text-white shadow-[0_30px_100px_-55px_rgba(15,23,42,0.95)] sm:p-8 xl:col-span-7">
-            <div class="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
-                <div class="flex min-w-0 flex-1 flex-col gap-6 sm:flex-row sm:items-start">
-                    <img src="{{ $profile['avatar'] }}" alt="{{ $profile['name'] }}" class="h-28 w-28 shrink-0 rounded-[28px] border-4 border-white/20 object-cover shadow-2xl">
+        <div class="overflow-hidden rounded-[28px] border border-white/60 wla-hero p-5 text-white shadow-[0_30px_100px_-55px_rgba(15,23,42,0.95)] sm:p-6 xl:col-span-6">
+            <div class="flex flex-col gap-5">
+                <div class="flex min-w-0 flex-1 flex-col gap-4 sm:flex-row sm:items-start">
+                    <div class="shrink-0">
+                        <div class="group relative h-20 w-20" x-data>
+                            <img src="{{ $profile['avatar'] }}" alt="{{ $profile['name'] }}" class="h-20 w-20 rounded-2xl border-4 border-white/20 object-cover shadow-2xl">
+
+                            <button
+                                type="button"
+                                @click="$refs.avatarInput.click()"
+                                wire:loading.attr="disabled"
+                                wire:target="newAvatar"
+                                class="absolute inset-0 flex items-center justify-center rounded-2xl bg-slate-950/0 text-white opacity-0 transition group-hover:bg-slate-950/60 group-hover:opacity-100 focus:bg-slate-950/60 focus:opacity-100 focus:outline-none"
+                            >
+                                <span wire:loading.remove wire:target="newAvatar">
+                                    <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z" /><circle cx="12" cy="13" r="3.25" /></svg>
+                                    <span class="sr-only">Change photo</span>
+                                </span>
+                                <span wire:loading wire:target="newAvatar">
+                                    <svg class="h-5 w-5 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle class="opacity-25" cx="12" cy="12" r="9" /><path stroke-linecap="round" d="M21 12a9 9 0 0 0-9-9" /></svg>
+                                    <span class="sr-only">Uploading…</span>
+                                </span>
+                            </button>
+
+                            <input type="file" x-ref="avatarInput" wire:model="newAvatar" accept="image/*" class="hidden">
+                        </div>
+
+                        @if ($profile['has_avatar'])
+                            <button type="button" wire:click="removeAvatar" wire:confirm="Remove your profile photo?" class="mt-2 block w-full text-center text-[11px] font-semibold text-slate-300 underline-offset-2 hover:text-white hover:underline">
+                                Remove
+                            </button>
+                        @endif
+
+                        @error('newAvatar')
+                            <p class="mt-1 max-w-[6rem] text-[11px] leading-tight text-rose-300">{{ $message }}</p>
+                        @enderror
+                    </div>
                     <div class="min-w-0">
-                        <p class="text-xs font-semibold uppercase tracking-[0.32em] text-blue-200">Member profile</p>
-                        <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">{{ $profile['name'] }}</h2>
-                        <p class="mt-2 text-sm text-slate-200">{{ $profile['email'] }}</p>
-                        <p class="mt-4 max-w-3xl text-sm leading-6 text-slate-200">{{ $profile['bio'] }}</p>
-                        <div class="mt-5 flex flex-wrap items-center gap-3">
+                        <p class="text-xs font-semibold uppercase tracking-[0.32em] text-emerald-300">Member profile</p>
+                        <h2 class="mt-1 text-2xl font-bold tracking-tight sm:text-3xl">{{ $profile['name'] }}</h2>
+                        <p class="mt-1 text-sm text-slate-200">{{ $profile['email'] }}</p>
+                        <p class="mt-2 max-w-3xl text-sm leading-6 text-slate-200">{{ $profile['bio'] }}</p>
+                        <div class="mt-3 flex flex-wrap items-center gap-3">
                             <span class="inline-flex items-center rounded-full bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-700 ring-1 ring-inset ring-amber-200 dark:bg-amber-500/10 dark:text-amber-300 dark:ring-amber-500/20">{{ $profile['status'] }}</span>
-                            <span class="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-blue-100">{{ $profile['role'] }}</span>
+                            <span class="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-emerald-100">{{ $profile['role'] }}</span>
                             <span class="text-xs text-slate-300">Joined {{ $profile['join_date'] }}</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="flex shrink-0 flex-col gap-3 sm:min-w-[13rem]">
-                    <x-spa-link :href="\App\Support\Nav::route('member.settings.profile')" class="inline-flex items-center justify-center rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-100">
+                <div class="flex shrink-0 gap-2">
+                    <x-spa-link :href="\App\Support\Nav::route('member.settings.profile')" class="inline-flex flex-1 items-center justify-center rounded-2xl bg-white px-4 py-2.5 text-sm font-semibold text-slate-950 transition hover:bg-slate-100">
                         Edit Profile
                     </x-spa-link>
-                    <x-spa-link :href="\App\Support\Nav::route('member.genealogy')" :spa="false" class="inline-flex items-center justify-center rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/15">
+                    <x-spa-link :href="\App\Support\Nav::route('member.genealogy')" :spa="false" class="inline-flex flex-1 items-center justify-center rounded-2xl border border-white/20 bg-white/10 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-white/15">
                         View Tree
                     </x-spa-link>
                 </div>
             </div>
         </div>
 
-        <div class="rounded-[36px] border border-slate-200/80 bg-white/90 p-6 shadow-[0_28px_90px_-55px_rgba(15,23,42,0.65)] backdrop-blur dark:border-slate-800 dark:bg-slate-900/85 xl:col-span-5">
-            <p class="text-xs font-semibold uppercase tracking-[0.28em] text-blue-600 dark:text-blue-300">Referral desk</p>
+        <div class="rounded-[36px] border border-slate-200/80 bg-white/90 p-6 shadow-[0_28px_90px_-55px_rgba(15,23,42,0.65)] backdrop-blur dark:border-slate-800 dark:bg-slate-900/85 xl:col-span-6" x-data="{ copied: false, showHistory: false }">
+            <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600 dark:text-emerald-300">Referral desk</p>
             <h3 class="mt-3 text-2xl font-bold text-slate-950 dark:text-white">Share your invite link</h3>
-            <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">Keep sponsor attribution attached to every new member you bring in.</p>
+            <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">Single-use link &mdash; it expires in 2 days or as soon as someone registers with it.</p>
 
-            <div class="mt-5 rounded-3xl bg-slate-50 p-4 dark:bg-slate-800/70" x-data="{ copied: false }">
-                <label class="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Invite link</label>
-                <div class="mt-3 flex flex-col gap-3 sm:flex-row">
-                    <input type="text" readonly value="{{ $referral['link'] }}" class="h-12 min-w-0 flex-1 rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-700 outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200">
-                    <button type="button" class="inline-flex h-12 items-center justify-center rounded-2xl bg-blue-600 px-5 text-sm font-semibold text-white transition hover:bg-blue-700" @click="navigator.clipboard.writeText({{ \Illuminate\Support\Js::from($referral['link']) }}); copied = true; setTimeout(() => copied = false, 1800)">
-                        <span x-show="! copied">Copy Link</span>
-                        <span x-cloak x-show="copied">Copied</span>
+            <div class="mt-5 rounded-3xl bg-slate-50 p-4 dark:bg-slate-800/70">
+                <div class="flex items-center justify-between gap-3">
+                    <label class="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Invite link</label>
+                    <div class="flex items-center gap-2">
+                        <button type="button" @click="showHistory = true" class="inline-flex h-9 shrink-0 items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-white px-4 text-xs font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800">
+                            <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l2.5 2.5M21 12a9 9 0 1 1-9-9 9 9 0 0 1 9 9Z" /></svg>
+                            Recent Codes
+                        </button>
+                        <button type="button" class="inline-flex h-9 shrink-0 items-center justify-center rounded-xl bg-emerald-600 px-4 text-xs font-semibold text-white transition hover:bg-emerald-500" @click="navigator.clipboard.writeText({{ \Illuminate\Support\Js::from($referral['link']) }}); copied = true; setTimeout(() => copied = false, 1800)">
+                            <span x-show="! copied">Copy Link</span>
+                            <span x-cloak x-show="copied">Copied</span>
+                        </button>
+                    </div>
+                </div>
+                <p class="mt-3 break-all rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200">{{ $referral['link'] }}</p>
+
+                <div class="mt-3 flex items-center justify-between gap-3">
+                    <p class="text-xs text-slate-500 dark:text-slate-400">
+                        @if ($referral['expires_at'])
+                            Expires {{ $referral['expires_at']->format('M j, Y g:ia') }}
+                        @endif
+                    </p>
+                    <button type="button" wire:click="regenerateInviteLink" wire:confirm="Generate a new link? The current one will stop working." class="shrink-0 text-xs font-semibold text-slate-500 underline-offset-2 hover:text-emerald-700 hover:underline dark:text-slate-400 dark:hover:text-emerald-300">
+                        Generate new link
                     </button>
                 </div>
             </div>
 
-            <div class="mt-5 grid gap-3 sm:grid-cols-2">
-                <div class="rounded-3xl bg-slate-50 p-4 dark:bg-slate-800/70">
-                    <p class="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Sponsor</p>
-                    <p class="mt-2 font-semibold text-slate-950 dark:text-white">{{ $referral['sponsor_name'] }}</p>
-                </div>
-                <div class="rounded-3xl bg-slate-50 p-4 dark:bg-slate-800/70">
-                    <p class="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Referral code</p>
-                    <p class="mt-2 font-semibold text-slate-950 dark:text-white">{{ $referral['referral_code'] }}</p>
+            {{-- Recent Invite Codes popup --}}
+            <div x-cloak x-show="showHistory" x-transition class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/50 p-4 backdrop-blur-sm" @click.self="showHistory = false" @keydown.escape.window="showHistory = false">
+                <div class="max-h-[80vh] w-full max-w-2xl overflow-y-auto rounded-[32px] border border-slate-200/80 bg-white p-6 shadow-2xl dark:border-slate-800 dark:bg-slate-900 sm:p-8">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-300">Referral desk</p>
+                            <h2 class="mt-1 text-xl font-bold text-slate-950 dark:text-white">Recent Invite Codes</h2>
+                        </div>
+                        <button type="button" @click="showHistory = false" class="rounded-full p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-700 dark:hover:bg-slate-800 dark:hover:text-slate-200">
+                            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+                        </button>
+                    </div>
+
+                    @if (count($inviteCodeHistory))
+                        <div class="mt-6 overflow-x-auto">
+                            <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-800">
+                                <thead>
+                                    <tr>
+                                        <th class="px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-slate-400">Code</th>
+                                        <th class="px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-slate-400">Status</th>
+                                        <th class="px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-slate-400">Created</th>
+                                        <th class="px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-slate-400">Detail</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100 dark:divide-slate-800/70">
+                                    @foreach ($inviteCodeHistory as $code)
+                                        <tr>
+                                            <td class="whitespace-nowrap px-3 py-3 font-mono text-xs font-semibold text-slate-700 dark:text-slate-200">{{ $code['code'] }}</td>
+                                            <td class="whitespace-nowrap px-3 py-3">
+                                                <span class="rounded-full px-2.5 py-1 text-[11px] font-semibold capitalize {{ $this->inviteStatusPillClass($code['status']) }}">{{ $code['status'] }}</span>
+                                            </td>
+                                            <td class="whitespace-nowrap px-3 py-3 text-xs text-slate-500 dark:text-slate-400">{{ $code['created_at'] }}</td>
+                                            <td class="px-3 py-3 text-xs text-slate-500 dark:text-slate-400">
+                                                @if ($code['status'] === 'used')
+                                                    Used by {{ $code['used_by'] ?? 'a new member' }} &middot; {{ $code['used_at'] }}
+                                                @elseif ($code['status'] === 'expired')
+                                                    Expired {{ $code['expires_at'] }}
+                                                @elseif ($code['status'] === 'revoked')
+                                                    Revoked
+                                                @else
+                                                    Valid until {{ $code['expires_at'] }}
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @else
+                        <p class="mt-6 text-sm text-slate-500 dark:text-slate-400">No invite codes generated yet.</p>
+                    @endif
+
+                    <div class="mt-6 flex justify-end border-t border-slate-200/80 pt-5 dark:border-slate-800">
+                        <button type="button" @click="showHistory = false" class="rounded-xl bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200">
+                            Close
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,8 +166,8 @@
         @foreach ($stats as $stat)
             @php
                 $accentMap = [
-                    'blue' => 'from-blue-600/20 to-cyan-500/10 text-blue-700 dark:text-blue-300',
-                    'gold' => 'from-amber-400/20 to-orange-400/10 text-amber-700 dark:text-amber-300',
+                    'blue' => 'from-emerald-500/20 to-sky-400/10 text-emerald-700 dark:text-emerald-300',
+                    'gold' => 'from-yellow-400/25 to-amber-400/10 text-yellow-700 dark:text-yellow-300',
                     'emerald' => 'from-emerald-500/20 to-teal-400/10 text-emerald-700 dark:text-emerald-300',
                     'slate' => 'from-slate-400/20 to-slate-300/10 text-slate-700 dark:text-slate-300',
                 ];
@@ -88,7 +193,7 @@
         <div class="rounded-[32px] border border-slate-200/80 bg-white/90 p-6 shadow-[0_28px_90px_-55px_rgba(15,23,42,0.65)] backdrop-blur dark:border-slate-800 dark:bg-slate-900/85 xl:col-span-7">
             <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                 <div>
-                    <p class="text-xs font-semibold uppercase tracking-[0.28em] text-blue-600 dark:text-blue-300">Account details</p>
+                    <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600 dark:text-emerald-300">Account details</p>
                     <h2 class="mt-2 text-2xl font-bold text-slate-950 dark:text-white">Profile workspace</h2>
                 </div>
                 <div class="flex flex-wrap gap-2">
@@ -141,7 +246,7 @@
                 <div class="rounded-3xl bg-slate-50 p-5 dark:bg-slate-800/70">
                     <p class="text-sm font-semibold text-slate-950 dark:text-white">Password and security live in account settings.</p>
                     <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">Update your password, review login protection, and keep this workspace aligned with your security preferences.</p>
-                    <x-spa-link :href="\App\Support\Nav::route('member.settings.password')" class="mt-4 inline-flex items-center justify-center rounded-2xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 dark:bg-white dark:text-slate-950">
+                    <x-spa-link :href="\App\Support\Nav::route('member.settings.password')" class="mt-4 inline-flex items-center justify-center rounded-2xl bg-emerald-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-emerald-500">
                         Open password settings
                     </x-spa-link>
                 </div>
@@ -151,19 +256,19 @@
         <div class="rounded-[32px] border border-slate-200/80 bg-white/90 p-6 shadow-[0_28px_90px_-55px_rgba(15,23,42,0.65)] backdrop-blur dark:border-slate-800 dark:bg-slate-900/85 xl:col-span-5">
             <div class="flex items-start justify-between gap-3">
                 <div>
-                    <p class="text-xs font-semibold uppercase tracking-[0.28em] text-blue-600 dark:text-blue-300">Team summary</p>
+                    <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600 dark:text-emerald-300">Team summary</p>
                     <h2 class="mt-2 text-2xl font-bold text-slate-950 dark:text-white">Recent joins</h2>
                 </div>
-                <x-spa-link :href="\App\Support\Nav::route('member.sponsored-members')" class="text-sm font-semibold text-blue-600 dark:text-blue-300">View all</x-spa-link>
+                <x-spa-link :href="\App\Support\Nav::route('member.sponsored-members')" class="text-sm font-semibold text-emerald-600 dark:text-emerald-300">View all</x-spa-link>
             </div>
 
             <div class="mt-5 grid grid-cols-2 gap-3">
                 <div class="rounded-3xl bg-slate-50 p-4 dark:bg-slate-800/70">
-                    <p class="text-2xl font-bold text-slate-950 dark:text-white">24</p>
+                    <p class="text-2xl font-bold text-slate-950 dark:text-white">{{ $directReferralsCount }}</p>
                     <p class="mt-1 text-xs text-slate-500">Direct referrals</p>
                 </div>
                 <div class="rounded-3xl bg-slate-50 p-4 dark:bg-slate-800/70">
-                    <p class="text-2xl font-bold text-slate-950 dark:text-white">642</p>
+                    <p class="text-2xl font-bold text-slate-950 dark:text-white">{{ $teamSize }}</p>
                     <p class="mt-1 text-xs text-slate-500">Total team size</p>
                 </div>
             </div>
@@ -188,7 +293,7 @@
     <div class="rounded-[32px] border border-slate-200/80 bg-white/90 p-6 shadow-[0_28px_90px_-55px_rgba(15,23,42,0.65)] backdrop-blur dark:border-slate-800 dark:bg-slate-900/85">
         <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
-                <p class="text-xs font-semibold uppercase tracking-[0.28em] text-blue-600 dark:text-blue-300">Company participation</p>
+                <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600 dark:text-emerald-300">Company participation</p>
                 <h2 class="mt-2 text-2xl font-bold text-slate-950 dark:text-white">Where this profile is qualified</h2>
             </div>
             <p class="text-sm text-slate-500 dark:text-slate-400">{{ collect($mlmCompanies)->where('status', 'Joined')->count() }} joined · {{ collect($mlmCompanies)->where('status', 'Not Joined')->count() }} still open</p>
@@ -209,7 +314,7 @@
                     </div>
                     <p class="mt-4 flex-1 text-sm leading-6 text-slate-600 dark:text-slate-300">{{ $company['description'] }}</p>
                     @if ($company['joined_at'] || $company['footer_note'])
-                        <p class="mt-3 text-xs font-semibold {{ $company['footer_note'] ? 'text-amber-600 dark:text-amber-300' : 'text-slate-400' }}">{{ $company['footer_note'] ?? $company['joined_at'] }}</p>
+                        <p class="mt-3 text-xs font-semibold {{ $company['footer_note'] ? 'text-yellow-600 dark:text-yellow-300' : 'text-slate-400' }}">{{ $company['footer_note'] ?? $company['joined_at'] }}</p>
                     @endif
                     <button type="button" wire:click="companyAction({{ \Illuminate\Support\Js::from($company['name']) }})" class="mt-4 inline-flex items-center justify-center rounded-2xl px-4 py-2.5 text-sm font-semibold transition {{ $this->companyActionClass($company['action_style']) }}">
                         {{ $company['action_label'] }}
@@ -222,7 +327,7 @@
     <div class="grid w-full gap-6 xl:grid-cols-12">
         <div class="rounded-[32px] border border-slate-200/80 bg-white/90 p-6 shadow-[0_28px_90px_-55px_rgba(15,23,42,0.65)] backdrop-blur dark:border-slate-800 dark:bg-slate-900/85 xl:col-span-7">
             <div>
-                <p class="text-xs font-semibold uppercase tracking-[0.28em] text-blue-600 dark:text-blue-300">Prospect tracker</p>
+                <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600 dark:text-emerald-300">Prospect tracker</p>
                 <h2 class="mt-2 text-2xl font-bold text-slate-950 dark:text-white">Pipeline this week</h2>
             </div>
             <div class="mt-5 overflow-x-auto">
@@ -250,7 +355,7 @@
         </div>
 
         <div class="rounded-[32px] border border-slate-200/80 bg-white/90 p-6 shadow-[0_28px_90px_-55px_rgba(15,23,42,0.65)] backdrop-blur dark:border-slate-800 dark:bg-slate-900/85 xl:col-span-5">
-            <p class="text-xs font-semibold uppercase tracking-[0.28em] text-blue-600 dark:text-blue-300">Activity</p>
+            <p class="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-600 dark:text-emerald-300">Activity</p>
             <h2 class="mt-2 text-2xl font-bold text-slate-950 dark:text-white">Latest movement</h2>
             <ul class="mt-5 space-y-3">
                 @foreach ($activities as $activity)
@@ -273,7 +378,7 @@
 
     <div class="grid w-full gap-3 sm:grid-cols-2 xl:grid-cols-4">
         @foreach ($quickActions as $action)
-            <x-spa-link :href="\App\Support\Nav::route($action['route'] ?? null)" :spa="($action['route'] ?? '') !== 'member.genealogy'" class="rounded-[28px] border border-slate-200/80 bg-white/90 p-5 shadow-[0_24px_80px_-48px_rgba(15,23,42,0.55)] transition hover:border-blue-300 dark:border-slate-800 dark:bg-slate-900/85">
+            <x-spa-link :href="\App\Support\Nav::route($action['route'] ?? null)" :spa="($action['route'] ?? '') !== 'member.genealogy'" class="rounded-[28px] border border-slate-200/80 bg-white/90 p-5 shadow-[0_24px_80px_-48px_rgba(15,23,42,0.55)] transition hover:border-emerald-300 dark:border-slate-800 dark:bg-slate-900/85">
                 <p class="text-sm font-semibold text-slate-950 dark:text-white">{{ $action['label'] }}</p>
                 <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">{{ $action['value'] }}</p>
             </x-spa-link>

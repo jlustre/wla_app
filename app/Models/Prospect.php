@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Timeline;
 
 class Prospect extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'user_id',
         'first_name',
@@ -15,8 +18,12 @@ class Prospect extends Model
         'phone',
         'source',
         'hotness',
-        'last_action',
+        'next_follow_up',
         'notes',
+    ];
+
+    protected $casts = [
+        'next_follow_up' => 'datetime',
     ];
 
     public function user()
@@ -30,6 +37,20 @@ class Prospect extends Model
     public function timelines()
     {
         return $this->hasMany(Timeline::class);
+    }
+
+    /**
+     * The most recently LOGGED activity entry, used to place this prospect
+     * in the funnel/kanban board. Ordered by id (insertion order), not
+     * action_at: action_at is a user-editable, minute-precision date that
+     * can be backdated or simply collide with another entry logged in the
+     * same minute, so it can't reliably say which entry came last. Uses
+     * latestOfMany() so eager-loading it across a whole list of prospects
+     * costs one extra query, not N+1.
+     */
+    public function latestActivity()
+    {
+        return $this->hasOne(Timeline::class)->latestOfMany('id');
     }
 
     /**

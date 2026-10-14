@@ -1,10 +1,5 @@
-@extends('layouts.public')
-@section('title', '500 Server Error')
-@section('content')
-<div class="flex flex-col items-center justify-center min-h-[60vh]">
-    <h1 class="text-6xl font-bold text-red-700 mb-4">500</h1>
-    <h2 class="text-2xl font-semibold mb-2">Server Error</h2>
-    <p class="mb-6 text-gray-600">Whoops! Something went wrong on our servers.</p>
-    <a href="/" class="text-indigo-600 hover:underline">Go Home</a>
-</div>
-@endsection
+<x-error-page code="500" title="Something Went Wrong"
+    description="We encountered an unexpected problem on our server. Our team has been notified and is working to fix it."
+    image="wla_500.jpg" :primary-url="url()->full()" primary-label="Try Again">
+    <a href="{{ url('/') }}" class="font-semibold text-slate-600 transition hover:text-emerald-700">Go to Home</a>
+</x-error-page>

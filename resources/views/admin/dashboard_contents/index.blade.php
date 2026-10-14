@@ -6,7 +6,7 @@
 <div class="w-full max-w-5xl">
     <div class="flex items-center justify-between mb-8">
         <h1 class="text-2xl font-extrabold text-teal-800">Dashboard Sections for <span class="text-teal-600">{{ $company->name }}</span></h1>
-        <a href="{{ route('admin.dashboard-contents.create', $company) }}" class="inline-flex items-center px-4 py-2 bg-cyan-600 text-white rounded-xl font-semibold shadow hover:bg-cyan-700 transition">
+        <a href="{{ route('admin.dashboard-contents.create', $company) }}" class="inline-flex items-center px-4 py-2 bg-emerald-600 text-white rounded-xl font-semibold shadow hover:bg-emerald-500 transition">
             <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
             Add Section
         </a>
@@ -28,12 +28,12 @@
             <tbody class="bg-white divide-y divide-slate-100">
                 @foreach($contents as $content)
                 <tr class="hover:bg-slate-50">
-                    <td class="px-6 py-4 whitespace-nowrap font-semibold text-cyan-900">{{ $content->section }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap font-semibold text-emerald-900">{{ $content->section }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-slate-700">{{ $content->title }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-slate-700">{{ $content->order }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-slate-700">{{ $content->element_type }}</td>
                     <td class="px-6 py-4 whitespace-nowrap flex gap-2">
-                        <a href="{{ route('admin.dashboard-contents.edit', [$company, $content]) }}" class="inline-flex items-center px-3 py-1 rounded-lg bg-blue-50 text-blue-700 font-semibold text-xs hover:bg-blue-100">Edit</a>
+                        <a href="{{ route('admin.dashboard-contents.edit', [$company, $content]) }}" class="inline-flex items-center px-3 py-1 rounded-lg bg-emerald-50 text-emerald-700 font-semibold text-xs hover:bg-emerald-100">Edit</a>
                         @if($content->deleted_at)
                             <form action="{{ route('admin.dashboard-contents.restore', [$company->id, $content->id]) }}" method="POST" class="inline">
                                 @csrf

@@ -1,4 +1,4 @@
-<section id="contact" class="w-full bg-[linear-gradient(90deg,#071a2b_0%,#06243a_35%,#033d44_100%)] text-white py-20 font-sans">
+<section id="contact" class="w-full bg-[linear-gradient(90deg,#071a2b_0%,#06243a_35%,#033d44_100%)] text-white py-20 font-sans scroll-mt-24">
   <div class="container mx-auto px-6 mt-6">
     <div class="text-center mb-12">
       <h2 class="text-4xl md:text-5xl font-bold mb-4">Contact Us</h2>

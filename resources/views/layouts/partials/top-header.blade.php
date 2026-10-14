@@ -1,5 +1,5 @@
  <header
-     class="sticky top-0 z-30 border-b border-slate-200 bg-teal-800 backdrop-blur-xl h-20"
+     class="sticky top-0 z-30 border-b border-slate-200 bg-slate-900 backdrop-blur-xl h-20"
  >
      <div class="flex flex-col justify-center h-full gap-4 px-4 py-0 sm:px-6 lg:px-8 text-white">
          <div class="flex items-center justify-between gap-4">

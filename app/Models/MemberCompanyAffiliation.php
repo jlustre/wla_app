@@ -18,6 +18,10 @@ class MemberCompanyAffiliation extends Model
         'joined_at',
     ];
 
+    protected $casts = [
+        'joined_at' => 'datetime',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

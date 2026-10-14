@@ -3,9 +3,11 @@
 namespace App\Livewire\Dashboard;
 
 use App\Models\Activity;
+use App\Models\InviteCode;
 use App\Models\Invitation;
 use App\Models\SponsorRelationship;
 use App\Models\User;
+use App\Support\MemberSidebarMenu;
 use Carbon\CarbonInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
@@ -23,6 +25,7 @@ class DashboardHome extends Component
     public array $notificationsPreview = [];
     public array $activities = [];
     public array $quickActions = [];
+    public array $businessLinkGroups = [];
     public array $recentMembers = [];
 
     public function mount(): void
@@ -31,7 +34,7 @@ class DashboardHome extends Component
         $user = $authUser instanceof User ? $authUser : null;
         $profile = $user?->profile;
         $directMembers = $user?->directMembers()->latest()->take(4)->get() ?? collect();
-        $inviteCode = $profile?->invite_code ?: Str::upper(($user?->username ?? 'member').'-WLA');
+        $inviteCode = $user ? InviteCode::currentFor($user)->code : Str::upper(($authUser?->username ?? 'member').'-WLA');
         $trainingCompletion = (int) ($profile?->completion_percentage ?? 68);
         $invitationSummary = $this->loadInvitationSummary($user);
         $directMembersCount = $user ? $user->directMembers()->count() : 0;
@@ -107,6 +110,8 @@ class DashboardHome extends Component
             ['label' => 'Adjust Notification Settings', 'route' => 'member.settings.notifications', 'icon' => 'bell'],
         ];
 
+        $this->businessLinkGroups = $this->loadBusinessLinkGroups();
+
         $this->recentMembers = $directMembers->map(fn (User $member) => [
             'name' => $member->username,
             'email' => $member->email,
@@ -123,6 +128,64 @@ class DashboardHome extends Component
     protected function countDownline(?User $user): int
     {
         return $user?->downlineCount() ?? 0;
+    }
+
+    /**
+     * Every pertinent destination in the business, grouped for the "Quick
+     * Links" panel at the top of the dashboard — growth/prospecting tools,
+     * each active affiliated company, education & events, and account
+     * & support. Companies are pulled dynamically so newly activated
+     * companies appear here automatically.
+     *
+     * @return array<int, array{label: string, links: array<int, array<string, mixed>>}>
+     */
+    protected function loadBusinessLinkGroups(): array
+    {
+        $groups = [
+            [
+                'label' => 'Growth & Prospecting',
+                'links' => [
+                    ['label' => 'My Prospects', 'route' => 'prospects.index', 'icon' => 'user-plus'],
+                    ['label' => 'Lead Pipeline', 'route' => 'lead-pipeline', 'icon' => 'presentation-chart'],
+                    ['label' => 'Kanban Command Center', 'route' => 'kanban-command-center', 'icon' => 'clipboard-document-list'],
+                    ['label' => 'My Sponsored Members', 'route' => 'member.sponsored-members', 'icon' => 'users'],
+                    ['label' => 'Sponsorship Tree', 'route' => 'member.genealogy', 'icon' => 'network', 'spa' => false],
+                    ['label' => 'My Sponsor', 'route' => 'member.sponsor', 'icon' => 'shield'],
+                    ['label' => 'My Invite Links', 'route' => 'member.invite-link', 'icon' => 'link'],
+                ],
+            ],
+        ];
+
+        $companyLinks = MemberSidebarMenu::companyItems();
+
+        if ($companyLinks !== []) {
+            $groups[] = [
+                'label' => 'Affiliated Companies',
+                'links' => $companyLinks,
+            ];
+        }
+
+        $groups[] = [
+            'label' => 'Education & Events',
+            'links' => [
+                ['label' => 'Presentations', 'route' => 'member.presentations', 'icon' => 'presentation-chart'],
+                ['label' => 'Watch Video', 'route' => 'member.watch-video', 'icon' => 'play'],
+                ['label' => 'Resources', 'route' => 'member.resources', 'icon' => 'folder'],
+                ['label' => 'Events / Webinars', 'route' => 'member.events', 'icon' => 'calendar'],
+            ],
+        ];
+
+        $groups[] = [
+            'label' => 'Account & Support',
+            'links' => [
+                ['label' => 'My Profile', 'route' => 'profile', 'icon' => 'user'],
+                ['label' => 'Notifications', 'route' => 'member.notifications', 'icon' => 'bell'],
+                ['label' => 'Settings', 'route' => 'member.settings', 'icon' => 'cog'],
+                ['label' => 'Support', 'route' => 'member.support', 'icon' => 'life-buoy'],
+            ],
+        ];
+
+        return $groups;
     }
 
     protected function loadNotificationsPreview(): array
