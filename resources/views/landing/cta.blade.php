@@ -1,4 +1,4 @@
-  <div class="bg-[linear-gradient(90deg,#16a085_0%,#169d85_55%,#1ba79c_100%)] px-6 py-[66px] text-center">
+  <div class="reveal bg-[linear-gradient(90deg,#16a085_0%,#169d85_55%,#1ba79c_100%)] px-6 py-[66px] text-center">
     <div class="mx-auto max-w-[900px]">
       <h2 class="text-[34px] font-extrabold leading-tight tracking-[-0.02em] text-white md:text-[38px]">
         Your Legacy Starts Today

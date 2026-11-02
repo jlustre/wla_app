@@ -81,6 +81,59 @@
     }
 }
 
+/*
+ * Landing page: scroll-triggered section transitions.
+ *
+ * Deliberately NOT inside @layer components: Tailwind's utility layer
+ * (e.g. the transition-colors/duration-300 utilities already present on
+ * these sections) is ordered after @layer components, so a layered
+ * `transition` declaration here would have its transition-property
+ * silently overridden by those utilities — opacity/transform would then
+ * snap instantly instead of animating. Unlayered CSS always wins over
+ * layered CSS regardless of source order, so this stays unlayered.
+ */
+.reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    will-change: opacity, transform;
+}
+
+.reveal.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-group > * {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    will-change: opacity, transform;
+}
+
+.reveal-group.in-view > * {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-group > *:nth-child(1) { transition-delay: 0ms; }
+.reveal-group > *:nth-child(2) { transition-delay: 70ms; }
+.reveal-group > *:nth-child(3) { transition-delay: 140ms; }
+.reveal-group > *:nth-child(4) { transition-delay: 210ms; }
+.reveal-group > *:nth-child(5) { transition-delay: 280ms; }
+.reveal-group > *:nth-child(6) { transition-delay: 350ms; }
+.reveal-group > *:nth-child(7) { transition-delay: 420ms; }
+.reveal-group > *:nth-child(n+8) { transition-delay: 490ms; }
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal,
+    .reveal-group > * {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
 @media (min-width: 1024px) {
     .wla-topbar-brand {
         display: none;

@@ -26,7 +26,7 @@
         </button>
     </div>
     <div class="container mx-auto px-6 relative z-10 pt-20">
-        <div class="max-w-3xl text-center md:text-left">
+        <div class="reveal max-w-3xl text-center md:text-left">
             <span class="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-emerald-400 uppercase bg-emerald-400/10 border border-emerald-400/20 rounded-full">MLM Growth Platform</span>
             <h1 class="text-5xl md:text-7xl font-bold text-white leading-tight mb-4">Build Your Team Once.<br /><span class="text-emerald-400">Benefit Always.</span></h1>
             <h2 class="text-2xl md:text-3xl font-light text-slate-300 mb-6">Revolutionary MLM Platform</h2>

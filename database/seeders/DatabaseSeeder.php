@@ -16,25 +16,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([
-            ThemeSeeder::class,
-            CountrySeeder::class,
-            StateProvinceSeeder::class,
-            TimezoneSeeder::class,
-            AppBootstrapSeeder::class,
-            UsersSeeder::class,
-            CompanySeeder::class,
-            CompanyReviewDemoSeeder::class,
-            DashboardContentSeeder::class,
-            LastActionSeeder::class,
-            ProspectSeeder::class,
-            ProspectDemoSeeder::class,
-            CalendarEventDemoSeeder::class,
-            HolidayCalendarSeeder::class,
-            MemberDashboardDemoSeeder::class,
-            MemberProfileDemoSeeder::class,
-            ReassignmentDemoSeeder::class,
-        ]);
+        $this->call(StructureSeeder::class);
 
+        if (config('wla.seed_demo_data')) {
+            $this->call(DemoSeeder::class);
+        }
     }
 }

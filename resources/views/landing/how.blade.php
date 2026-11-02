@@ -1,4 +1,4 @@
-<section id="how" class="relative overflow-hidden bg-slate-950 py-16 sm:py-20 lg:py-24 scroll-mt-24">
+<section id="how" class="reveal relative overflow-hidden bg-slate-950 py-16 sm:py-20 lg:py-24 scroll-mt-24">
   <!-- Background Effects -->
   <div class="absolute inset-0">
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.18),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(14,165,233,0.14),transparent_35%)]"></div>
@@ -28,7 +28,7 @@
         <!-- Timeline Line -->
         <div class="absolute left-0 right-0 top-10 h-px bg-gradient-to-r from-sky-500/20 via-sky-400/60 to-sky-500/20"></div>
 
-        <div class="grid grid-cols-7 gap-5">
+        <div class="reveal-group grid grid-cols-7 gap-5">
           <!-- Step 1 -->
           <div class="group relative">
             <div class="mx-auto flex h-20 w-20 items-center justify-center rounded-full border border-sky-400/30 bg-slate-900/90 shadow-[0_0_0_8px_rgba(15,23,42,0.9)] ring-1 ring-white/5">
@@ -225,7 +225,7 @@
       <div class="relative mx-auto max-w-3xl">
         <div class="absolute left-6 top-0 h-full w-px bg-gradient-to-b from-sky-500/40 via-sky-400/30 to-emerald-400/40"></div>
 
-        <div class="space-y-8">
+        <div class="reveal-group space-y-8">
           <!-- Step 1 -->
           <div class="relative pl-16">
             <div class="absolute left-0 top-1 flex h-12 w-12 items-center justify-center rounded-full border border-sky-400/30 bg-slate-900 text-sky-400 ring-4 ring-slate-950">

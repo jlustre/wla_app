@@ -1,4 +1,4 @@
-<section id="about" class="bg-white text-slate-900 py-20 font-sans transition-colors duration-300 dark:bg-[#0b1c1e] dark:text-white scroll-mt-24">
+<section id="about" class="reveal bg-white text-slate-900 py-20 font-sans transition-colors duration-300 dark:bg-[#0b1c1e] dark:text-white scroll-mt-24">
   <div class="container mx-auto px-6 mt-4">
     <div class="text-center mb-16">
       <h2 class="text-4xl md:text-5xl font-bold mb-6">
@@ -8,7 +8,7 @@
         Pioneering the future of network marketing through revolutionary "recruit once, benefit always" technology.
       </p>
     </div>
-    <div class="grid md:grid-cols-2 gap-8">
+    <div class="reveal-group grid md:grid-cols-2 gap-8">
       <div class="bg-slate-50 border border-slate-200 dark:bg-white/5 dark:border-white/10 rounded-2xl p-10 md:p-12 text-center transition-transform hover:scale-[1.02]">
         <h3 class="text-emerald-600 dark:text-emerald-400 text-xl font-bold uppercase tracking-wider mb-6">
           Our Mission
@@ -44,7 +44,7 @@
         </div>
 
         <div class="lg:col-span-3">
-          <div class="grid sm:grid-cols-2 gap-4">
+          <div class="reveal-group grid sm:grid-cols-2 gap-4">
             <div class="bg-slate-50 border border-slate-200 dark:bg-white/5 dark:border-white/10 rounded-xl p-5">
               <h4 class="text-emerald-600 dark:text-emerald-400 font-bold text-sm uppercase tracking-wider mb-2">Strong Central Trunk</h4>
               <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">A shared foundation of values, education, and leadership that supports lasting growth.</p>

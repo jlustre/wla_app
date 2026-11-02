@@ -1,10 +1,10 @@
-<section id="testimonials" class="py-16 md:py-20 font-sans bg-gradient-to-b from-[#11403a] via-[#0b2c2e] to-[#153c3a] scroll-mt-24">
+<section id="testimonials" class="reveal py-16 md:py-20 font-sans bg-gradient-to-b from-[#11403a] via-[#0b2c2e] to-[#153c3a] scroll-mt-24">
   <div class="container mx-auto px-6 mt-6">
     <div class="text-center mb-8 md:mb-12">
       <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Success Stories</h2>
       <p class="text-teal-100 text-lg max-w-2xl mx-auto">Real people, real results. See how our revolutionary system is transforming lives and<br>building legacies.</p>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-6 lg:gap-8">
+    <div class="reveal-group grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-6 lg:gap-8">
       <!-- Row 1 -->
       <div class="bg-[#17615c] rounded-lg border border-teal-200/20 p-6 md:p-5 flex flex-col min-h-[210px] justify-between">
         <div class="flex items-center mb-2">

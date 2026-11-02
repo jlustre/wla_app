@@ -57,7 +57,7 @@
   ];
 @endphp
 
-<section id="features" class="bg-slate-50 py-20 font-sans transition-colors duration-300 dark:bg-slate-950 scroll-mt-24">
+<section id="features" class="reveal bg-slate-50 py-20 font-sans transition-colors duration-300 dark:bg-slate-950 scroll-mt-24">
   <div class="container mx-auto px-6 mt-4">
     <div class="text-center mb-16">
       <h2 class="text-4xl md:text-5xl font-bold text-[#1a202c] mb-4 dark:text-white">
@@ -67,7 +67,7 @@
         Build your team once, benefit from multiple MLM opportunities
       </p>
     </div>
-    <div class="grid md:grid-cols-3 gap-8">
+    <div class="reveal-group grid md:grid-cols-3 gap-8">
       <div class="bg-white p-10 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-slate-100 flex flex-col items-center text-center h-full dark:bg-slate-900 dark:border-slate-800">
         <div class="w-14 h-14 bg-emerald-100 rounded-lg flex items-center justify-center mb-6">
           <svg class="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
